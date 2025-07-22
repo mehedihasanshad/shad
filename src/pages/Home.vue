@@ -275,7 +275,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
-import { DesignServicesOutlined } from '@ant-design/icons-vue'
 
 const roles = ['Logo Designer', 'Motion Graphics Expert', 'Academic Tutor', 'Visual Storyteller']
 const currentRole = ref(roles[0])
