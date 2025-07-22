@@ -222,23 +222,168 @@
                 <span class="duration">per session</span>
               </div>
             </div>
-          </a-col
+          </a-col>
+        </a-row>
+      </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="schedule-section">
+      <div class="container">
+        <h2 class="section-title">Class Schedule</h2>
+        <div class="schedule-grid">
+          <div class="schedule-card">
+            <h3>Weekdays</h3>
+            <div class="time-slots">
+              <div class="time-slot">
+                <ClockCircleOutlined />
+                <span>4:00 PM - 6:00 PM</span>
+              </div>
+              <div class="time-slot">
+                <ClockCircleOutlined />
+                <span>7:00 PM - 9:00 PM</span>
+              </div>
+            </div>
+            <p class="schedule-note">Perfect for after-school learning</p>
+          </div>
+          <div class="schedule-card">
+            <h3>Weekends</h3>
+            <div class="time-slots">
+              <div class="time-slot">
+                <ClockCircleOutlined />
+                <span>10:00 AM - 12:00 PM</span>
+              </div>
+              <div class="time-slot">
+                <ClockCircleOutlined />
+                <span>2:00 PM - 4:00 PM</span>
+              </div>
+              <div class="time-slot">
+                <ClockCircleOutlined />
+                <span>5:00 PM - 7:00 PM</span>
+              </div>
+            </div>
+            <p class="schedule-note">Extended sessions available</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="section-title">Student Success Stories</h2>
+        <a-row :gutter="[32, 32]">
+          <a-col :xs="24" :md="8">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p>"Mehedi sir made calculus so easy to understand! His step-by-step approach helped me improve my grades from C to A+."</p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-info">
+                  <h4>Sarah Ahmed</h4>
+                  <span>HSC Student</span>
+                </div>
+                <div class="testimonial-rating">
+                  <a-rate :value="5" disabled />
+                </div>
+              </div>
+            </div>
+          </a-col>
+          <a-col :xs="24" :md="8">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p>"The physics concepts that seemed impossible before are now crystal clear. Thank you for your patience and excellent teaching!"</p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-info">
+                  <h4>Rafiq Hassan</h4>
+                  <span>University Student</span>
+                </div>
+                <div class="testimonial-rating">
+                  <a-rate :value="5" disabled />
+                </div>
+              </div>
+            </div>
+          </a-col>
+          <a-col :xs="24" :md="8">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p>"Online classes were so convenient and effective. The digital whiteboard made complex problems easy to follow."</p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-info">
+                  <h4>Fatima Khan</h4>
+                  <span>SSC Student</span>
+                </div>
+                <div class="testimonial-rating">
+                  <a-rate :value="5" disabled />
+                </div>
+              </div>
+            </div>
+          </a-col>
+        </a-row>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to Excel in Your Studies?</h2>
+          <p>Join hundreds of successful students who have achieved their academic goals with personalized tutoring.</p>
+          <div class="cta-actions">
+            <a-button type="primary" size="large" @click="$router.push('/contact')">
+              <MessageOutlined /> Book a Free Trial Class
+            </a-button>
+            <a-button size="large" @click="scrollToSchedule">
+              <CalendarOutlined /> View Schedule
+            </a-button>
+          </div>
+          <div class="cta-guarantee">
+            <SafetyCertificateOutlined />
+            <span>100% Satisfaction Guarantee - First class is always free!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { 
+  CalculatorOutlined,
+  ExperimentOutlined,
+  UserOutlined,
+  BulbOutlined,
+  RocketOutlined,
+  TrophyOutlined,
+  BookOutlined,
+  HomeOutlined,
+  LaptopOutlined,
+  TeamOutlined,
+  ClockCircleOutlined,
+  MessageOutlined,
+  CalendarOutlined,
+  SafetyCertificateOutlined
+} from '@ant-design/icons-vue'
+
+const scrollToSchedule = () => {
+  window.scrollTo({ 
+    top: document.querySelector('.schedule-section')?.offsetTop || 0, 
+    behavior: 'smooth' 
+  })
+}
+</script><style
+ scoped>
+.tuition-page {
+  min-height: 100vh;
+}
+
 .tuition-hero {
-  padding: 80px 50px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 100px 50px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: white;
   text-align: center;
-}
-
-.page-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.page-subtitle {
-  font-size: 1.3rem;
-  opacity: 0.9;
 }
 
 .container {
@@ -246,124 +391,511 @@
   margin: 0 auto;
 }
 
+.page-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffd700;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.subjects-section {
+  padding: 100px 50px;
+  background: white;
+}
+
 .section-title {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
   color: #333;
-}
-
-.tuition-services {
-  padding: 80px 50px;
-  background: #f8f9fa;
-}
-
-.approach-card {
-  text-align: center;
-  height: 100%;
-}
-
-.approach-icon {
-  padding: 30px;
-  font-size: 2.5rem;
-  color: #1890ff;
-  background: #f0f8ff;
-}
-
-.subjects {
-  padding: 80px 50px;
-  background: white;
 }
 
 .subject-card {
+  background: #f8f9fa;
+  padding: 40px;
+  border-radius: 20px;
   height: 100%;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.subject-content {
-  text-align: center;
-  padding: 20px;
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border-color: #4facfe;
 }
 
 .subject-icon {
-  font-size: 2.5rem;
-  color: #1890ff;
-  margin-bottom: 16px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 2rem;
+  color: white;
 }
 
-.subject-content h3 {
-  margin: 16px 0 8px 0;
+.subject-card h3 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
   color: #333;
 }
 
-.experience {
-  padding: 80px 50px;
+.subject-levels {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.subject-topics {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.subject-topics li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+  position: relative;
+  padding-left: 20px;
+}
+
+.subject-topics li::before {
+  content: '📚';
+  position: absolute;
+  left: 0;
+}
+
+.subject-approach {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #4facfe;
+}
+
+.subject-approach h4 {
+  margin: 0 0 12px 0;
+  color: #4facfe;
+  font-weight: 600;
+}
+
+.subject-approach p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.method-section {
+  padding: 100px 50px;
   background: #f8f9fa;
 }
 
-.pricing {
-  padding: 80px 50px;
+.method-points {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.method-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.point-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.point-content h4 {
+  margin: 0 0 12px 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.point-content p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.learning-cycle {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.cycle-step {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: white;
+  border: 3px solid #4facfe;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #4facfe;
+  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);
+}
+
+.step-1 { top: 0; left: 50%; transform: translateX(-50%); }
+.step-2 { top: 50%; right: 0; transform: translateY(-50%); }
+.step-3 { bottom: 0; left: 50%; transform: translateX(-50%); }
+.step-4 { top: 50%; left: 0; transform: translateY(-50%); }
+
+.step-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.step-text {
+  font-size: 0.9rem;
+}
+
+.cycle-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.class-options-section {
+  padding: 100px 50px;
   background: white;
 }
 
-.pricing-card {
+.option-card {
+  background: #f8f9fa;
+  padding: 40px 30px;
+  border-radius: 20px;
   text-align: center;
   height: 100%;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.pricing-header h3 {
+.option-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border-color: #4facfe;
+}
+
+.option-card.featured {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, #fff9e6, #f8f9fa);
+}
+
+.featured-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffd700;
+  color: #333;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.option-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 2rem;
+  color: white;
+}
+
+.option-card h3 {
   font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 16px;
   color: #333;
 }
 
-.price {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1890ff;
+.option-card p {
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.6;
 }
 
-.price span {
-  font-size: 1rem;
+.option-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.option-features li {
+  padding: 6px 0;
+  position: relative;
+  padding-left: 20px;
+  color: #555;
+}
+
+.option-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4facfe;
+  font-weight: bold;
+}
+
+.option-price {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4facfe;
+  display: block;
+}
+
+.duration {
+  font-size: 0.9rem;
   color: #666;
 }
 
-.features {
-  list-style: none;
-  padding: 0;
-  margin: 24px 0;
+.schedule-section {
+  padding: 100px 50px;
+  background: #f8f9fa;
 }
 
-.features li {
-  padding: 8px 0;
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.schedule-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.time-slots {
+  margin-bottom: 20px;
+}
+
+.time-slot {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  color: #4facfe;
+  font-weight: 500;
 }
 
-.featured {
-  transform: scale(1.05);
-  border: 2px solid #1890ff;
+.schedule-note {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.testimonials-section {
+  padding: 100px 50px;
+  background: white;
+}
+
+.testimonial-card {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 20px;
+  height: 100%;
+  border-left: 4px solid #4facfe;
+}
+
+.testimonial-content {
+  margin-bottom: 24px;
+}
+
+.testimonial-content p {
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.testimonial-author {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.author-info h4 {
+  margin: 0 0 4px 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.author-info span {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.cta-section {
+  padding: 100px 50px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta-content p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.cta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
 @media (max-width: 768px) {
-  .tuition-hero {
-    padding: 40px 20px;
+  .tuition-hero, .subjects-section, .method-section, 
+  .class-options-section, .schedule-section, 
+  .testimonials-section, .cta-section {
+    padding: 60px 20px;
   }
   
   .page-title {
     font-size: 2.5rem;
   }
   
-  .tuition-services, .subjects, .experience, .pricing {
-    padding: 40px 20px;
-  }
-  
   .section-title {
     font-size: 2rem;
   }
   
-  .featured {
-    transform: none;
+  .hero-stats {
+    gap: 30px;
+  }
+  
+  .learning-cycle {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .cycle-step {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .cycle-center {
+    width: 100px;
+    height: 100px;
+    font-size: 1.5rem;
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>

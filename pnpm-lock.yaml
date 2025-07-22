@@ -42,6 +42,9 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.7.0
         version: 0.7.0(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
       eslint:
         specifier: ^9.29.0
         version: 9.31.0(jiti@2.4.2)
@@ -60,6 +63,12 @@ importers:
       oxlint:
         specifier: ~1.1.0
         version: 1.1.0
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      tailwindcss:
+        specifier: ^4.1.11
+        version: 4.1.11
       typescript:
         specifier: ~5.8.0
         version: 5.8.3
@@ -885,6 +894,13 @@ packages:
   async-validator@4.2.5:
     resolution: {integrity: sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==}
 
+  autoprefixer@10.4.21:
+    resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -1123,6 +1139,9 @@ packages:
 
   flatted@3.3.3:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
+
+  fraction.js@4.3.7:
+    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
   framer-motion@12.23.6:
     resolution: {integrity: sha512-dsJ389QImVE3lQvM8Mnk99/j8tiZDM/7706PCqvkQ8sSCnpmWxsgX+g0lj7r5OBVL0U36pIecCTBoIWcM2RuKw==}
@@ -1387,6 +1406,10 @@ packages:
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
 
+  normalize-range@0.1.2:
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
+    engines: {node: '>=0.10.0'}
+
   npm-normalize-package-bin@4.0.0:
     resolution: {integrity: sha512-TZKxPvItzai9kN9H/TkmCtx/ZN/hvr3vUycjlfmH0ootY9yFBzNOpiXAdIn1Iteqsvk4lQn6B5PTrt+n6h8k/w==}
     engines: {node: ^18.17.0 || >=20.5.0}
@@ -1472,6 +1495,9 @@ packages:
   postcss-selector-parser@6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
     engines: {node: '>=4'}
+
+  postcss-value-parser@4.2.0:
+    resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
   postcss@8.5.6:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
@@ -1583,6 +1609,9 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
+
+  tailwindcss@4.1.11:
+    resolution: {integrity: sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==}
 
   throttle-debounce@5.0.2:
     resolution: {integrity: sha512-B71/4oyj61iNH0KeCamLuE2rmKuTO5byTOSVwECM5FA7TiAiAW+UqTKZ9ERueC4qvgSttUhdmq1mXC3kJqGX7A==}
@@ -2606,6 +2635,16 @@ snapshots:
 
   async-validator@4.2.5: {}
 
+  autoprefixer@10.4.21(postcss@8.5.6):
+    dependencies:
+      browserslist: 4.25.1
+      caniuse-lite: 1.0.30001727
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.1.1
+      postcss: 8.5.6
+      postcss-value-parser: 4.2.0
+
   balanced-match@1.0.2: {}
 
   birpc@2.5.0: {}
@@ -2882,6 +2921,8 @@ snapshots:
 
   flatted@3.3.3: {}
 
+  fraction.js@4.3.7: {}
+
   framer-motion@12.23.6:
     dependencies:
       motion-dom: 12.23.6
@@ -3071,6 +3112,8 @@ snapshots:
 
   node-releases@2.0.19: {}
 
+  normalize-range@0.1.2: {}
+
   npm-normalize-package-bin@4.0.0: {}
 
   npm-run-all2@8.0.4:
@@ -3158,6 +3201,8 @@ snapshots:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
+
+  postcss-value-parser@4.2.0: {}
 
   postcss@8.5.6:
     dependencies:
@@ -3263,6 +3308,8 @@ snapshots:
   supports-color@7.2.0:
     dependencies:
       has-flag: 4.0.0
+
+  tailwindcss@4.1.11: {}
 
   throttle-debounce@5.0.2: {}
 

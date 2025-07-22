@@ -1,64 +1,206 @@
 <template>
-  <div class="portfolio">
+  <div class="portfolio-page">
     <!-- Hero Section -->
     <section class="portfolio-hero">
       <div class="container">
-        <h1 class="page-title">My Portfolio</h1>
+        <h1 class="page-title">Creative Portfolio</h1>
         <p class="page-subtitle">
-          Showcasing creative designs and motion graphics work
+          Showcasing exceptional logo designs and motion graphics that bring brands to life
         </p>
-      </div>
-    </section>
-
-    <!-- Filter Tabs -->
-    <section class="portfolio-filter">
-      <div class="container">
-        <a-tabs v-model:activeKey="activeTab" centered size="large" @change="handleTabChange">
-          <a-tab-pane key="all" tab="All Work" />
-          <a-tab-pane key="logos" tab="Logo Design" />
-          <a-tab-pane key="motion" tab="Motion Graphics" />
-          <a-tab-pane key="branding" tab="Brand Identity" />
-        </a-tabs>
+        <div class="portfolio-filters">
+          <a-button 
+            v-for="filter in filters" 
+            :key="filter.key"
+            :type="activeFilter === filter.key ? 'primary' : 'default'"
+            @click="setActiveFilter(filter.key)"
+            class="filter-btn"
+          >
+            {{ filter.label }}
+          </a-button>
+        </div>
       </div>
     </section>
 
     <!-- Portfolio Grid -->
-    <section class="portfolio-grid">
+    <section class="portfolio-grid-section">
       <div class="container">
-        <a-row :gutter="[24, 24]">
-          <a-col 
+        <div class="portfolio-grid">
+          <div 
             v-for="item in filteredPortfolio" 
-            :key="item.id" 
-            :xs="24" 
-            :sm="12" 
-            :md="8" 
-            :lg="6"
+            :key="item.id"
+            class="portfolio-item"
+            :class="item.category"
+            @click="openModal(item)"
           >
-            <a-card 
-              class="portfolio-item" 
-              hoverable
-              @click="openModal(item)"
-            >
-              <template #cover>
-                <div class="portfolio-image">
-                  <div class="image-placeholder">
-                    <component :is="item.icon" class="placeholder-icon" />
-                    <p>{{ item.title }}</p>
-                  </div>
-                  <div class="overlay">
-                    <EyeOutlined class="view-icon" />
+            <div class="portfolio-image">
+              <img :src="item.image" :alt="item.title" />
+              <div class="portfolio-overlay">
+                <div class="overlay-content">
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.category }}</p>
+                  <div class="overlay-actions">
+                    <a-button type="primary" shape="circle">
+                      <EyeOutlined />
+                    </a-button>
                   </div>
                 </div>
-              </template>
-              <a-card-meta :title="item.title" :description="item.category" />
-              <div class="portfolio-tags">
-                <a-tag v-for="tag in item.tags" :key="tag" :color="getTagColor(tag)">
-                  {{ tag }}
-                </a-tag>
               </div>
-            </a-card>
+            </div>
+            <div class="portfolio-info">
+              <h4>{{ item.title }}</h4>
+              <span class="portfolio-category">{{ item.category }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Tools -->
+    <section class="skills-tools-section">
+      <div class="container">
+        <h2 class="section-title">Skills & Tools</h2>
+        <a-row :gutter="[48, 48]">
+          <a-col :xs="24" :lg="12">
+            <div class="skills-content">
+              <h3>Design Skills</h3>
+              <div class="skill-categories">
+                <div class="skill-category">
+                  <h4>Logo Design</h4>
+                  <div class="skill-items">
+                    <a-tag color="blue">Brand Identity</a-tag>
+                    <a-tag color="green">Typography</a-tag>
+                    <a-tag color="purple">Color Theory</a-tag>
+                    <a-tag color="orange">Minimalism</a-tag>
+                  </div>
+                </div>
+                <div class="skill-category">
+                  <h4>Motion Graphics</h4>
+                  <div class="skill-items">
+                    <a-tag color="red">2D Animation</a-tag>
+                    <a-tag color="cyan">Kinetic Typography</a-tag>
+                    <a-tag color="gold">Visual Effects</a-tag>
+                    <a-tag color="lime">Transitions</a-tag>
+                  </div>
+                </div>
+                <div class="skill-category">
+                  <h4>Branding</h4>
+                  <div class="skill-items">
+                    <a-tag color="magenta">Brand Strategy</a-tag>
+                    <a-tag color="volcano">Style Guides</a-tag>
+                    <a-tag color="geekblue">Print Design</a-tag>
+                    <a-tag color="purple">Digital Assets</a-tag>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a-col>
+          <a-col :xs="24" :lg="12">
+            <div class="tools-content">
+              <h3>Professional Tools</h3>
+              <div class="tools-grid">
+                <div class="tool-item">
+                  <div class="tool-icon">
+                    <img src="/api/placeholder/60/60" alt="Adobe Illustrator" />
+                  </div>
+                  <div class="tool-info">
+                    <h4>Adobe Illustrator</h4>
+                    <div class="tool-rating">
+                      <a-progress :percent="95" size="small" />
+                    </div>
+                  </div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-icon">
+                    <img src="/api/placeholder/60/60" alt="After Effects" />
+                  </div>
+                  <div class="tool-info">
+                    <h4>After Effects</h4>
+                    <div class="tool-rating">
+                      <a-progress :percent="90" size="small" />
+                    </div>
+                  </div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-icon">
+                    <img src="/api/placeholder/60/60" alt="Photoshop" />
+                  </div>
+                  <div class="tool-info">
+                    <h4>Adobe Photoshop</h4>
+                    <div class="tool-rating">
+                      <a-progress :percent="88" size="small" />
+                    </div>
+                  </div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-icon">
+                    <img src="/api/placeholder/60/60" alt="Figma" />
+                  </div>
+                  <div class="tool-info">
+                    <h4>Figma</h4>
+                    <div class="tool-rating">
+                      <a-progress :percent="85" size="small" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </a-col>
         </a-row>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+      <div class="container">
+        <h2 class="section-title">My Creative Process</h2>
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Discovery & Research</h3>
+              <p>Understanding your brand, target audience, and project goals through detailed consultation and market research.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>Concept Development</h3>
+              <p>Brainstorming creative ideas and developing initial concepts that align with your brand vision and objectives.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Design & Creation</h3>
+              <p>Bringing concepts to life with professional design tools, focusing on aesthetics, functionality, and brand consistency.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <h3>Refinement & Delivery</h3>
+              <p>Incorporating feedback, making revisions, and delivering final assets in all required formats and specifications.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="portfolio-cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Let's Create Something Amazing Together</h2>
+          <p>Ready to elevate your brand with exceptional design? Let's discuss your project and bring your vision to life.</p>
+          <div class="cta-actions">
+            <a-button type="primary" size="large" @click="$router.push('/contact')">
+              <MessageOutlined /> Start Your Project
+            </a-button>
+            <a-button size="large" @click="downloadPortfolio">
+              <DownloadOutlined /> Download Portfolio
+            </a-button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -68,181 +210,104 @@
       :title="selectedItem?.title"
       width="80%"
       :footer="null"
-      centered
+      class="portfolio-modal"
     >
       <div v-if="selectedItem" class="modal-content">
         <div class="modal-image">
-          <div class="large-placeholder">
-            <component :is="selectedItem.icon" class="large-icon" />
-            <p>{{ selectedItem.title }} - Full View</p>
-          </div>
+          <img :src="selectedItem.image" :alt="selectedItem.title" />
         </div>
         <div class="modal-details">
-          <h3>Project Details</h3>
-          <p><strong>Category:</strong> {{ selectedItem.category }}</p>
-          <p><strong>Description:</strong> {{ selectedItem.description }}</p>
-          <p><strong>Tools Used:</strong> {{ selectedItem.tools.join(', ') }}</p>
+          <h3>{{ selectedItem.title }}</h3>
+          <p class="modal-category">{{ selectedItem.category }}</p>
+          <p class="modal-description">{{ selectedItem.description }}</p>
           <div class="modal-tags">
-            <a-tag v-for="tag in selectedItem.tags" :key="tag" :color="getTagColor(tag)">
-              {{ tag }}
-            </a-tag>
+            <a-tag v-for="tag in selectedItem.tags" :key="tag" color="blue">{{ tag }}</a-tag>
           </div>
         </div>
       </div>
     </a-modal>
-
-    <!-- Skills Section -->
-    <section class="portfolio-skills">
-      <div class="container">
-        <h2 class="section-title">Design Tools & Skills</h2>
-        <a-row :gutter="[32, 32]">
-          <a-col :xs="24" :md="12">
-            <h3>Design Software</h3>
-            <div class="skill-grid">
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <DesignOutlined />
-                </div>
-                <span>Adobe Illustrator</span>
-              </div>
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <PictureOutlined />
-                </div>
-                <span>Adobe Photoshop</span>
-              </div>
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <PlayCircleOutlined />
-                </div>
-                <span>After Effects</span>
-              </div>
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <VideoCameraOutlined />
-                </div>
-                <span>Premiere Pro</span>
-              </div>
-            </div>
-          </a-col>
-          <a-col :xs="24" :md="12">
-            <h3>Specializations</h3>
-            <div class="specialization-list">
-              <div class="spec-item">
-                <CheckCircleOutlined class="check-icon" />
-                <span>Logo Design & Brand Identity</span>
-              </div>
-              <div class="spec-item">
-                <CheckCircleOutlined class="check-icon" />
-                <span>Motion Graphics & Animation</span>
-              </div>
-              <div class="spec-item">
-                <CheckCircleOutlined class="check-icon" />
-                <span>Social Media Graphics</span>
-              </div>
-              <div class="spec-item">
-                <CheckCircleOutlined class="check-icon" />
-                <span>Print Design</span>
-              </div>
-            </div>
-          </a-col>
-        </a-row>
-      </div>
-    </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { 
-  EyeOutlined, 
-  DesignOutlined, 
-  PictureOutlined, 
-  PlayCircleOutlined, 
-  VideoCameraOutlined,
-  CheckCircleOutlined,
-  AppstoreOutlined,
-  BgColorsOutlined,
-  ThunderboltOutlined
+  EyeOutlined,
+  MessageOutlined,
+  DownloadOutlined
 } from '@ant-design/icons-vue'
 
-const activeTab = ref('all')
+const activeFilter = ref('all')
 const modalVisible = ref(false)
 const selectedItem = ref(null)
 
-// Portfolio items (placeholder data)
+const filters = [
+  { key: 'all', label: 'All Work' },
+  { key: 'logo', label: 'Logo Design' },
+  { key: 'motion', label: 'Motion Graphics' },
+  { key: 'branding', label: 'Brand Identity' }
+]
+
 const portfolioItems = [
   {
     id: 1,
-    title: 'Tech Startup Logo',
-    category: 'Logo Design',
-    type: 'logos',
-    description: 'Modern logo design for a technology startup focusing on clean lines and innovation.',
-    tools: ['Adobe Illustrator', 'Adobe Photoshop'],
-    tags: ['Logo', 'Branding', 'Tech'],
-    icon: DesignOutlined
+    title: 'TechStart Logo',
+    category: 'logo',
+    image: '/api/placeholder/400/300',
+    description: 'Modern logo design for a technology startup, focusing on innovation and growth.',
+    tags: ['Logo Design', 'Technology', 'Minimalist']
   },
   {
     id: 2,
-    title: 'Product Launch Animation',
-    category: 'Motion Graphics',
-    type: 'motion',
-    description: 'Engaging motion graphics for product launch campaign with smooth transitions.',
-    tools: ['After Effects', 'Adobe Illustrator'],
-    tags: ['Animation', 'Motion', 'Product'],
-    icon: PlayCircleOutlined
+    title: 'Brand Animation',
+    category: 'motion',
+    image: '/api/placeholder/400/300',
+    description: 'Engaging brand animation for social media marketing campaigns.',
+    tags: ['Motion Graphics', 'Animation', 'Social Media']
   },
   {
     id: 3,
-    title: 'Restaurant Brand Identity',
-    category: 'Brand Identity',
-    type: 'branding',
-    description: 'Complete brand identity package including logo, colors, and typography.',
-    tools: ['Adobe Illustrator', 'Adobe Photoshop'],
-    tags: ['Branding', 'Restaurant', 'Identity'],
-    icon: BgColorsOutlined
+    title: 'Restaurant Identity',
+    category: 'branding',
+    image: '/api/placeholder/400/300',
+    description: 'Complete brand identity package for a premium restaurant chain.',
+    tags: ['Branding', 'Restaurant', 'Identity']
   },
   {
     id: 4,
     title: 'App Icon Design',
-    category: 'Logo Design',
-    type: 'logos',
-    description: 'Mobile app icon design with modern aesthetics and user-friendly approach.',
-    tools: ['Adobe Illustrator'],
-    tags: ['Icon', 'Mobile', 'App'],
-    icon: AppstoreOutlined
+    category: 'logo',
+    image: '/api/placeholder/400/300',
+    description: 'Mobile app icon design with modern aesthetics and clear symbolism.',
+    tags: ['Icon Design', 'Mobile App', 'UI']
   },
   {
     id: 5,
-    title: 'Social Media Animation',
-    category: 'Motion Graphics',
-    type: 'motion',
-    description: 'Dynamic social media animations for brand engagement and marketing.',
-    tools: ['After Effects', 'Premiere Pro'],
-    tags: ['Social Media', 'Animation', 'Marketing'],
-    icon: ThunderboltOutlined
+    title: 'Product Explainer',
+    category: 'motion',
+    image: '/api/placeholder/400/300',
+    description: 'Animated explainer video showcasing product features and benefits.',
+    tags: ['Explainer Video', 'Product Demo', 'Animation']
   },
   {
     id: 6,
-    title: 'Corporate Branding',
-    category: 'Brand Identity',
-    type: 'branding',
-    description: 'Professional corporate branding solution with comprehensive guidelines.',
-    tools: ['Adobe Illustrator', 'Adobe InDesign'],
-    tags: ['Corporate', 'Professional', 'Guidelines'],
-    icon: BgColorsOutlined
+    title: 'Fashion Brand',
+    category: 'branding',
+    image: '/api/placeholder/400/300',
+    description: 'Elegant brand identity for a luxury fashion boutique.',
+    tags: ['Fashion', 'Luxury', 'Branding']
   }
 ]
 
 const filteredPortfolio = computed(() => {
-  if (activeTab.value === 'all') {
+  if (activeFilter.value === 'all') {
     return portfolioItems
   }
-  return portfolioItems.filter(item => item.type === activeTab.value)
+  return portfolioItems.filter(item => item.category === activeFilter.value)
 })
 
-const handleTabChange = (key: string) => {
-  activeTab.value = key
+const setActiveFilter = (filter: string) => {
+  activeFilter.value = filter
 }
 
 const openModal = (item: any) => {
@@ -250,241 +315,8 @@ const openModal = (item: any) => {
   modalVisible.value = true
 }
 
-const getTagColor = (tag: string) => {
-  const colors = {
-    'Logo': 'blue',
-    'Branding': 'green',
-    'Tech': 'purple',
-    'Animation': 'orange',
-    'Motion': 'red',
-    'Product': 'cyan',
-    'Restaurant': 'lime',
-    'Identity': 'gold',
-    'Icon': 'magenta',
-    'Mobile': 'volcano',
-    'App': 'geekblue',
-    'Social Media': 'pink',
-    'Marketing': 'yellow',
-    'Corporate': 'navy',
-    'Professional': 'gray',
-    'Guidelines': 'brown'
-  }
-  return colors[tag] || 'default'
+const downloadPortfolio = () => {
+  // Implement portfolio download functionality
+  console.log('Downloading portfolio...')
 }
 </script>
-
-<style scoped>
-.portfolio {
-  min-height: 100vh;
-}
-
-.portfolio-hero {
-  padding: 80px 50px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-align: center;
-}
-
-.page-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.page-subtitle {
-  font-size: 1.3rem;
-  opacity: 0.9;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.portfolio-filter {
-  padding: 40px 50px;
-  background: white;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.portfolio-grid {
-  padding: 60px 50px;
-  background: #f8f9fa;
-}
-
-.portfolio-item {
-  height: 100%;
-  transition: transform 0.3s ease;
-}
-
-.portfolio-item:hover {
-  transform: translateY(-5px);
-}
-
-.portfolio-image {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-}
-
-.image-placeholder {
-  height: 100%;
-  background: linear-gradient(45deg, #f0f2f5, #e6f7ff);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #666;
-}
-
-.placeholder-icon {
-  font-size: 3rem;
-  margin-bottom: 8px;
-  color: #1890ff;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.portfolio-item:hover .overlay {
-  opacity: 1;
-}
-
-.view-icon {
-  color: white;
-  font-size: 2rem;
-}
-
-.portfolio-tags {
-  margin-top: 12px;
-}
-
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.modal-image {
-  text-align: center;
-}
-
-.large-placeholder {
-  height: 300px;
-  background: linear-gradient(45deg, #f0f2f5, #e6f7ff);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #666;
-  border-radius: 8px;
-}
-
-.large-icon {
-  font-size: 4rem;
-  margin-bottom: 16px;
-  color: #1890ff;
-}
-
-.modal-details h3 {
-  margin-bottom: 16px;
-  color: #333;
-}
-
-.modal-details p {
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
-
-.modal-tags {
-  margin-top: 16px;
-}
-
-.portfolio-skills {
-  padding: 80px 50px;
-  background: white;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: #333;
-}
-
-.skill-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 24px;
-}
-
-.skill-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  transition: background 0.3s ease;
-}
-
-.skill-item:hover {
-  background: #e6f7ff;
-}
-
-.skill-icon {
-  font-size: 1.5rem;
-  color: #1890ff;
-}
-
-.specialization-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.spec-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-}
-
-.check-icon {
-  color: #52c41a;
-  font-size: 1.2rem;
-}
-
-@media (max-width: 768px) {
-  .portfolio-hero {
-    padding: 40px 20px;
-  }
-  
-  .page-title {
-    font-size: 2.5rem;
-  }
-  
-  .portfolio-filter, .portfolio-grid, .portfolio-skills {
-    padding: 40px 20px;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .skill-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
