@@ -37,7 +37,7 @@ const toggleMobileMenu = () => {
               <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
                 <span class="text-white font-bold text-lg">M</span>
               </div>
-              <div class="hidden sm:block">
+              <div class="hidden sm:block text-center">
                 <h1 class="text-xl lg:text-2xl font-bold gradient-text">Mehedi Hasan Shad</h1>
                 <p class="text-xs text-gray-500 -mt-1">Designer & Educator</p>
               </div>
@@ -122,7 +122,7 @@ const toggleMobileMenu = () => {
               <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
                 <span class="text-white font-bold text-lg">M</span>
               </div>
-              <div>
+              <div class="text-center lg:text-left">
                 <h3 class="text-xl font-bold text-white">Mehedi Hasan Shad</h3>
                 <p class="text-gray-400 text-sm">Designer & Educator</p>
               </div>
@@ -171,7 +171,7 @@ const toggleMobileMenu = () => {
         </div>
 
         <!-- Bottom Footer -->
-        <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-center items-center text-center gap-4">
           <p class="text-gray-400 text-sm">
             &copy; 2025 Mehedi Hasan Shad. All rights reserved.
           </p>

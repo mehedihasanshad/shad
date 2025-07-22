@@ -12,7 +12,7 @@
       <div class="container-custom relative z-10">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <!-- Hero Content -->
-          <div class="text-center lg:text-left animate-slide-up">
+          <div class="text-center animate-slide-up">
             <div class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-600 mb-6 shadow-sm">
               <span class="animate-pulse mr-2">👋</span>
               Hello, I'm available for new projects
