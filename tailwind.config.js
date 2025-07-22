@@ -1,3 +1,4 @@
+// Deprecated in Tailwind CSS v4. Use @theme in your CSS instead.
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [

@@ -208,7 +208,7 @@ import {
 
 const loading = ref(false)
 
-const form = reactive({
+const form = reactive<{ [key: string]: string }>({
   name: '',
   email: '',
   subject: '',

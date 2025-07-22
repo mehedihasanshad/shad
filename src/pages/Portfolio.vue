@@ -1,185 +1,187 @@
 <template>
   <div class="portfolio-page">
     <!-- Hero Section -->
-    <section class="portfolio-hero">
-      <div class="container">
-        <h1 class="page-title">Creative Portfolio</h1>
-        <p class="page-subtitle">
-          Showcasing exceptional logo designs and motion graphics that bring brands to life
-        </p>
-        <div class="portfolio-filters">
-          <a-button 
-            v-for="filter in filters" 
-            :key="filter.key"
-            :type="activeFilter === filter.key ? 'primary' : 'default'"
-            @click="setActiveFilter(filter.key)"
-            class="filter-btn"
-          >
-            {{ filter.label }}
-          </a-button>
+    <section class="relative py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute inset-0">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-primary-200 to-secondary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-br from-secondary-200 to-accent-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            Creative <span class="gradient-text">Portfolio</span>
+          </h1>
+          <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+            Showcasing exceptional logo designs and motion graphics that bring brands to life through innovative visual storytelling
+          </p>
+          
+          <!-- Filter Buttons -->
+          <div class="flex flex-wrap justify-center gap-4 mb-16">
+            <button
+              v-for="filter in filters"
+              :key="filter.key"
+              @click="setActiveFilter(filter.key)"
+              :class="[
+                'px-6 py-3 rounded-full font-semibold transition-all duration-300',
+                activeFilter === filter.key
+                  ? 'bg-primary-600 text-white shadow-lg transform scale-105'
+                  : 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-600 shadow-sm'
+              ]"
+            >
+              {{ filter.label }}
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Portfolio Grid -->
-    <section class="portfolio-grid-section">
-      <div class="container">
-        <div class="portfolio-grid">
-          <div 
-            v-for="item in filteredPortfolio" 
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            v-for="item in filteredPortfolio"
             :key="item.id"
-            class="portfolio-item"
-            :class="item.category"
             @click="openModal(item)"
+            class="group cursor-pointer bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
           >
-            <div class="portfolio-image">
-              <img :src="item.image" :alt="item.title" />
-              <div class="portfolio-overlay">
-                <div class="overlay-content">
-                  <h3>{{ item.title }}</h3>
-                  <p>{{ item.category }}</p>
-                  <div class="overlay-actions">
-                    <a-button type="primary" shape="circle">
-                      <EyeOutlined />
-                    </a-button>
+            <!-- Portfolio Image -->
+            <div class="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center">
+                  <div :class="[
+                    'w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center',
+                    item.iconBg
+                  ]">
+                    <component :is="item.icon" class="w-8 h-8 text-white" />
+                  </div>
+                  <p class="text-gray-500 font-medium">{{ item.title }}</p>
+                </div>
+              </div>
+              
+              <!-- Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4 right-4 text-white">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h3 class="font-semibold text-lg">{{ item.title }}</h3>
+                      <p class="text-sm opacity-90">{{ item.category }}</p>
+                    </div>
+                    <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="portfolio-info">
-              <h4>{{ item.title }}</h4>
-              <span class="portfolio-category">{{ item.category }}</span>
+
+            <!-- Portfolio Info -->
+            <div class="p-6">
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">{{ item.title }}</h4>
+              <p class="text-gray-600 mb-4">{{ item.description }}</p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  v-for="tag in item.tags"
+                  :key="tag"
+                  class="px-3 py-1 bg-primary-50 text-primary-600 text-sm font-medium rounded-full"
+                >
+                  {{ tag }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills & Tools -->
-    <section class="skills-tools-section">
-      <div class="container">
-        <h2 class="section-title">Skills & Tools</h2>
-        <a-row :gutter="[48, 48]">
-          <a-col :xs="24" :lg="12">
-            <div class="skills-content">
-              <h3>Design Skills</h3>
-              <div class="skill-categories">
-                <div class="skill-category">
-                  <h4>Logo Design</h4>
-                  <div class="skill-items">
-                    <a-tag color="blue">Brand Identity</a-tag>
-                    <a-tag color="green">Typography</a-tag>
-                    <a-tag color="purple">Color Theory</a-tag>
-                    <a-tag color="orange">Minimalism</a-tag>
-                  </div>
-                </div>
-                <div class="skill-category">
-                  <h4>Motion Graphics</h4>
-                  <div class="skill-items">
-                    <a-tag color="red">2D Animation</a-tag>
-                    <a-tag color="cyan">Kinetic Typography</a-tag>
-                    <a-tag color="gold">Visual Effects</a-tag>
-                    <a-tag color="lime">Transitions</a-tag>
-                  </div>
-                </div>
-                <div class="skill-category">
-                  <h4>Branding</h4>
-                  <div class="skill-items">
-                    <a-tag color="magenta">Brand Strategy</a-tag>
-                    <a-tag color="volcano">Style Guides</a-tag>
-                    <a-tag color="geekblue">Print Design</a-tag>
-                    <a-tag color="purple">Digital Assets</a-tag>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a-col>
-          <a-col :xs="24" :lg="12">
-            <div class="tools-content">
-              <h3>Professional Tools</h3>
-              <div class="tools-grid">
-                <div class="tool-item">
-                  <div class="tool-icon">
-                    <img src="/api/placeholder/60/60" alt="Adobe Illustrator" />
-                  </div>
-                  <div class="tool-info">
-                    <h4>Adobe Illustrator</h4>
-                    <div class="tool-rating">
-                      <a-progress :percent="95" size="small" />
-                    </div>
-                  </div>
-                </div>
-                <div class="tool-item">
-                  <div class="tool-icon">
-                    <img src="/api/placeholder/60/60" alt="After Effects" />
-                  </div>
-                  <div class="tool-info">
-                    <h4>After Effects</h4>
-                    <div class="tool-rating">
-                      <a-progress :percent="90" size="small" />
-                    </div>
-                  </div>
-                </div>
-                <div class="tool-item">
-                  <div class="tool-icon">
-                    <img src="/api/placeholder/60/60" alt="Photoshop" />
-                  </div>
-                  <div class="tool-info">
-                    <h4>Adobe Photoshop</h4>
-                    <div class="tool-rating">
-                      <a-progress :percent="88" size="small" />
-                    </div>
-                  </div>
-                </div>
-                <div class="tool-item">
-                  <div class="tool-icon">
-                    <img src="/api/placeholder/60/60" alt="Figma" />
-                  </div>
-                  <div class="tool-info">
-                    <h4>Figma</h4>
-                    <div class="tool-rating">
-                      <a-progress :percent="85" size="small" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a-col>
-        </a-row>
-      </div>
-    </section>
+    <!-- Skills & Tools Section -->
+    <section class="section-padding bg-gray-50">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Skills & <span class="gradient-text">Tools</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Professional expertise backed by industry-leading tools and years of experience
+          </p>
+        </div>
 
-    <!-- Process Section -->
-    <section class="process-section">
-      <div class="container">
-        <h2 class="section-title">My Creative Process</h2>
-        <div class="process-timeline">
-          <div class="process-step">
-            <div class="step-number">01</div>
-            <div class="step-content">
-              <h3>Discovery & Research</h3>
-              <p>Understanding your brand, target audience, and project goals through detailed consultation and market research.</p>
+        <div class="grid lg:grid-cols-2 gap-16">
+          <!-- Design Skills -->
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-8">Design Expertise</h3>
+            <div class="space-y-8">
+              <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Logo Design</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">Brand Identity</span>
+                  <span class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">Typography</span>
+                  <span class="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">Color Theory</span>
+                  <span class="px-3 py-1 bg-orange-100 text-orange-700 text-sm font-medium rounded-full">Minimalism</span>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Motion Graphics</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-red-100 text-red-700 text-sm font-medium rounded-full">2D Animation</span>
+                  <span class="px-3 py-1 bg-cyan-100 text-cyan-700 text-sm font-medium rounded-full">Kinetic Typography</span>
+                  <span class="px-3 py-1 bg-yellow-100 text-yellow-700 text-sm font-medium rounded-full">Visual Effects</span>
+                  <span class="px-3 py-1 bg-lime-100 text-lime-700 text-sm font-medium rounded-full">Transitions</span>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Brand Identity</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-pink-100 text-pink-700 text-sm font-medium rounded-full">Brand Strategy</span>
+                  <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-sm font-medium rounded-full">Style Guides</span>
+                  <span class="px-3 py-1 bg-teal-100 text-teal-700 text-sm font-medium rounded-full">Print Design</span>
+                  <span class="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">Digital Assets</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="process-step">
-            <div class="step-number">02</div>
-            <div class="step-content">
-              <h3>Concept Development</h3>
-              <p>Brainstorming creative ideas and developing initial concepts that align with your brand vision and objectives.</p>
-            </div>
-          </div>
-          <div class="process-step">
-            <div class="step-number">03</div>
-            <div class="step-content">
-              <h3>Design & Creation</h3>
-              <p>Bringing concepts to life with professional design tools, focusing on aesthetics, functionality, and brand consistency.</p>
-            </div>
-          </div>
-          <div class="process-step">
-            <div class="step-number">04</div>
-            <div class="step-content">
-              <h3>Refinement & Delivery</h3>
-              <p>Incorporating feedback, making revisions, and delivering final assets in all required formats and specifications.</p>
+
+          <!-- Professional Tools -->
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-8">Professional Tools</h3>
+            <div class="space-y-6">
+              <div class="flex items-center bg-white rounded-2xl p-6 shadow-sm">
+                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mr-4">
+                  <span class="text-white font-bold text-lg">Ai</span>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-gray-900">Adobe Illustrator</h4>
+                  <div class="w-full bg-gray-200 rounded-full h-2 mt-2"></div>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                  <h3>Concept Development</h3>
+                  <p>Brainstorming creative ideas and developing initial concepts that align with your brand vision and objectives.</p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                  <h3>Design & Creation</h3>
+                  <p>Bringing concepts to life with professional design tools, focusing on aesthetics, functionality, and brand consistency.</p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                  <h3>Refinement & Delivery</h3>
+                  <p>Incorporating feedback, making revisions, and delivering final assets in all required formats and specifications.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -237,9 +239,18 @@ import {
   DownloadOutlined
 } from '@ant-design/icons-vue'
 
+interface PortfolioItem {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  tags: string[];
+}
+
 const activeFilter = ref('all')
 const modalVisible = ref(false)
-const selectedItem = ref(null)
+const selectedItem = ref<PortfolioItem | null>(null)
 
 const filters = [
   { key: 'all', label: 'All Work' },
@@ -310,7 +321,7 @@ const setActiveFilter = (filter: string) => {
   activeFilter.value = filter
 }
 
-const openModal = (item: any) => {
+const openModal = (item: PortfolioItem) => {
   selectedItem.value = item
   modalVisible.value = true
 }

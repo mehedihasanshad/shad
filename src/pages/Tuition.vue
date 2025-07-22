@@ -368,8 +368,9 @@ import {
 } from '@ant-design/icons-vue'
 
 const scrollToSchedule = () => {
+  const el = document.querySelector('.schedule-section') as HTMLElement | null;
   window.scrollTo({ 
-    top: document.querySelector('.schedule-section')?.offsetTop || 0, 
+    top: el?.offsetTop || 0, 
     behavior: 'smooth' 
   })
 }
