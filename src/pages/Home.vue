@@ -10,9 +10,9 @@
       </div>
 
       <div class="container-custom relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
           <!-- Hero Content -->
-          <div class="text-center animate-slide-up">
+          <div class="text-center w-full flex flex-col items-center justify-center animate-slide-up">
             <div class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-600 mb-6 shadow-sm">
               <span class="animate-pulse mr-2">👋</span>
               Hello, I'm available for new projects
@@ -20,7 +20,7 @@
             
             <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
               <span class="block text-gray-900">Mehedi Hasan</span>
-              <span class="block gradient-text">Shad</span>
+              <span class="block gradient-text">Shadin</span>
             </h1>
             
             <div class="text-xl md:text-2xl text-gray-600 mb-2">
@@ -57,7 +57,7 @@
                 <div class="w-full h-full rounded-3xl overflow-hidden">
                   <img 
                     src="/shadphoto.jpg" 
-                    alt="Mehedi Hasan Shad" 
+                    alt="Mehedi Hasan Shadin" 
                     class="w-full h-full object-cover object-center"
                   />
                 </div>
@@ -243,7 +243,7 @@
 
     <!-- CTA Section -->
     <section class="section-padding bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white" id="contact">
-      <div class="container-custom text-center">
+      <div class="max-w-3xl mx-auto px-4 text-center">
         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
           Ready to Start Your <span class="text-accent-300">Journey?</span>
         </h2>
