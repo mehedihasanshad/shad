@@ -20,7 +20,7 @@
             
             <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
               <span class="block text-gray-900">Mehedi Hasan</span>
-              <span class="block gradient-text">Shadin</span>
+              <span class="block gradient-text">Shad</span>
             </h1>
             
             <div class="text-xl md:text-2xl text-gray-600 mb-2">
@@ -54,15 +54,12 @@
             <div class="relative mx-auto w-80 h-80 lg:w-96 lg:h-96">
               <!-- Profile Image Container -->
               <div class="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500 to-secondary-500 p-1">
-                <div class="w-full h-full rounded-3xl overflow-hidden bg-white flex items-center justify-center">
-                  <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center">
-                    <div class="text-center">
-                      <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <span class="text-white text-3xl font-bold">M</span>
-                      </div>
-                      <p class="text-gray-500 font-medium">Photo Coming Soon</p>
-                    </div>
-                  </div>
+                <div class="w-full h-full rounded-3xl overflow-hidden">
+                  <img 
+                    src="/shadphoto.jpg" 
+                    alt="Mehedi Hasan Shad" 
+                    class="w-full h-full object-cover object-center"
+                  />
                 </div>
               </div>
 

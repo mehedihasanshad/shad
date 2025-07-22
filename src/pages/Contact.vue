@@ -77,7 +77,7 @@
                   </div>
                   <div class="method-content">
                     <h4>Email</h4>
-                    <p>mehedi.shadin@email.com</p>
+                    <p>mehedi.Shad@email.com</p>
                     <a-button type="link" size="small">Send Email</a-button>
                   </div>
                 </div>
