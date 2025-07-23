@@ -13,7 +13,6 @@ import {
 const router = useRouter();
 const route = useRoute();
 const mobileMenuOpen = ref(false);
-const selectedKeys = computed(() => [route.path]);
 
 const menuItems = [
   { key: "/", label: "Home", icon: HomeOutlined },
@@ -58,27 +57,21 @@ onMounted(() => {
     <header
       class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm w-full"
     >
-      <nav class="container-custom w-full min-w-0">
-        <div
-          class="flex flex-col lg:flex-row items-center h-auto lg:h-20 py-2 gap-2 lg:gap-0 w-full"
-        >
-          <div class="flex flex-col lg:flex-row items-center gap-2 lg:gap-6 w-full">
-            <!-- Logo and Name -->
-            <div class="flex-shrink-0 flex items-center space-x-3">
-              <router-link to="/" class="flex items-center space-x-3">
-                <div
-                  class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center"
-                >
-                  <span class="text-white font-bold text-lg">M</span>
-                </div>
-                <div class="hidden sm:block text-center">
-                  <h1 class="text-lg lg:text-xl font-bold gradient-text">Mehedi Hasan Shad</h1>
-                  <p class="text-xs text-gray-500 dark:text-primary-200 -mt-1">
-                    Designer & Educator
-                  </p>
-                </div>
-              </router-link>
-            </div>
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="flex items-center justify-between h-16 lg:h-20 w-full">
+          <!-- Logo and Name -->
+          <div class="flex-shrink-0 flex items-center space-x-3">
+            <router-link to="/" class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-lg">M</span>
+              </div>
+              <div class="hidden sm:block">
+                <h1 class="text-lg lg:text-xl font-bold gradient-text">Mehedi Hasan Shad</h1>
+                <p class="text-xs text-gray-500 dark:text-primary-200 -mt-1">Designer & Educator</p>
+              </div>
+            </router-link>
           </div>
 
           <!-- Desktop Navigation -->
@@ -127,7 +120,7 @@ onMounted(() => {
 
       <!-- Mobile Navigation Menu -->
       <div v-show="mobileMenuOpen" class="lg:hidden bg-white border-t border-gray-100 shadow-lg">
-        <div class="container-custom py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div class="flex flex-col space-y-2">
             <router-link
               v-for="item in menuItems"
@@ -157,7 +150,7 @@ onMounted(() => {
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white w-full">
-      <div class="container-custom py-12 lg:py-16 w-full min-w-0">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <!-- Brand Section -->
           <div class="lg:col-span-2">

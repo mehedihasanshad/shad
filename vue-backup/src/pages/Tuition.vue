@@ -1,154 +1,123 @@
 <template>
   <div class="tuition-page">
     <!-- Hero Section -->
-    <section class="tuition-hero bg-gradient-to-br from-blue-400 to-cyan-300 text-white text-center py-24 px-4 dark:from-gray-900 dark:to-gray-800 dark:text-primary-100">
-      <div class="w-full max-w-4xl mx-auto">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Academic Excellence Through Personalized Learning</h1>
-        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto dark:text-primary-200">Unlock your potential in Mathematics and Physics with expert guidance and proven teaching methods</p>
-        <div class="flex flex-wrap justify-center gap-8 mb-8">
-          <div class="text-center">
-            <span class="block text-3xl md:text-4xl font-bold text-yellow-400 mb-2">200+</span>
-            <span class="text-primary-100 font-medium dark:text-primary-200">Students Taught</span>
+    <section class="relative py-20 lg:py-32 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute inset-0">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-white/10 to-white/5 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-br from-cyan-200/20 to-blue-300/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Academic Excellence Through <span class="text-cyan-300">Personalized Learning</span>
+          </h1>
+          <p class="text-xl text-blue-100 mb-12 leading-relaxed">
+            Unlock your potential in Mathematics and Physics with expert guidance and proven teaching methods
+          </p>
+          
+          <!-- Hero Stats -->
+          <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-cyan-300 mb-2">200+</div>
+              <div class="text-blue-100 font-medium">Students Taught</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-cyan-300 mb-2">95%</div>
+              <div class="text-blue-100 font-medium">Success Rate</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-cyan-300 mb-2">5+</div>
+              <div class="text-blue-100 font-medium">Years Experience</div>
+            </div>
           </div>
-          <div class="text-center">
-            <span class="block text-3xl md:text-4xl font-bold text-yellow-400 mb-2">95%</span>
-            <span class="text-primary-100 font-medium dark:text-primary-200">Success Rate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching Approach -->
+    <section class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            My Teaching <span class="text-blue-600">Philosophy</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Every student learns differently. I adapt my teaching methods to match your unique needs and help you excel.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-4">
+              <UserOutlined class="text-white text-4xl" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Personalized Learning</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Adapting my teaching style to your pace and preferences for the best results.
+            </p>
           </div>
-          <div class="text-center">
-            <span class="block text-3xl md:text-4xl font-bold text-yellow-400 mb-2">5+</span>
-            <span class="text-primary-100 font-medium dark:text-primary-200">Years Experience</span>
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-4">
+              <BulbOutlined class="text-white text-4xl" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Conceptual Understanding</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Focus on understanding the 'why' behind formulas and concepts, not just memorization.
+            </p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center mx-auto mb-4">
+              <RocketOutlined class="text-white text-4xl" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Progressive Learning</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Building knowledge step by step, ensuring strong foundations before advancing to complex topics.
+            </p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-4">
+              <TrophyOutlined class="text-white text-4xl" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Exam Excellence</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Strategic preparation for exams with practice tests, time management, and confidence building.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Subjects Section -->
-    <section class="subjects-section bg-white py-24 px-4 dark:bg-gray-900 dark:text-primary-100">
-      <div class="w-full max-w-7xl mx-auto">
-        <h2 class="text-center text-4xl font-bold mb-8 text-gray-900">Subjects I Teach</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-16">
-          <div class="bg-gray-100 p-12 rounded-2xl border border-transparent transition-all duration-300 hover:border-blue-500 dark:bg-gray-800 dark:border-gray-700">
-            <div class="flex justify-center mb-6">
-              <CalculatorOutlined class="text-5xl text-blue-500" />
-            </div>
-            <h3 class="text-2xl font-semibold mb-4 text-gray-900">Mathematics</h3>
-            <div class="flex flex-wrap justify-center gap-2 mb-4">
-              <a-tag color="blue">Class 6-12</a-tag>
-              <a-tag color="green">SSC/HSC</a-tag>
-              <a-tag color="purple">University Level</a-tag>
-            </div>
-            <ul class="list-none p-0 mb-6">
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Algebra & Geometry
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Calculus & Trigonometry
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Statistics & Probability
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Discrete Mathematics
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Linear Algebra
-              </li>
-            </ul>
-            <div class="bg-white p-8 rounded-xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-              <h4 class="text-xl font-semibold mb-4 text-blue-600">My Approach:</h4>
-              <p class="text-gray-700 dark:text-primary-200">Building strong foundations through step-by-step problem solving and real-world applications.</p>
-            </div>
-          </div>
-          <div class="bg-gray-100 p-12 rounded-2xl border border-transparent transition-all duration-300 hover:border-blue-500 dark:bg-gray-800 dark:border-gray-700">
-            <div class="flex justify-center mb-6">
-              <ExperimentOutlined class="text-5xl text-blue-500" />
-            </div>
-            <h3 class="text-2xl font-semibold mb-4 text-gray-900">Physics</h3>
-            <div class="flex flex-wrap justify-center gap-2 mb-4">
-              <a-tag color="blue">Class 9-12</a-tag>
-              <a-tag color="green">SSC/HSC</a-tag>
-              <a-tag color="orange">Conceptual Physics</a-tag>
-            </div>
-            <ul class="list-none p-0 mb-6">
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">��</span> Mechanics & Motion
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Electricity & Magnetism
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Waves & Optics
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Thermodynamics
-              </li>
-              <li class="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                <span class="mr-2 text-gray-700">📚</span> Modern Physics
-              </li>
-            </ul>
-            <div class="bg-white p-8 rounded-xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-              <h4 class="text-xl font-semibold mb-4 text-blue-600">My Approach:</h4>
-              <p class="text-gray-700 dark:text-primary-200">Making complex concepts simple through visual demonstrations and practical examples.</p>
-            </div>
-          </div>
+    <section class="py-16 lg:py-24 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Subjects I Teach
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Comprehensive tutoring in core subjects with personalized attention to your learning needs.
+          </p>
         </div>
-      </div>
-    </section>
-
-    <!-- Teaching Method -->
-    <section class="method-section bg-gray-100 py-24 px-4 dark:bg-gray-900 dark:text-primary-100">
-      <div class="w-full max-w-7xl mx-auto">
-        <h2 class="text-center text-4xl font-bold mb-8 text-gray-900">My Teaching Philosophy</h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div class="bg-white p-12 rounded-2xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <div class="flex flex-col gap-6">
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl">
-                  <UserOutlined />
-                </div>
-                <div>
-                  <h4 class="text-2xl font-semibold mb-2 text-gray-900">Personalized Learning</h4>
-                  <p class="text-gray-700 dark:text-primary-200">Every student learns differently. I adapt my teaching style to match your learning pace and preferences.</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl">
-                  <BulbOutlined />
-                </div>
-                <div>
-                  <h4 class="text-2xl font-semibold mb-2 text-gray-900">Conceptual Understanding</h4>
-                  <p class="text-gray-700 dark:text-primary-200">Focus on understanding the 'why' behind formulas and concepts, not just memorization.</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl">
-                  <RocketOutlined />
-                </div>
-                <div>
-                  <h4 class="text-2xl font-semibold mb-2 text-gray-900">Progressive Learning</h4>
-                  <p class="text-gray-700 dark:text-primary-200">Building knowledge step by step, ensuring strong foundations before advancing to complex topics.</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl">
-                  <TrophyOutlined />
-                </div>
-                <div>
-                  <h4 class="text-2xl font-semibold mb-2 text-gray-900">Exam Excellence</h4>
-                  <p class="text-gray-700 dark:text-primary-200">Strategic preparation for exams with practice tests, time management, and confidence building.</p>
-                </div>
-              </div>
-            </div>
+        <div class="grid md:grid-cols-2 gap-12">
+          <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-900">Mathematics</h3>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-primary-200 space-y-2">
+              <li>Algebra, Geometry, Trigonometry</li>
+              <li>Calculus &amp; Pre-Calculus</li>
+              <li>Statistics &amp; Probability</li>
+              <li>Math Olympiad Prep</li>
+            </ul>
           </div>
-          <div class="bg-white p-12 rounded-2xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <div class="relative w-full h-full flex flex-col items-center justify-center">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <BookOutlined class="text-5xl text-blue-500" />
-              </div>
-              <div class="text-center">
-                <span class="block text-3xl font-bold text-blue-600">Success</span>
-              </div>
-            </div>
+          <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-900">Physics</h3>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-primary-200 space-y-2">
+              <li>Mechanics, Waves, Thermodynamics</li>
+              <li>Electricity &amp; Magnetism</li>
+              <li>Modern Physics</li>
+              <li>Physics Olympiad Prep</li>
+            </ul>
           </div>
         </div>
       </div>
