@@ -17,12 +17,12 @@ export function Footer() {
               </div>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
-              Creating exceptional visual experiences through logo design and motion graphics, while
+              Creating exceptional visual experiences through logo design, motion graphics, and digital marketing, while
               empowering students through personalized education.
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://linkedin.com/in/mhsshad"
+                href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
@@ -30,15 +30,15 @@ export function Footer() {
                 <span className="text-sm font-semibold">Li</span>
               </a>
               <a
-                href="https://github.com/mhsshad"
+                href="https://www.youtube.com/@ShadsVisualGfx"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
               >
-                <span className="text-sm font-semibold">Gh</span>
+                <span className="text-sm font-semibold">YT</span>
               </a>
               <a
-                href="https://behance.net/mhsshad"
+                href="https://www.behance.net/mobasherhossain143"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
@@ -46,12 +46,12 @@ export function Footer() {
                 <span className="text-sm font-semibold">Be</span>
               </a>
               <a
-                href="https://instagram.com/mhsshad"
+                href="https://sites.google.com/view/mhs-shad-portfolio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
               >
-                <span className="text-sm font-semibold">Ig</span>
+                <span className="text-sm font-semibold">Web</span>
               </a>
             </div>
           </div>
@@ -89,7 +89,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li><span className="text-gray-300">Logo Design</span></li>
               <li><span className="text-gray-300">Motion Graphics</span></li>
-              <li><span className="text-gray-300">Brand Identity</span></li>
+              <li><span className="text-gray-300">Digital Marketing</span></li>
               <li><span className="text-gray-300">Academic Tutoring</span></li>
             </ul>
           </div>

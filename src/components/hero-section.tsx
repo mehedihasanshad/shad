@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, MessageCircle } from "lucide-react";
 
-const roles = ["Logo Designer", "Motion Graphics Expert", "Academic Tutor", "Visual Storyteller"];
+const roles = ["Logo Designer", "Motion Graphics Expert", "Academic Tutor", "Digital Media Marketer"];
 
 export function HeroSection() {
   const [currentRole, setCurrentRole] = useState(roles[0]);
@@ -84,7 +84,7 @@ export function HeroSection() {
                       <span className="text-white font-bold text-lg">ig</span>
                     </div>
                   </a>
-                  <a href="https://linkedin.com/in/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group">
                     <div className="w-12 h-12 bg-[#0A66C2] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-lg">in</span>
                     </div>
@@ -96,12 +96,12 @@ export function HeroSection() {
               <div className="text-center lg:text-left">
                 <h3 className="text-lg font-semibold text-foreground mb-4">See my work</h3>
                 <div className="flex justify-center lg:justify-start space-x-4">
-                  <a href="https://behance.net/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group">
                     <div className="w-12 h-12 bg-[#1769FF] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-lg">Be</span>
                     </div>
                   </a>
-                  <a href="https://youtube.com/@mhsshad" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group">
                     <div className="w-12 h-12 bg-[#FF0000] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-lg">YT</span>
                     </div>
@@ -162,6 +162,15 @@ export function HeroSection() {
                     <span className="text-white text-xs font-bold">T</span>
                   </div>
                   <span className="text-sm font-semibold text-gray-700">Tutoring</span>
+                </div>
+              </div>
+
+              <div className="absolute -bottom-4 -right-8 bg-white rounded-2xl shadow-lg p-4 animate-bounce z-10" style={{ animationDelay: "3s" }}>
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">D</span>
+                  </div>
+                  <span className="text-sm font-semibold text-gray-700">Digital Marketing</span>
                 </div>
               </div>
             </div>

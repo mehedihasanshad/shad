@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { Palette, Video, BookOpen, Check } from "lucide-react";
+import { Palette, Video, BookOpen, Megaphone, Check } from "lucide-react";
 
 const services = [
   {
@@ -24,6 +24,13 @@ const services = [
     features: ["High School Mathematics", "Physics Fundamentals", "Exam Preparation"],
     color: "from-green-500 to-green-600",
   },
+  {
+    icon: Megaphone,
+    title: "Digital Media Marketing",
+    description: "Strategic digital marketing campaigns and social media management to boost your brand's online presence and engagement.",
+    features: ["Social Media Strategy", "Content Marketing", "Brand Promotion", "Digital Campaigns"],
+    color: "from-orange-500 to-orange-600",
+  },
 ];
 
 export function ServicesSection() {
@@ -39,7 +46,7 @@ export function ServicesSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
