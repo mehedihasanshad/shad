@@ -1,23 +1,21 @@
 <template>
   <div class="contact">
     <!-- Hero Section -->
-    <section class="contact-hero">
-      <div class="container">
-        <h1 class="page-title">Get In Touch</h1>
-        <p class="page-subtitle">
-          Ready to start your project or need tutoring? Let's connect!
-        </p>
+    <section class="contact-hero bg-gradient-to-br from-primary-600 to-secondary-600 text-white text-center py-20 px-4">
+      <div class="w-full max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Get In Touch</h1>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">Ready to start your project or need tutoring? Let's connect!</p>
       </div>
     </section>
 
     <!-- Contact Content -->
-    <section class="contact-content">
-      <div class="container">
+    <section class="contact-content bg-white py-20 px-4">
+      <div class="w-full max-w-7xl mx-auto">
         <a-row :gutter="[48, 48]">
           <!-- Contact Form -->
           <a-col :xs="24" :lg="14">
             <div class="contact-form-section">
-              <h2>Send Me a Message</h2>
+              <h2 class="text-2xl font-bold mb-4 text-gray-900">Send Me a Message</h2>
               <a-form
                 :model="form"
                 :rules="rules"
@@ -68,7 +66,7 @@
           <!-- Contact Info -->
           <a-col :xs="24" :lg="10">
             <div class="contact-info-section">
-              <h2>Contact Information</h2>
+              <h2 class="text-2xl font-bold mb-4 text-gray-900">Contact Information</h2>
               
               <div class="contact-methods">
                 <div class="contact-method">
@@ -76,8 +74,8 @@
                     <MailOutlined />
                   </div>
                   <div class="method-content">
-                    <h4>Email</h4>
-                    <p>mehedi.Shad@email.com</p>
+                    <h4 class="text-lg font-semibold text-gray-900">Email</h4>
+                    <p class="text-gray-700">mehedi.Shad@email.com</p>
                     <a-button type="link" size="small">Send Email</a-button>
                   </div>
                 </div>
@@ -87,8 +85,8 @@
                     <PhoneOutlined />
                   </div>
                   <div class="method-content">
-                    <h4>Phone</h4>
-                    <p>+880 XXX-XXXXXXX</p>
+                    <h4 class="text-lg font-semibold text-gray-900">Phone</h4>
+                    <p class="text-gray-700">+880 XXX-XXXXXXX</p>
                     <a-button type="link" size="small">Call Now</a-button>
                   </div>
                 </div>
@@ -98,8 +96,8 @@
                     <WhatsAppOutlined />
                   </div>
                   <div class="method-content">
-                    <h4>WhatsApp</h4>
-                    <p>Available for quick questions</p>
+                    <h4 class="text-lg font-semibold text-gray-900">WhatsApp</h4>
+                    <p class="text-gray-700">Available for quick questions</p>
                     <a-button type="link" size="small">Message on WhatsApp</a-button>
                   </div>
                 </div>
@@ -109,8 +107,8 @@
                     <EnvironmentOutlined />
                   </div>
                   <div class="method-content">
-                    <h4>Location</h4>
-                    <p>Dhaka, Bangladesh</p>
+                    <h4 class="text-lg font-semibold text-gray-900">Location</h4>
+                    <p class="text-gray-700">Dhaka, Bangladesh</p>
                     <a-button type="link" size="small">View on Map</a-button>
                   </div>
                 </div>
@@ -118,7 +116,7 @@
 
               <!-- Social Links -->
               <div class="social-section">
-                <h3>Follow Me</h3>
+                <h3 class="text-lg font-semibold mb-4 text-gray-900">Follow Me</h3>
                 <div class="social-links">
                   <a-button type="primary" shape="circle" size="large">
                     <LinkedinOutlined />
@@ -137,22 +135,22 @@
 
               <!-- Availability -->
               <div class="availability-section">
-                <h3>Availability</h3>
+                <h3 class="text-lg font-semibold mb-4 text-gray-900">Availability</h3>
                 <div class="availability-info">
                   <div class="availability-item">
                     <ClockCircleOutlined class="time-icon" />
                     <div>
-                      <p><strong>Tuition Hours:</strong></p>
-                      <p>Mon-Fri: 4:00 PM - 9:00 PM</p>
-                      <p>Sat-Sun: 10:00 AM - 6:00 PM</p>
+                      <p class="text-gray-900"><strong>Tuition Hours:</strong></p>
+                      <p class="text-gray-700">Mon-Fri: 4:00 PM - 9:00 PM</p>
+                      <p class="text-gray-700">Sat-Sun: 10:00 AM - 6:00 PM</p>
                     </div>
                   </div>
                   <div class="availability-item">
                     <ProjectOutlined class="project-icon" />
                     <div>
-                      <p><strong>Design Projects:</strong></p>
-                      <p>Flexible hours by appointment</p>
-                      <p>Response within 24 hours</p>
+                      <p class="text-gray-900"><strong>Design Projects:</strong></p>
+                      <p class="text-gray-700">Flexible hours by appointment</p>
+                      <p class="text-gray-700">Response within 24 hours</p>
                     </div>
                   </div>
                 </div>
@@ -164,24 +162,24 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq-section">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
+    <section class="faq-section bg-gray-100 py-20 px-4">
+      <div class="w-full max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-center text-gray-900">Frequently Asked Questions</h2>
         <a-collapse>
           <a-collapse-panel key="1" header="What subjects do you teach?">
-            <p>I specialize in Mathematics and Physics for high school and college levels. I also provide study skills coaching and academic mentoring.</p>
+            <p class="text-gray-700">I specialize in Mathematics and Physics for high school and college levels. I also provide study skills coaching and academic mentoring.</p>
           </a-collapse-panel>
           <a-collapse-panel key="2" header="Do you offer online tutoring?">
-            <p>Yes! I provide both in-person and online tutoring sessions. Online sessions are conducted via video calls with digital whiteboard tools.</p>
+            <p class="text-gray-700">Yes! I provide both in-person and online tutoring sessions. Online sessions are conducted via video calls with digital whiteboard tools.</p>
           </a-collapse-panel>
           <a-collapse-panel key="3" header="What's your design process?">
-            <p>My design process includes consultation, concept development, initial designs, revisions based on feedback, and final delivery with all necessary files.</p>
+            <p class="text-gray-700">My design process includes consultation, concept development, initial designs, revisions based on feedback, and final delivery with all necessary files.</p>
           </a-collapse-panel>
           <a-collapse-panel key="4" header="How long does a logo design take?">
-            <p>Typically 5-7 business days from initial consultation to final delivery, depending on the complexity and revision rounds.</p>
+            <p class="text-gray-700">Typically 5-7 business days from initial consultation to final delivery, depending on the complexity and revision rounds.</p>
           </a-collapse-panel>
           <a-collapse-panel key="5" header="Do you provide motion graphics for social media?">
-            <p>Absolutely! I create engaging motion graphics for social media platforms, including Instagram stories, Facebook posts, and YouTube intros.</p>
+            <p class="text-gray-700">Absolutely! I create engaging motion graphics for social media platforms, including Instagram stories, Facebook posts, and YouTube intros.</p>
           </a-collapse-panel>
         </a-collapse>
       </div>

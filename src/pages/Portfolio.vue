@@ -8,12 +8,12 @@
         <div class="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-br from-secondary-200 to-accent-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
       </div>
 
-      <div class="container-custom relative z-10">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 relative z-10">
         <div class="text-center max-w-4xl mx-auto">
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
             Creative <span class="gradient-text">Portfolio</span>
           </h1>
-          <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+          <p class="text-xl text-gray-700 mb-12 leading-relaxed">
             Showcasing exceptional logo designs and motion graphics that bring brands to life through innovative visual storytelling
           </p>
           
@@ -39,7 +39,7 @@
 
     <!-- Portfolio Grid -->
     <section class="section-padding bg-white">
-      <div class="container-custom">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
             v-for="item in filteredPortfolio"
@@ -101,7 +101,7 @@
 
     <!-- Skills & Tools Section -->
     <section class="section-padding bg-gray-50">
-      <div class="container-custom">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
         <div class="text-center mb-16">
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Skills & <span class="gradient-text">Tools</span>
@@ -190,7 +190,7 @@
 
     <!-- CTA Section -->
     <section class="portfolio-cta-section">
-      <div class="container">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
         <div class="cta-content">
           <h2>Let's Create Something Amazing Together</h2>
           <p>Ready to elevate your brand with exceptional design? Let's discuss your project and bring your vision to life.</p>

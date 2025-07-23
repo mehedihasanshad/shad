@@ -9,26 +9,26 @@
         <div class="absolute top-40 left-1/2 w-80 h-80 bg-gradient-to-br from-accent-200 to-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
       </div>
 
-      <div class="container-custom relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
           <!-- Hero Content -->
-          <div class="text-center lg:text-left animate-slide-up">
+          <div class="w-full flex flex-col items-center justify-center text-center lg:text-left animate-slide-up">
             <div class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-600 mb-6 shadow-sm">
               <span class="animate-pulse mr-2">👋</span>
               Hello, I'm available for new projects
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
-              <span class="block text-gray-900">Mehedi Hasan</span>
-              <span class="block gradient-text">Shadin</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 text-gray-900">
+              <span class="block">Mehedi Hasan</span>
+              <span class="block gradient-text">Shad</span>
             </h1>
             
-            <div class="text-xl md:text-2xl text-gray-600 mb-2">
+            <div class="text-xl md:text-2xl text-gray-700 mb-2">
               <span class="font-medium">I'm a </span>
               <span class="font-bold text-primary-600 typing-animation">{{ currentRole }}</span>
             </div>
             
-            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
               Crafting exceptional visual experiences through innovative logo design and captivating motion graphics, 
               while empowering the next generation through personalized mathematics and physics education.
             </p>
@@ -57,7 +57,7 @@
                 <div class="w-full h-full rounded-3xl overflow-hidden">
                   <img 
                     src="/shadphoto.jpg" 
-                    alt="Mehedi Hasan Shadin" 
+                    alt="Mehedi Hasan Shad" 
                     class="w-full h-full object-cover object-center"
                   />
                 </div>
@@ -104,7 +104,7 @@
 
     <!-- Stats Section -->
     <section class="py-16 bg-white">
-      <div class="container-custom">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div class="text-center">
             <div class="text-3xl md:text-4xl font-bold text-primary-600 mb-2">{{ animatedStats.projects }}+</div>
@@ -128,7 +128,7 @@
 
     <!-- Services Section -->
     <section class="section-padding bg-gray-50" id="services">
-      <div class="container-custom">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
         <div class="text-center mb-16">
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             What I Do <span class="gradient-text">Best</span>
@@ -243,8 +243,8 @@
 
     <!-- CTA Section -->
     <section class="section-padding bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white" id="contact">
-      <div class="max-w-3xl mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+      <div class="w-full max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
           Ready to Start Your <span class="text-accent-300">Journey?</span>
         </h2>
         <p class="text-xl text-primary-100 mb-8 max-w-3xl mx-auto">
