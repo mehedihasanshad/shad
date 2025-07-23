@@ -22,7 +22,7 @@ export function HeroSection() {
   }, [roleIndex]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-red-200 to-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" />
@@ -34,24 +34,24 @@ export function HeroSection() {
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
           {/* Hero Content */}
           <div className="w-full flex flex-col items-center justify-center text-center lg:text-left">
-            <Badge variant="secondary" className="mb-6 px-4 py-2 bg-white/80 backdrop-blur-sm text-gray-600">
+            <Badge variant="secondary" className="mb-6 px-4 py-2 bg-background/80 backdrop-blur-sm text-muted-foreground border">
               <span className="animate-pulse mr-2">👋</span>
               Hello, I&apos;m available for new projects
             </Badge>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 text-gray-900">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 text-foreground">
               <span className="block">Mehedi Hasan</span>
-              <span className="block bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-red-500 to-gray-900 dark:from-red-400 dark:to-gray-100 bg-clip-text text-transparent">
                 Shad
               </span>
             </h1>
 
-            <div className="text-xl md:text-2xl text-gray-700 mb-2">
+            <div className="text-xl md:text-2xl text-foreground mb-2">
               <span className="font-medium">I&apos;m a </span>
-              <span className="font-bold text-red-600">{currentRole}</span>
+              <span className="font-bold text-red-600 dark:text-red-400">{currentRole}</span>
             </div>
 
-            <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               Crafting exceptional visual experiences through innovative logo design and captivating
               motion graphics, while empowering the next generation through personalized mathematics
               and physics education.
@@ -72,7 +72,7 @@ export function HeroSection() {
             <div className="mt-12 space-y-6">
               {/* Find Me Here */}
               <div className="text-center lg:text-left">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">Find me here</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Find me here</h3>
                 <div className="flex justify-center lg:justify-start space-x-4">
                   <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
                     <div className="w-12 h-12 bg-[#1877F2] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
@@ -94,7 +94,7 @@ export function HeroSection() {
 
               {/* See My Work */}
               <div className="text-center lg:text-left">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">See my work</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">See my work</h3>
                 <div className="flex justify-center lg:justify-start space-x-4">
                   <a href="https://behance.net/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
                     <div className="w-12 h-12 bg-[#1769FF] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
