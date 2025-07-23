@@ -87,9 +87,17 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 
 This project is optimized for deployment on Vercel:
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy with zero configuration
+1. **Push to GitHub**: The repository is already connected to GitHub
+2. **Connect to Vercel**: 
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Vercel will automatically detect it's a Next.js project
+3. **Deploy**: Zero configuration needed - Vercel handles everything automatically
+
+### Important Notes:
+- The `vue-backup/` folder is excluded from deployment via `.vercelignore`
+- The build process automatically optimizes for production
+- Environment variables can be added in Vercel dashboard if needed
 
 ## 📧 Contact
 
