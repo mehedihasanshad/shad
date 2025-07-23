@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { MenuOutlined, HomeOutlined, BookOutlined, FolderOutlined, MailOutlined } from '@ant-design/icons-vue'
+import { MenuOutlined, HomeOutlined, BookOutlined, FolderOutlined, MailOutlined, BulbOutlined } from '@ant-design/icons-vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -23,12 +23,30 @@ const handleMenuClick = (key: string) => {
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
 }
+
+// Dark mode toggle logic
+const isDark = ref(false)
+const toggleDark = () => {
+  isDark.value = !isDark.value
+  if (isDark.value) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}
+onMounted(() => {
+  // Set initial dark mode based on system preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    isDark.value = true
+    document.documentElement.classList.add('dark')
+  }
+})
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="min-h-screen bg-white dark:bg-black dark:text-primary-100">
     <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm">
       <nav class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
           <!-- Logo -->
@@ -37,9 +55,9 @@ const toggleMobileMenu = () => {
               <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
                 <span class="text-white font-bold text-lg">M</span>
               </div>
-              <div class="hidden sm:block">
+              <div class="hidden sm:block text-center">
                 <h1 class="text-lg lg:text-xl font-bold gradient-text">Mehedi Hasan Shad</h1>
-                <p class="text-xs text-gray-500 -mt-1">Designer & Educator</p>
+                <p class="text-xs text-gray-500 dark:text-primary-200 -mt-1">Designer & Educator</p>
               </div>
             </router-link>
           </div>
@@ -50,8 +68,8 @@ const toggleMobileMenu = () => {
               v-for="item in menuItems"
               :key="item.key"
               :to="item.key"
-              class="relative px-4 py-2 text-gray-700 hover:text-primary-600 transition-colors duration-300 font-medium group"
-              :class="{ 'text-primary-600': route.path === item.key }"
+              class="relative px-4 py-2 text-gray-700 dark:text-primary-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 font-medium group"
+              :class="{ 'text-primary-600 dark:text-primary-400': route.path === item.key }"
             >
               <component :is="item.icon" class="inline-block w-4 h-4 mr-2" />
               {{ item.label }}
@@ -62,19 +80,23 @@ const toggleMobileMenu = () => {
             </router-link>
           </div>
 
-          <!-- CTA Button -->
-          <div class="hidden lg:block">
-            <router-link to="/contact" class="btn-primary">
+          <!-- CTA Button & Dark Toggle -->
+          <div class="flex items-center space-x-2">
+            <router-link to="/contact" class="btn-primary hidden lg:block">
               Get Started
             </router-link>
+            <button @click="toggleDark" :aria-pressed="isDark" aria-label="Toggle dark mode" class="ml-2 p-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-black hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
+              <BulbOutlined v-if="!isDark" class="text-xl text-gray-700" />
+              <BulbOutlined v-else class="text-xl text-primary-500" />
+            </button>
           </div>
 
           <!-- Mobile Menu Button -->
           <button
             @click="toggleMobileMenu"
-            class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
           >
-            <MenuOutlined class="w-6 h-6 text-gray-700" />
+            <MenuOutlined class="w-6 h-6 text-gray-700 dark:text-primary-100" />
           </button>
         </div>
       </nav>
