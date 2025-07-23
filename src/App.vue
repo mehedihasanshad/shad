@@ -48,18 +48,50 @@ onMounted(() => {
     <!-- Navigation Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm">
       <nav class="container-custom">
-        <div class="flex items-center justify-between h-16 lg:h-20">
-          <!-- Logo -->
-          <div class="flex-shrink-0">
-            <router-link to="/" class="flex items-center space-x-3">
-              <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
-                <span class="text-white font-bold text-lg">M</span>
+        <div class="flex flex-col lg:flex-row items-center justify-between h-auto lg:h-20 py-2 gap-2 lg:gap-0">
+          <div class="flex flex-col lg:flex-row items-center gap-2 lg:gap-6 w-full">
+            <!-- Logo and Name -->
+            <div class="flex-shrink-0 flex items-center space-x-3">
+              <router-link to="/" class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
+                  <span class="text-white font-bold text-lg">M</span>
+                </div>
+                <div class="hidden sm:block text-center">
+                  <h1 class="text-lg lg:text-xl font-bold gradient-text">Mehedi Hasan Shad</h1>
+                  <p class="text-xs text-gray-500 dark:text-primary-200 -mt-1">Designer & Educator</p>
+                </div>
+              </router-link>
+            </div>
+            <!-- Social Media: Find me here -->
+            <div class="flex flex-col items-center lg:items-start">
+              <span class="text-xs text-gray-700 dark:text-primary-200 mb-1">Find me here:</span>
+              <div class="flex space-x-2">
+                <a href="https://facebook.com/mhsshad" target="_blank" aria-label="Facebook" class="hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="#1877F3" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.326 24h11.495v-9.294H9.691v-3.622h3.13V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0"/></svg>
+                </a>
+                <a href="https://instagram.com/mhsshad" target="_blank" aria-label="Instagram" class="hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="url(#ig-gradient)"/><defs><linearGradient id="ig-gradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#f58529"/><stop offset=".5" stop-color="#dd2a7b"/><stop offset="1" stop-color="#515bd4"/></linearGradient></defs><path fill="#fff" d="M12 7.2A4.8 4.8 0 1 0 12 16.8 4.8 4.8 0 0 0 12 7.2Zm0 7.8A3 3 0 1 1 12 9a3 3 0 0 1 0 6Zm4.95-7.05a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0Z"/><rect x="2.5" y="2.5" width="19" height="19" rx="4.5" stroke="#fff" stroke-width="1.5"/></svg>
+                </a>
+                <a href="https://linkedin.com/in/mhsshad" target="_blank" aria-label="LinkedIn" class="hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="#0A66C2" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.025-3.037-1.849-3.037-1.851 0-2.132 1.445-2.132 2.939v5.667H9.358V9h3.414v1.561h.049c.476-.899 1.637-1.849 3.369-1.849 3.602 0 4.267 2.369 4.267 5.455v6.285zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.554V9h3.565v11.452z"/></svg>
+                </a>
               </div>
-              <div class="hidden sm:block text-center">
-                <h1 class="text-lg lg:text-xl font-bold gradient-text">Mehedi Hasan Shad</h1>
-                <p class="text-xs text-gray-500 dark:text-primary-200 -mt-1">Designer & Educator</p>
+            </div>
+            <!-- See my work -->
+            <div class="flex flex-col items-center lg:items-start">
+              <span class="text-xs text-gray-700 dark:text-primary-200 mb-1 mt-2 lg:mt-0">See my work:</span>
+              <div class="flex space-x-2">
+                <a href="https://behance.net/mhsshad" target="_blank" aria-label="Behance" class="hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="#1769FF" viewBox="0 0 24 24"><path d="M8.007 10.708s.062-1.309-1.309-1.309c-1.373 0-1.373 1.309-1.373 1.309h2.682zm10.13 1.309c-1.309 0-1.309 1.309-1.309 1.309h2.682s.062-1.309-1.373-1.309zm-10.13 2.618c0 1.309 1.309 1.309 1.309 1.309s1.309 0 1.309-1.309v-1.309H7.698v1.309zm10.13-1.309c0 1.309 1.309 1.309 1.309 1.309s1.309 0 1.309-1.309v-1.309h-2.618v1.309zM12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10zm-3.993 13.927c-2.618 0-2.618-2.618-2.618-2.618s0-2.618 2.618-2.618c2.618 0 2.618 2.618 2.618 2.618s0 2.618-2.618 2.618zm7.986 0c-2.618 0-2.618-2.618-2.618-2.618s0-2.618 2.618-2.618c2.618 0 2.618 2.618 2.618 2.618s0 2.618-2.618 2.618zm-7.986-5.236c-1.309 0-1.309 1.309-1.309 1.309h2.682s.062-1.309-1.373-1.309zm10.13 1.309c-1.309 0-1.309 1.309-1.309 1.309h2.682s.062-1.309-1.373-1.309z"/></svg>
+                </a>
+                <a href="https://youtube.com/@mhsshad" target="_blank" aria-label="YouTube" class="hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="#FF0000" viewBox="0 0 24 24"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.112-2.112C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.386.574A2.994 2.994 0 0 0 .502 6.186C0 8.072 0 12 0 12s0 3.928.502 5.814a2.994 2.994 0 0 0 2.112 2.112C4.5 20.5 12 20.5 12 20.5s7.5 0 9.386-.574a2.994 2.994 0 0 0 2.112-2.112C24 15.928 24 12 24 12s0-3.928-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="https://dribbble.com/mhsshad" target="_blank" aria-label="Dribbble" class="hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="#EA4C89" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10zm6.93 6.36a8.003 8.003 0 0 0-3.11-3.11A7.963 7.963 0 0 1 20 12c0 .32-.02.637-.05.95a13.07 13.07 0 0 0-3.02-.25c-.09-.22-.18-.44-.28-.66a13.07 13.07 0 0 0-2.13-3.13c.13-.02.26-.03.39-.03 1.13 0 2.19.19 3.17.54zm-1.45-1.45a8.003 8.003 0 0 0-3.11-3.11A7.963 7.963 0 0 1 12 4c-.32 0-.637.02-.95.05a13.07 13.07 0 0 0-.25 3.02c.22.09.44.18.66.28a13.07 13.07 0 0 0 3.13 2.13c.02-.13.03-.26.03-.39 0-1.13-.19-2.19-.54-3.17zm-1.45 1.45a8.003 8.003 0 0 0-3.11-3.11A7.963 7.963 0 0 1 12 4c.32 0 .637.02.95.05a13.07 13.07 0 0 0 .25 3.02c-.22.09-.44.18-.66.28a13.07 13.07 0 0 0-2.13 3.13c-.13.02-.26.03-.39.03-1.13 0-2.19-.19-3.17-.54zm-1.45 1.45a8.003 8.003 0 0 0-3.11-3.11A7.963 7.963 0 0 1 4 12c0-.32.02-.637.05-.95a13.07 13.07 0 0 0 3.02.25c.09.22.18.44.28.66a13.07 13.07 0 0 0 2.13 3.13c-.13.02-.26.03-.39.03-1.13 0-2.19-.19-3.17-.54zm1.45 1.45a8.003 8.003 0 0 0 3.11 3.11A7.963 7.963 0 0 1 12 20c.32 0 .637-.02.95-.05a13.07 13.07 0 0 0 .25-3.02c-.22-.09-.44-.18-.66-.28a13.07 13.07 0 0 0-3.13-2.13c-.02.13-.03.26-.03.39 0 1.13.19 2.19.54 3.17zm1.45-1.45a8.003 8.003 0 0 0 3.11 3.11A7.963 7.963 0 0 1 12 20c-.32 0-.637-.02-.95-.05a13.07 13.07 0 0 0-.25-3.02c.22-.09.44-.18.66-.28a13.07 13.07 0 0 0-2.13-3.13c.13-.02.26-.03.39-.03 1.13 0 2.19.19 3.17.54zm1.45-1.45a8.003 8.003 0 0 0 3.11-3.11A7.963 7.963 0 0 1 20 12c0 .32-.02.637-.05.95a13.07 13.07 0 0 0-3.02-.25c-.09-.22-.18-.44-.28-.66a13.07 13.07 0 0 0-2.13-3.13c.13-.02.26-.03.39-.03 1.13 0 2.19.19 3.17.54z"/></svg>
+                </a>
               </div>
-            </router-link>
+            </div>
           </div>
 
           <!-- Desktop Navigation -->
