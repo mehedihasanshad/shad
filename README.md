@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mehedi Hasan Shad - Portfolio & Tutoring Website
 
-## Getting Started
+A modern, responsive portfolio website built with Next.js 15, TypeScript, and Tailwind CSS, showcasing design work and tutoring services.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Modern Design**: Clean, professional design with smooth animations
+- **Responsive**: Fully responsive across all devices
+- **Fast Performance**: Built with Next.js 15 and optimized for speed
+- **Type Safe**: Full TypeScript support
+- **Accessible**: Built with accessibility in mind
+- **SEO Optimized**: Meta tags and structured data
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Icons**: Lucide React
+- **Fonts**: Inter & Poppins (Google Fonts)
+
+## 📁 Project Structure
+
+```
+├── src/
+│   ├── app/                 # App Router pages
+│   │   ├── contact/         # Contact page
+│   │   ├── portfolio/       # Portfolio page
+│   │   ├── tuition/         # Tutoring page
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Home page
+│   │   └── globals.css      # Global styles
+│   ├── components/          # React components
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── hero-section.tsx
+│   │   ├── navigation.tsx
+│   │   ├── footer.tsx
+│   │   └── ...
+│   └── lib/                 # Utilities
+├── public/                  # Static assets
+├── vue-backup/              # Original Vue.js project backup
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Services Offered
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Design Services
+- **Logo Design**: Brand identity development and logo creation
+- **Motion Graphics**: Animated content and visual storytelling
+- **Brand Identity**: Complete branding packages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Educational Services
+- **Mathematics Tutoring**: Algebra, Geometry, Calculus, Statistics
+- **Physics Tutoring**: Mechanics, Thermodynamics, Electromagnetism
+- **Personalized Learning**: One-on-one sessions tailored to student needs
 
-## Learn More
+## 🚀 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd shad
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📦 Available Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+
+## 🌐 Deployment
+
+This project is optimized for deployment on Vercel:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with zero configuration
+
+## 📧 Contact
+
+- **Email**: mehedi@example.com
+- **LinkedIn**: [linkedin.com/in/mhsshad](https://linkedin.com/in/mhsshad)
+- **Behance**: [behance.net/mhsshad](https://behance.net/mhsshad)
+- **Instagram**: [instagram.com/mhsshad](https://instagram.com/mhsshad)
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🔄 Migration from Vue.js
+
+This project was migrated from Vue.js to Next.js. The original Vue.js project is preserved in the `vue-backup/` directory for reference.
+
+### Key Improvements in Next.js Version:
+- Better SEO with App Router
+- Improved performance with React Server Components
+- Enhanced TypeScript integration
+- Better build optimization
+- Simplified deployment process

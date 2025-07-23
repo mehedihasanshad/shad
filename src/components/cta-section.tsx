@@ -11,7 +11,7 @@ export function CTASection() {
         </h2>
         <p className="text-xl text-red-100 mb-8 max-w-3xl mx-auto">
           Whether you need stunning visuals for your brand or academic support to excel in your
-          studies, I'm here to help you achieve your goals.
+          studies, I&apos;m here to help you achieve your goals.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/contact">

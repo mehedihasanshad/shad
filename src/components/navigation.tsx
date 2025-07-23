@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, BookOpen, FolderOpen, Mail, Lightbulb } from "lucide-react";
+import { Menu, X, Home, BookOpen, FolderOpen, Mail } from "lucide-react";
 
 const menuItems = [
   { href: "/", label: "Home", icon: Home },

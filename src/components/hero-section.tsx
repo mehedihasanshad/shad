@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +36,7 @@ export function HeroSection() {
           <div className="w-full flex flex-col items-center justify-center text-center lg:text-left">
             <Badge variant="secondary" className="mb-6 px-4 py-2 bg-white/80 backdrop-blur-sm text-gray-600">
               <span className="animate-pulse mr-2">👋</span>
-              Hello, I'm available for new projects
+              Hello, I&apos;m available for new projects
             </Badge>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 text-gray-900">
@@ -48,7 +47,7 @@ export function HeroSection() {
             </h1>
 
             <div className="text-xl md:text-2xl text-gray-700 mb-2">
-              <span className="font-medium">I'm a </span>
+              <span className="font-medium">I&apos;m a </span>
               <span className="font-bold text-red-600">{currentRole}</span>
             </div>
 

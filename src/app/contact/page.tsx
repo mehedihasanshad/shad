@@ -38,7 +38,7 @@ export default function Contact() {
             Get In <span className="bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">Touch</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to start your project or have questions about tutoring? I'd love to hear from you.
+            Ready to start your project or have questions about tutoring? I&apos;d love to hear from you.
           </p>
         </div>
       </section>
@@ -52,7 +52,7 @@ export default function Contact() {
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-900">Send a Message</CardTitle>
                 <CardDescription>
-                  Fill out the form below and I'll get back to you as soon as possible.
+                  Fill out the form below and I&apos;ll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -89,7 +89,7 @@ export default function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="What's this about?"
+                      placeholder="What&apos;s this about?"
                       required
                     />
                   </div>
@@ -116,9 +116,9 @@ export default function Contact() {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Let's Connect</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">Let&apos;s Connect</h2>
                 <p className="text-lg text-gray-600 mb-8">
-                  Whether you need design work or academic support, I'm here to help you achieve your goals.
+                  Whether you need design work or academic support, I&apos;m here to help you achieve your goals.
                 </p>
               </div>
 

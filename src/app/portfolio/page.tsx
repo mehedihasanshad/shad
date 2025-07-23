@@ -97,7 +97,7 @@ export default function Portfolio() {
             Like What You See?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Let's work together to bring your vision to life with exceptional design and creativity.
+            Let&apos;s work together to bring your vision to life with exceptional design and creativity.
           </p>
           <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
             Start Your Project
