@@ -2,66 +2,56 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Play, ExternalLink } from "lucide-react";
 
-const videos = [
-  {
-    id: "fYTbbgbOXgs",
-    title:
-      "TRI VUBONER PRIO MUHAMMAD (PBUH) | SLIDESHOW ISLAMIC NASHEED PROJECT",
-    description:
-      "A beautiful Islamic nasheed slideshow project showcasing motion graphics and video editing skills.",
-    thumbnail: `https://img.youtube.com/vi/fYTbbgbOXgs/maxresdefault.jpg`,
-    tags: ["Motion Graphics", "Video Editing", "Islamic Content"],
-    embedUrl:
-      "https://www.youtube.com/embed/fYTbbgbOXgs?si=PSgdfa7S6Chn2NRd&autoplay=1",
-    category: "Motion Graphics",
-  },
-  {
-    id: "Nr3XIPYr9M4",
-    title: "Professional Logo Animation",
-    description:
-      "Dynamic logo animation showcasing brand identity and motion design expertise.",
-    thumbnail: `https://img.youtube.com/vi/Nr3XIPYr9M4/maxresdefault.jpg`,
-    tags: ["Logo Animation", "Brand Identity", "After Effects"],
-    embedUrl:
-      "https://www.youtube.com/embed/Nr3XIPYr9M4?si=K9TrUEgLRzfDhnAo&autoplay=1",
-    category: "Logo Animation",
-  },
-  {
-    id: "--anKmEqy0k",
-    title: "Color Correction & Grading",
-    description:
-      "Professional color correction and grading techniques for cinematic video production.",
-    thumbnail: `https://img.youtube.com/vi/--anKmEqy0k/maxresdefault.jpg`,
-    tags: ["Color Correction", "Video Editing", "Cinematic"],
-    embedUrl:
-      "https://www.youtube.com/embed/--anKmEqy0k?si=i916jceBXJ8p8HRP&autoplay=1",
-    category: "Color Correction",
-  },
-  {
-    id: "gxtWRHMeVRs",
-    title: "Advanced Video Editing",
-    description:
-      "Showcase of advanced video editing techniques and creative storytelling.",
-    thumbnail: `https://img.youtube.com/vi/gxtWRHMeVRs/maxresdefault.jpg`,
-    tags: ["Video Editing", "Storytelling", "Creative"],
-    embedUrl:
-      "https://www.youtube.com/embed/gxtWRHMeVRs?si=vLJBUrb86foufJGG&autoplay=1",
-    category: "Video Editing",
-  },
-];
+const videoCategories = {
+  "Motion Graphics": [
+    {
+      id: "fYTbbgbOXgs",
+      title: "TRI VUBONER PRIO MUHAMMAD (PBUH) | SLIDESHOW ISLAMIC NASHEED PROJECT",
+      description: "A beautiful Islamic nasheed slideshow project showcasing motion graphics and video editing skills.",
+      thumbnail: `https://img.youtube.com/vi/fYTbbgbOXgs/maxresdefault.jpg`,
+      tags: ["Motion Graphics", "Video Editing", "Islamic Content"],
+      embedUrl: "https://www.youtube.com/embed/fYTbbgbOXgs?si=PSgdfa7S6Chn2NRd&autoplay=1",
+    },
+  ],
+  "Logo Animation": [
+    {
+      id: "Nr3XIPYr9M4",
+      title: "Professional Logo Animation",
+      description: "Dynamic logo animation showcasing brand identity and motion design expertise.",
+      thumbnail: `https://img.youtube.com/vi/Nr3XIPYr9M4/maxresdefault.jpg`,
+      tags: ["Logo Animation", "Brand Identity", "After Effects"],
+      embedUrl: "https://www.youtube.com/embed/Nr3XIPYr9M4?si=K9TrUEgLRzfDhnAo&autoplay=1",
+    },
+  ],
+  "Color Correction": [
+    {
+      id: "--anKmEqy0k",
+      title: "Color Correction & Grading",
+      description: "Professional color correction and grading techniques for cinematic video production.",
+      thumbnail: `https://img.youtube.com/vi/--anKmEqy0k/maxresdefault.jpg`,
+      tags: ["Color Correction", "Video Editing", "Cinematic"],
+      embedUrl: "https://www.youtube.com/embed/--anKmEqy0k?si=i916jceBXJ8p8HRP&autoplay=1",
+    },
+  ],
+  "Video Editing": [
+    {
+      id: "gxtWRHMeVRs",
+      title: "Advanced Video Editing",
+      description: "Showcase of advanced video editing techniques and creative storytelling.",
+      thumbnail: `https://img.youtube.com/vi/gxtWRHMeVRs/maxresdefault.jpg`,
+      tags: ["Video Editing", "Storytelling", "Creative"],
+      embedUrl: "https://www.youtube.com/embed/gxtWRHMeVRs?si=vLJBUrb86foufJGG&autoplay=1",
+    },
+  ],
+};
 
-export function VideoPortfolio() {
+export function TabbedVideoPortfolio() {
+  const [activeTab, setActiveTab] = useState("Motion Graphics");
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
@@ -84,13 +74,30 @@ export function VideoPortfolio() {
             </span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
-            Explore my creative video projects showcasing motion graphics, logo
-            animations, and professional video editing.
+            Explore my creative video projects organized by category, showcasing different aspects of my video production skills.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {videos.map((video) => (
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {Object.keys(videoCategories).map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveTab(category)}
+              className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
+                activeTab === category
+                  ? "bg-red-600 text-white shadow-lg"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Video Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {videoCategories[activeTab as keyof typeof videoCategories]?.map((video) => (
             <Card
               key={video.id}
               className="group hover:shadow-xl transition-all duration-500 overflow-hidden cursor-pointer dark:bg-gray-800 dark:border-gray-700"
@@ -136,7 +143,7 @@ export function VideoPortfolio() {
                     </div>
                     <div className="absolute top-4 left-4">
                       <Badge className="bg-red-600 text-white">
-                        {video.category}
+                        {activeTab}
                       </Badge>
                     </div>
                   </>
@@ -144,10 +151,10 @@ export function VideoPortfolio() {
               </div>
 
               <CardHeader>
-                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white line-clamp-2">
+                <CardTitle className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white line-clamp-2">
                   {video.title}
                 </CardTitle>
-                <CardDescription className="text-gray-600 dark:text-gray-300 line-clamp-2">
+                <CardDescription className="text-gray-600 dark:text-gray-300 line-clamp-2 text-sm sm:text-base">
                   {video.description}
                 </CardDescription>
               </CardHeader>
@@ -155,11 +162,7 @@ export function VideoPortfolio() {
               <CardContent>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {video.tags.map((tag, tagIndex) => (
-                    <Badge
-                      key={tagIndex}
-                      variant="secondary"
-                      className="text-xs"
-                    >
+                    <Badge key={tagIndex} variant="secondary" className="text-xs">
                       {tag}
                     </Badge>
                   ))}
@@ -167,23 +170,19 @@ export function VideoPortfolio() {
                 <div className="flex gap-2">
                   <Button
                     size="sm"
-                    className="bg-red-600 hover:bg-red-700 text-white flex-1"
+                    className="bg-red-600 hover:bg-red-700 text-white flex-1 text-xs sm:text-sm"
                     onClick={() => handleVideoPlay(video.id)}
                   >
-                    <Play className="w-4 h-4 mr-2" />
+                    <Play className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                     Watch Video
                   </Button>
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() =>
-                      window.open(
-                        `https://www.youtube.com/watch?v=${video.id}`,
-                        "_blank"
-                      )
-                    }
+                    className="dark:border-gray-600 dark:text-gray-300"
+                    onClick={() => window.open(`https://www.youtube.com/watch?v=${video.id}`, "_blank")}
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </div>
               </CardContent>
@@ -192,7 +191,11 @@ export function VideoPortfolio() {
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
+          <Button
+            size="lg"
+            className="bg-red-600 hover:bg-red-700 text-white"
+            onClick={() => window.open("https://www.youtube.com/@ShadsVisualGfx", "_blank")}
+          >
             <ExternalLink className="w-5 h-5 mr-2" />
             View Full Channel
           </Button>

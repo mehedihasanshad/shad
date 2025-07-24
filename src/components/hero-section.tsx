@@ -69,46 +69,38 @@ export function HeroSection() {
             </div>
 
             {/* Social Media Section */}
-            <div className="mt-12 space-y-6">
-              {/* Find Me Here */}
+            <div className="mt-12">
               <div className="text-center lg:text-left">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Find me here</h3>
-                <div className="flex justify-center lg:justify-start space-x-4">
+                <h3 className="text-lg font-semibold text-foreground mb-6">Connect with me</h3>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-3 max-w-md">
                   <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
-                    <div className="w-12 h-12 bg-[#1877F2] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-lg">f</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1877F2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
+                      <span className="text-white font-bold text-sm sm:text-base">f</span>
                     </div>
                   </a>
                   <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-lg">ig</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
+                      <span className="text-white font-bold text-sm sm:text-base">ig</span>
                     </div>
                   </a>
                   <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group">
-                    <div className="w-12 h-12 bg-[#0A66C2] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-lg">in</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0A66C2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
+                      <span className="text-white font-bold text-sm sm:text-base">in</span>
                     </div>
                   </a>
-                </div>
-              </div>
-
-              {/* See My Work */}
-              <div className="text-center lg:text-left">
-                <h3 className="text-lg font-semibold text-foreground mb-4">See my work</h3>
-                <div className="flex justify-center lg:justify-start space-x-4">
                   <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group">
-                    <div className="w-12 h-12 bg-[#1769FF] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-lg">Be</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1769FF] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
+                      <span className="text-white font-bold text-sm sm:text-base">Be</span>
                     </div>
                   </a>
                   <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group">
-                    <div className="w-12 h-12 bg-[#FF0000] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-lg">YT</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FF0000] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
+                      <span className="text-white font-bold text-sm sm:text-base">YT</span>
                     </div>
                   </a>
-                  <a href="https://dribbble.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
-                    <div className="w-12 h-12 bg-[#EA4C89] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-lg">Dr</span>
+                  <a href="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" rel="noopener noreferrer" className="group">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#4285F4] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
+                      <span className="text-white font-bold text-sm sm:text-base">Web</span>
                     </div>
                   </a>
                 </div>

@@ -1,7 +1,7 @@
 import { HeroSection } from "@/components/hero-section";
 import { StatsSection } from "@/components/stats-section";
 import { ServicesSection } from "@/components/services-section";
-import { VideoPortfolio } from "@/components/video-portfolio";
+import { TabbedVideoPortfolio } from "@/components/tabbed-video-portfolio";
 import { CTASection } from "@/components/cta-section";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <ServicesSection />
-      <VideoPortfolio />
+      <TabbedVideoPortfolio />
       <CTASection />
     </div>
   );
