@@ -15,11 +15,15 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission here
     console.log("Form submitted:", formData);
+    setSuccess(true);
+    setFormData({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setSuccess(false), 5000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,6 +60,11 @@ export default function Contact() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
+                {success && (
+                  <div className="mb-4 p-3 rounded bg-green-100 text-green-800 text-center font-semibold border border-green-300 animate-fade-in">
+                    Thank you! Your message has been sent.
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
