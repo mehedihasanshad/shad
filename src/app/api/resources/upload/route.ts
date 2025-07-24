@@ -23,8 +23,17 @@ function getUserFromRequest(req: NextRequest): UserJwt | null {
 }
 
 export async function POST(req: NextRequest) {
+  const prisma = new PrismaClient();
   const user = getUserFromRequest(req);
-  if (!user?.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  // Check if public uploading is enabled
+  const setting = await prisma.globalSetting.findUnique({ where: { key: 'public_uploading' } });
+  const publicUploading = setting?.value === 'on';
+
+  // If not admin, only allow if public uploading is enabled
+  if (!user?.isAdmin && !publicUploading) {
+    return NextResponse.json({ error: 'Public uploading is turned off.' }, { status: 403 });
+  }
 
   const formData = await req.formData();
   const file = formData.get('file');
@@ -38,13 +47,29 @@ export async function POST(req: NextRequest) {
   const arrayBuffer = await file.arrayBuffer();
   await writeFile(filePath, Buffer.from(arrayBuffer));
   const url = `/uploads/${filename}`;
+
+  // Determine uploaderType and flags
+  let uploaderType = 'public';
+  let uploadedById = null;
+  let isPublic = true;
+  let isActive = true;
+  if (user?.isAdmin) {
+    uploaderType = 'admin';
+    uploadedById = user.userId;
+    // Admin can set public/active flags via formData (optional)
+    isPublic = formData.get('public') === 'true';
+    isActive = formData.get('active') === 'true';
+  }
+
   const resource = await prisma.resource.create({
     data: {
       type: 'file',
       url,
       filename: file.name,
-      public: false,
-      uploadedById: user.userId,
+      public: isPublic,
+      active: isActive,
+      uploadedById,
+      uploaderType,
     },
   });
   return NextResponse.json({ success: true, resource, url });
