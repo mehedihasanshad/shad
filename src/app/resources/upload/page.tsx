@@ -191,9 +191,23 @@ export default function PublicUploadPage() {
                       <span className="mr-2">{r.type === 'file' ? getFileIcon(r.filename) : '🔗'}</span>
                       <span className="font-semibold text-blue-700 dark:text-blue-300 mr-2">{r.type === 'file' ? 'File:' : 'Link:'}</span>
                       {r.type === 'file' ? (
-                        <a href={r.url as string} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename ? r.filename : (r.url as string)}</a>
+                        <a
+                          href={r.url as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline break-all"
+                        >
+                          {typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : (typeof r.url === 'string' ? r.url : '')}
+                        </a>
                       ) : (
-                        <a href={r.url as string} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.url as string}</a>
+                        <a
+                          href={r.url as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline break-all"
+                        >
+                          {typeof r.url === 'string' ? r.url : ''}
+                        </a>
                       )}
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
