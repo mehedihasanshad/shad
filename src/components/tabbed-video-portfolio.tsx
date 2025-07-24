@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -55,6 +55,8 @@ export function TabbedVideoPortfolio() {
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [loadingVideo, setLoadingVideo] = useState<string | null>(null);
+  const iframeRefs = useRef<{ [key: string]: HTMLIFrameElement | null }>({});
 
   useEffect(() => {
     const checkMobile = () => {
@@ -67,10 +69,16 @@ export function TabbedVideoPortfolio() {
 
   const handleVideoPlay = (videoId: string) => {
     setPlayingVideo(videoId);
+    setLoadingVideo(videoId);
   };
 
   const handleVideoClose = () => {
     setPlayingVideo(null);
+    setLoadingVideo(null);
+  };
+
+  const handleIframeLoad = (videoId: string) => {
+    setLoadingVideo((prev) => (prev === videoId ? null : prev));
   };
 
   return (
@@ -117,13 +125,20 @@ export function TabbedVideoPortfolio() {
               <div className="relative aspect-video overflow-hidden">
                 {(playingVideo === video.id || (!isMobile && hoveredVideo === video.id)) ? (
                   <div className="relative w-full h-full">
+                    {loadingVideo === video.id && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-10">
+                        <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" aria-label="Loading video" />
+                      </div>
+                    )}
                     <iframe
+                      ref={el => { iframeRefs.current[video.id] = el; }}
                       src={video.embedUrl}
                       title={video.title}
                       className="w-full h-full"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      onLoad={() => handleIframeLoad(video.id)}
                     />
                     <button
                       onClick={handleVideoClose}
