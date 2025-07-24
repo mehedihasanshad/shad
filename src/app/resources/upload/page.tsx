@@ -49,7 +49,7 @@ export default function PublicUploadPage() {
       .then(res => res.json())
       .then(data => {
         const setting = (data.settings || []).find((s: any) => s.key === "public_uploading");
-        setPublicUploading(setting?.value === "on");
+        setPublicUploading(setting ? setting.value === "on" : false);
       });
   }, []);
 
