@@ -12,7 +12,6 @@ const menuItems = [
   { href: "/tuition", label: "Tuition", icon: BookOpen },
   { href: "/portfolio", label: "Portfolio", icon: FolderOpen },
   { href: "/resources", label: "Resources", icon: FileText },
-  { href: "/admin", label: "Admin", icon: Shield },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 
@@ -63,7 +62,7 @@ export function Navigation() {
             })}
           </div>
 
-          {/* CTA Button, Theme Toggle & Mobile Menu Button */}
+          {/* CTA Button, Theme Toggle, Admin & Mobile Menu Button */}
           <div className="flex items-center space-x-2">
             <Link href="/contact" className="hidden lg:block">
               <Button className="bg-red-600 hover:bg-red-700 text-white">
@@ -71,6 +70,16 @@ export function Navigation() {
               </Button>
             </Link>
             <ThemeToggle />
+            <Link href="/admin">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                title="Admin Login"
+              >
+                <Shield className="h-5 w-5" />
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               size="icon"
@@ -104,7 +113,15 @@ export function Navigation() {
                   </Link>
                 );
               })}
-              <div className="pt-4 border-t border-border">
+              <div className="pt-4 border-t border-border space-y-2">
+                <Link 
+                  href="/admin" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center px-4 py-3 text-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all duration-200 font-medium"
+                >
+                  <Shield className="w-5 h-5 mr-3" />
+                  Admin Login
+                </Link>
                 <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                   <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
                     Get Started

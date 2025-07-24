@@ -4,6 +4,16 @@ import type { Resource } from "@prisma/client";
 
 type ResourceWithUser = Resource & { uploadedBy?: { username: string } | null };
 
+interface ResourceWithUploader extends Resource {
+  uploadedBy?: { username: string } | null;
+  uploaderType: string;
+}
+
+function safeHref(url: string | null | undefined): string | undefined {
+  if (typeof url === 'string') return url;
+  return undefined;
+}
+
 const FILE_ICONS: Record<string, string> = {
   pdf: '📄',
   doc: '📄',
