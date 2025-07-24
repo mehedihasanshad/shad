@@ -78,11 +78,16 @@ export async function POST(req: NextRequest) {
     isActive = formData.get('active') === 'true';
   }
 
+  const title = formData.get('title') as string | null;
+  const description = formData.get('description') as string | null;
+
   const resource = await prisma.resource.create({
     data: {
       type: 'file',
       url,
       filename: file.name,
+      title: title || null,
+      description: description || null,
       public: isPublic,
       active: isActive,
       uploadedById,
