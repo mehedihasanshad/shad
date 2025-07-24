@@ -47,6 +47,8 @@ export default function ResourcesPage() {
   const [uploadType, setUploadType] = useState<'file' | 'link'>('link');
   const [file, setFile] = useState<File | null>(null);
   const [link, setLink] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
   const [msg, setMsg] = useState("");
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
@@ -79,6 +81,8 @@ export default function ResourcesPage() {
       formData.append('file', file);
       formData.append('public', 'true');
       formData.append('active', 'true');
+      if (title) formData.append('title', title);
+      if (description) formData.append('description', description);
       const res = await fetch("/api/resources/upload", {
         method: "POST",
         body: formData,
@@ -88,6 +92,8 @@ export default function ResourcesPage() {
       setMsg(data.success ? "File shared!" : data.error || "Upload failed");
       if (data.success) {
         setFile(null);
+        setTitle("");
+        setDescription("");
         fetchResources();
         setShowUploadForm(false);
       }
@@ -95,13 +101,22 @@ export default function ResourcesPage() {
       const res = await fetch("/api/resources", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: 'link', url: link, public: true, active: true }),
+        body: JSON.stringify({ 
+          type: 'link', 
+          url: link, 
+          title: title || undefined,
+          description: description || undefined,
+          public: true, 
+          active: true 
+        }),
       });
       const data = await res.json();
       setUploading(false);
       setMsg(data.success ? "Link shared!" : data.error || "Upload failed");
       if (data.success) {
         setLink("");
+        setTitle("");
+        setDescription("");
         fetchResources();
         setShowUploadForm(false);
       }
