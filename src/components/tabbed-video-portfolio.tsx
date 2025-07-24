@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -54,6 +54,16 @@ export function TabbedVideoPortfolio() {
   const [activeTab, setActiveTab] = useState("Motion Graphics");
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleVideoPlay = (videoId: string) => {
     setPlayingVideo(videoId);
@@ -101,11 +111,11 @@ export function TabbedVideoPortfolio() {
             <Card
               key={video.id}
               className="group hover:shadow-xl transition-all duration-500 overflow-hidden cursor-pointer dark:bg-gray-800 dark:border-gray-700"
-              onMouseEnter={() => setHoveredVideo(video.id)}
-              onMouseLeave={() => setHoveredVideo(null)}
+              onMouseEnter={() => !isMobile && setHoveredVideo(video.id)}
+              onMouseLeave={() => !isMobile && setHoveredVideo(null)}
             >
               <div className="relative aspect-video overflow-hidden">
-                {playingVideo === video.id ? (
+                {(playingVideo === video.id || (!isMobile && hoveredVideo === video.id)) ? (
                   <div className="relative w-full h-full">
                     <iframe
                       src={video.embedUrl}
@@ -131,12 +141,14 @@ export function TabbedVideoPortfolio() {
                       className={`object-cover transition-transform duration-500 ${
                         hoveredVideo === video.id ? "scale-110" : "scale-100"
                       }`}
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <button
                         onClick={() => handleVideoPlay(video.id)}
                         className="w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transform group-hover:scale-110 transition-all duration-300 shadow-lg"
+                        aria-label="Play video"
                       >
                         <Play className="w-6 h-6 ml-1" fill="currentColor" />
                       </button>
