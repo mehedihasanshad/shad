@@ -83,7 +83,7 @@ export default function AdminPage() {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     const data = await res.json();
-    const setting = (data.settings || []).find((s: any) => s.key === "public_uploading");
+    const setting = (data.settings as { key: string; value: string }[] || []).find((s) => s.key === "public_uploading");
     setPublicUploading(setting?.value === "on");
   }
 

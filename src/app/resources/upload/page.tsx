@@ -22,6 +22,7 @@ function getFileIcon(filename?: string) {
 
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
+  uploaderType?: string;
 }
 
 export default function PublicUploadPage() {
@@ -48,7 +49,7 @@ export default function PublicUploadPage() {
     fetch("/api/resources", { method: "OPTIONS" })
       .then(res => res.json())
       .then(data => {
-        const setting = (data.settings || []).find((s: any) => s.key === "public_uploading");
+        const setting = (data.settings as { key: string; value: string }[] || []).find((s) => s.key === "public_uploading");
         setPublicUploading(setting ? setting.value === "on" : false);
       });
   }, []);
@@ -184,9 +185,9 @@ export default function PublicUploadPage() {
                     <span className="mr-2">{r.type === 'file' ? getFileIcon(r.filename) : '🔗'}</span>
                     <span className="font-semibold text-blue-700 dark:text-blue-300 mr-2">{r.type === 'file' ? 'File:' : 'Link:'}</span>
                     {r.type === 'file' ? (
-                      <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename || r.url}</a>
+                      <a href={typeof r.url === 'string' ? r.url : undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename ?? r.url ?? ''}</a>
                     ) : (
-                      <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.url}</a>
+                      <a href={typeof r.url === 'string' ? r.url : undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.url ?? ''}</a>
                     )}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">
