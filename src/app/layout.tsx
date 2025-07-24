@@ -78,6 +78,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script async defer data-domain="mhsshad.com" src="https://plausible.io/js/plausible.js"></script>
+      </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased min-h-screen bg-background text-foreground flex flex-col`}>
         <ThemeProvider
           attribute="class"
