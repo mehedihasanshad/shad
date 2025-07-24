@@ -116,6 +116,7 @@ export default function Contact() {
             {/* Contact Information */}
             <div className="space-y-6 md:space-y-8 mt-8 lg:mt-0">
               <div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-400 mb-2">Mehedi Hasan Shad</h2>
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Let&apos;s Connect</h2>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6 md:mb-8">
                   Whether you need design work or academic support, I&apos;m here to help you achieve your goals.
@@ -129,7 +130,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white text-sm md:text-base">Email</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">mehedihasanshad@gmail.com</p>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">mhsshad143@gmail.com</p>
                   </div>
                 </div>
 
@@ -139,7 +140,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white text-sm md:text-base">Phone</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">Available on request</p>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">+8801522102652</p>
                   </div>
                 </div>
 
