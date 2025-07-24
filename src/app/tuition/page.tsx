@@ -642,6 +642,53 @@ export default function Tuition() {
                 </div>
               </CardContent>
             </Card>
+            <Card className="group hover:shadow-xl transition-all duration-500 dark:bg-gray-800 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400">
+              <CardContent className="p-6">
+                <div className="mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 italic leading-relaxed">
+                    &quot;Shad sir's classes made math fun and easy! I never thought I could enjoy calculus until now.&quot;
+                  </p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      Tanvir Rahman
+                    </h4>
+                    <span className="text-gray-600 dark:text-gray-400">
+                      University Student
+                    </span>
+                  </div>
+                  <div className="flex text-yellow-400">{"★".repeat(5)}</div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-12 md:py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">What subjects do you tutor?</h3>
+              <p className="text-gray-700 dark:text-gray-300">Mathematics, Physics, English, ICT, and all subjects up to class 8 (Bangla & English version).</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Are classes online or in-person?</h3>
+              <p className="text-gray-700 dark:text-gray-300">Both options are available. You can choose what works best for you.</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">How do I book a trial class?</h3>
+              <p className="text-gray-700 dark:text-gray-300">Click the "Book Trial Class" button or contact me directly via email or phone.</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">What is your teaching style?</h3>
+              <p className="text-gray-700 dark:text-gray-300">Personalized, step-by-step, and focused on building strong concepts and confidence.</p>
+            </div>
           </div>
         </div>
       </section>
