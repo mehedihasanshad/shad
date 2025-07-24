@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { RouteContext } from 'next';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import { unlink } from 'fs/promises';
@@ -23,17 +22,14 @@ function getUserFromRequest(req: NextRequest): UserJwt | null {
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  context: RouteContext
-) {
-  const { params } = context;
+export async function DELETE(req: NextRequest) {
+  const idStr = req.nextUrl.pathname.split('/').pop();
+  const id = idStr ? parseInt(idStr) : NaN;
   const user = getUserFromRequest(req);
   if (!user?.isAdmin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const id = parseInt(params.id);
   if (isNaN(id)) {
     return NextResponse.json({ error: 'Invalid resource ID' }, { status: 400 });
   }
