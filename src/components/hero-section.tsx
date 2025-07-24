@@ -5,8 +5,19 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 const roles = ["Logo Designer", "Motion Graphics Expert", "Academic Tutor", "Digital Media Marketer"];
+
+const skills = [
+  { name: "Adobe Photoshop", percent: 95 },
+  { name: "Premiere Pro", percent: 90 },
+  { name: "Canva", percent: 92 },
+  { name: "Adobe Illustrator", percent: 88 },
+  { name: "Cinema 4D", percent: 80 },
+  { name: "Figma", percent: 85 },
+  { name: "Element 3D & Shaper 3D", percent: 75 },
+];
 
 export function HeroSection() {
   const [currentRole, setCurrentRole] = useState(roles[0]);
@@ -168,7 +179,42 @@ export function HeroSection() {
             </div>
           </div>
         </div>
+        {/* Animated Skills Section */}
+        <div className="mt-12 w-full max-w-2xl mx-auto">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">My Creative & Technical Skills</h3>
+          <div className="space-y-4">
+            {skills.map((skill, i) => (
+              <AnimatedSkillBar key={skill.name} skill={skill} delay={i * 0.2} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
+  );
+}
+
+// AnimatedSkillBar component
+import { useEffect, useState } from "react";
+function AnimatedSkillBar({ skill, delay }: { skill: { name: string; percent: number }; delay: number }) {
+  const [inViewRef, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (inView) {
+      setTimeout(() => setWidth(skill.percent), delay * 1000);
+    }
+  }, [inView, skill.percent, delay]);
+  return (
+    <div ref={inViewRef} className="w-full">
+      <div className="flex justify-between items-center mb-1">
+        <span className="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-200">{skill.name}</span>
+        <span className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-300">{width}%</span>
+      </div>
+      <div className="w-full h-3 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+        <div
+          className="h-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-green-400 dark:from-blue-400 dark:via-cyan-500 dark:to-green-500 transition-all duration-700"
+          style={{ width: `${width}%`, minWidth: width > 0 ? 8 : 0 }}
+        ></div>
+      </div>
+    </div>
   );
 }
