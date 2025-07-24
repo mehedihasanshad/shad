@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const user = getUserFromRequest(req);
   const setting = await prisma.globalSetting.findUnique({ where: { key: 'public_uploading' } });
   const publicUploading = setting?.value === 'on';
-  const { type, url, filename, public: isPublic, active: isActive } = body;
+  const { type, url, filename, title, description, public: isPublic, active: isActive } = body;
   if (type !== 'file' && type !== 'link') {
     return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
   }
@@ -64,6 +64,8 @@ export async function POST(req: NextRequest) {
       type,
       url,
       filename,
+      title: title || null,
+      description: description || null,
       public: _isPublic,
       active: _isActive,
       uploadedById,
