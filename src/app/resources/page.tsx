@@ -38,10 +38,19 @@ function getFileIcon(filename?: string) {
 }
 
 export default function ResourcesPage() {
-  const [resources, setResources] = useState<ResourceWithUser[]>([]);
+  const [resources, setResources] = useState<ResourceWithUploader[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState('all');
+  
+  // Upload states
+  const [uploadType, setUploadType] = useState<'file' | 'link'>('link');
+  const [file, setFile] = useState<File | null>(null);
+  const [link, setLink] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
+  const [showUploadForm, setShowUploadForm] = useState(false);
 
   useEffect(() => {
     fetch("/api/resources")
