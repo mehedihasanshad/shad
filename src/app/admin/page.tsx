@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import type { Resource } from "@prisma/client";
 
 export default function AdminPage() {
   const [username, setUsername] = useState("");
@@ -12,7 +13,7 @@ export default function AdminPage() {
   const [link, setLink] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
-  const [resources, setResources] = useState<any[]>([]);
+  const [resources, setResources] = useState<Resource[]>([]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();

@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import type { Resource } from "@prisma/client";
 
 export default function ResourcesPage() {
-  const [resources, setResources] = useState<any[]>([]);
+  const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

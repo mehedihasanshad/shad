@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import type { JwtPayload } from 'jsonwebtoken';
+import type { Resource } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
 
-function getUserFromRequest(req: NextRequest) {
+function getUserFromRequest(req: NextRequest): JwtPayload | null {
   const auth = req.headers.get('authorization');
   if (!auth) return null;
   const token = auth.replace('Bearer ', '');
