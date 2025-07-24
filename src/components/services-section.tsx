@@ -62,16 +62,16 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-gray-50" id="services">
+    <section className="py-16 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             What I Do{" "}
-            <span className="bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 to-gray-900 dark:from-red-400 dark:to-gray-100 bg-clip-text text-transparent">
               Best
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Combining creative design expertise with educational excellence to
             deliver outstanding results
           </p>
@@ -83,7 +83,7 @@ export function ServicesSection() {
             return (
               <Card
                 key={index}
-                className="group hover:shadow-xl transition-all duration-500 border border-gray-100 hover:scale-105"
+                className="group hover:shadow-xl transition-all duration-500 border border-gray-100 dark:border-gray-700 hover:scale-105 dark:bg-gray-800"
               >
                 <CardHeader>
                   <div
@@ -91,10 +91,10 @@ export function ServicesSection() {
                   >
                     <Icon className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-600 leading-relaxed">
+                  <CardDescription className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
@@ -103,9 +103,9 @@ export function ServicesSection() {
                     {service.features.map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
-                        className="flex items-center text-gray-600"
+                        className="flex items-center text-gray-600 dark:text-gray-300"
                       >
-                        <Check className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-green-500 dark:text-green-400 mr-3 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
