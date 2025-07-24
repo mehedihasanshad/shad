@@ -646,7 +646,7 @@ export default function Tuition() {
               <CardContent className="p-6">
                 <div className="mb-6">
                   <p className="text-gray-700 dark:text-gray-300 italic leading-relaxed">
-                    &quot;Shad sir's classes made math fun and easy! I never thought I could enjoy calculus until now.&quot;
+                    &quot;Shad sir&apos;s classes made math fun and easy! I never thought I could enjoy calculus until now.&quot;
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
@@ -683,7 +683,7 @@ export default function Tuition() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">How do I book a trial class?</h3>
-              <p className="text-gray-700 dark:text-gray-300">Click the "Book Trial Class" button or contact me directly via email or phone.</p>
+              <p className="text-gray-700 dark:text-gray-300">Click the &quot;Book Trial Class&quot; button or contact me directly via email or phone.</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">What is your teaching style?</h3>
