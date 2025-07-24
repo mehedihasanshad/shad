@@ -462,24 +462,40 @@ export default function ResourcesPage() {
                         {r.type === 'file' ? 'File' : 'Link'}
                       </span>
                       
-                      {r.type === 'file' ? (
-                        <a 
-                          href={safeHref(r.url)} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm sm:text-base"
-                        >
-                          {typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : (typeof r.url === 'string' ? r.url : '')}
-                        </a>
-                      ) : (
-                        <a 
-                          href={safeHref(r.url)} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm sm:text-base"
-                        >
-                          {typeof r.url === 'string' ? r.url : ''}
-                        </a>
+                      {/* Display title if available, otherwise filename/url */}
+                      <div className="mb-2">
+                        {r.title ? (
+                          <h4 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base mb-1">
+                            {r.title}
+                          </h4>
+                        ) : null}
+                        
+                        {r.type === 'file' ? (
+                          <a 
+                            href={safeHref(r.url)} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm"
+                          >
+                            {typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : (typeof r.url === 'string' ? r.url : '')}
+                          </a>
+                        ) : (
+                          <a 
+                            href={safeHref(r.url)} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm"
+                          >
+                            {typeof r.url === 'string' ? r.url : ''}
+                          </a>
+                        )}
+                      </div>
+                      
+                      {/* Display description if available */}
+                      {r.description && (
+                        <p className="text-xs text-gray-600 dark:text-gray-400 text-center px-2">
+                          {r.description}
+                        </p>
                       )}
                     </div>
                     
