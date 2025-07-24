@@ -310,6 +310,36 @@ export default function ResourcesPage() {
                     </fieldset>
                   </div>
 
+                  {/* Title and Description Fields */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="title-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Title (optional)
+                      </label>
+                      <input
+                        id="title-input"
+                        type="text"
+                        placeholder="Enter a title for your resource"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                        className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="description-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Description (optional)
+                      </label>
+                      <input
+                        id="description-input"
+                        type="text"
+                        placeholder="Brief description"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      />
+                    </div>
+                  </div>
+
                   {/* Upload Input */}
                   <div>
                     {uploadType === 'file' ? (
