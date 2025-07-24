@@ -86,32 +86,32 @@ export function HeroSection() {
                 <div className="flex flex-wrap justify-center lg:justify-start gap-3 max-w-md">
                   <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Facebook">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1877F2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-sm sm:text-base">f</span>
+                      <Image src="/social/facebook.svg" alt="Facebook" width={32} height={32} className="w-8 h-8" />
                     </div>
                   </a>
                   <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Instagram">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-sm sm:text-base">ig</span>
+                      <Image src="/social/instagram.svg" alt="Instagram" width={32} height={32} className="w-8 h-8" />
                     </div>
                   </a>
                   <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group" aria-label="LinkedIn">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0A66C2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-sm sm:text-base">in</span>
+                      <Image src="/social/linkedin.svg" alt="LinkedIn" width={32} height={32} className="w-8 h-8" />
                     </div>
                   </a>
                   <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group" aria-label="Behance">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1769FF] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-sm sm:text-base">Be</span>
+                      <Image src="/social/behance.svg" alt="Behance" width={32} height={32} className="w-8 h-8" />
                     </div>
                   </a>
                   <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group" aria-label="YouTube">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FF0000] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-sm sm:text-base">YT</span>
+                      <Image src="/social/youtube.svg" alt="YouTube" width={32} height={32} className="w-8 h-8" />
                     </div>
                   </a>
                   <a href="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" rel="noopener noreferrer" className="group" aria-label="Personal Website">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#4285F4] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <span className="text-white font-bold text-sm sm:text-base">Web</span>
+                      <Image src="/social/google.svg" alt="Personal Website" width={32} height={32} className="w-8 h-8" />
                     </div>
                   </a>
                 </div>
@@ -121,60 +121,51 @@ export function HeroSection() {
 
           {/* Hero Visual */}
           <div className="relative mt-8 lg:mt-0">
-            <div className="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              {/* 3D Box Container */}
-              <div className="relative w-full h-full rounded-3xl shadow-2xl bg-gradient-to-br from-red-500 to-gray-500 p-1">
-                <div className="w-full h-full rounded-3xl bg-white" />
-              </div>
+            <div className="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 via-red-400 to-pink-500 z-0" />
+              <Image
+                src="/shadphoto.jpg"
+                alt="Mehedi Hasan Shad portrait"
+                fill
+                className="relative z-10 object-cover object-top rounded-3xl shadow-2xl"
+                priority
+              />
+            </div>
 
-              {/* Photo Container - Head overflowing out of the box */}
-              <div className="absolute inset-0 overflow-visible">
-                <div className="w-full h-[120%] relative transform -translate-y-16">
-                  <Image
-                    src="/shadphoto.jpg"
-                    alt="Mehedi Hasan Shad portrait"
-                    fill
-                    className="object-cover object-top rounded-3xl shadow-2xl"
-                    priority
-                  />
+            {/* Floating Skill Badges */}
+            <div className="absolute -top-4 sm:-top-8 -left-4 sm:-left-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10">
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">L</span>
                 </div>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Logo Design</span>
               </div>
+            </div>
 
-              {/* Floating Skill Badges */}
-              <div className="absolute -top-4 sm:-top-8 -left-4 sm:-left-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10">
-                <div className="flex items-center space-x-1 sm:space-x-2">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">L</span>
-                  </div>
-                  <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Logo Design</span>
+            <div className="absolute -top-4 sm:-top-8 -right-4 sm:-right-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10" style={{ animationDelay: "1s" }}>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">M</span>
                 </div>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Motion Graphics</span>
               </div>
+            </div>
 
-              <div className="absolute -top-4 sm:-top-8 -right-4 sm:-right-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10" style={{ animationDelay: "1s" }}>
-                <div className="flex items-center space-x-1 sm:space-x-2">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">M</span>
-                  </div>
-                  <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Motion Graphics</span>
+            <div className="absolute -bottom-2 sm:-bottom-4 -left-4 sm:-left-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10" style={{ animationDelay: "2s" }}>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">T</span>
                 </div>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Tutoring</span>
               </div>
+            </div>
 
-              <div className="absolute -bottom-2 sm:-bottom-4 -left-4 sm:-left-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10" style={{ animationDelay: "2s" }}>
-                <div className="flex items-center space-x-1 sm:space-x-2">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">T</span>
-                  </div>
-                  <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Tutoring</span>
+            <div className="absolute -bottom-2 sm:-bottom-4 -right-4 sm:-right-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10" style={{ animationDelay: "3s" }}>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">D</span>
                 </div>
-              </div>
-
-              <div className="absolute -bottom-2 sm:-bottom-4 -right-4 sm:-right-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-2 sm:p-4 animate-bounce z-10" style={{ animationDelay: "3s" }}>
-                <div className="flex items-center space-x-1 sm:space-x-2">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">D</span>
-                  </div>
-                  <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Digital Marketing</span>
-                </div>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Digital Marketing</span>
               </div>
             </div>
           </div>
