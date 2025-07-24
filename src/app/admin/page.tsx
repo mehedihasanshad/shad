@@ -20,6 +20,21 @@ export default function AdminPage() {
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
   const [resources, setResources] = useState<ResourceWithUploader[]>([]);
 
+  // On mount, check for JWT in localStorage
+  useEffect(() => {
+    const storedJwt = typeof window !== 'undefined' ? localStorage.getItem('admin_jwt') : null;
+    if (storedJwt) setJwt(storedJwt);
+  }, []);
+
+  // When JWT changes, store/remove in localStorage
+  useEffect(() => {
+    if (jwt) {
+      localStorage.setItem('admin_jwt', jwt);
+    } else {
+      localStorage.removeItem('admin_jwt');
+    }
+  }, [jwt]);
+
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
