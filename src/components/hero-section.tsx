@@ -194,7 +194,6 @@ export function HeroSection() {
 }
 
 // AnimatedSkillBar component
-import { useEffect, useState } from "react";
 function AnimatedSkillBar({ skill, delay }: { skill: { name: string; percent: number }; delay: number }) {
   const [inViewRef, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [width, setWidth] = useState(0);
