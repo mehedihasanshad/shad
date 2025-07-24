@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 import type { Resource } from "@prisma/client";
 
+interface ResourceWithUploader extends Resource {
+  uploadedBy?: { username: string } | null;
+}
+
 export default function AdminPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +17,8 @@ export default function AdminPage() {
   const [link, setLink] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
-  const [resources, setResources] = useState<Resource[]>([]);
+  const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
+  const [resources, setResources] = useState<ResourceWithUploader[]>([]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -33,6 +38,32 @@ export default function AdminPage() {
     } else {
       setError(data.error || "Login failed");
     }
+  }
+
+  // Fetch global settings after login
+  useEffect(() => {
+    if (jwt) fetchSettings();
+    // eslint-disable-next-line
+  }, [jwt]);
+
+  async function fetchSettings() {
+    const res = await fetch("/api/resources", {
+      method: "OPTIONS",
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    const data = await res.json();
+    const setting = (data.settings || []).find((s: any) => s.key === "public_uploading");
+    setPublicUploading(setting?.value === "on");
+  }
+
+  async function togglePublicUploading() {
+    const newValue = publicUploading ? "off" : "on";
+    await fetch("/api/resources", {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ key: "public_uploading", value: newValue }),
+    });
+    setPublicUploading(!publicUploading);
   }
 
   // Fetch resources after login
@@ -131,36 +162,50 @@ export default function AdminPage() {
       <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded shadow p-6">
         <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Admin Dashboard</h2>
         <button onClick={() => setJwt(null)} className="mb-4 text-red-600 underline">Logout</button>
-        <div className="mb-6">
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Upload File or Link</h3>
-          <form onSubmit={handleUpload} className="flex flex-col gap-2 mb-2">
-            <div className="flex gap-4 mb-2">
-              <label>
-                <input type="radio" checked={uploadType === 'file'} onChange={() => setUploadType('file')} /> File
-              </label>
-              <label>
-                <input type="radio" checked={uploadType === 'link'} onChange={() => setUploadType('link')} /> Link
-              </label>
-            </div>
-            {uploadType === 'file' ? (
-              <input type="file" onChange={e => setFile(e.target.files?.[0] || null)} className="bg-gray-100 dark:bg-gray-700 rounded p-2" />
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-700 dark:text-gray-300">Public Uploading:</span>
+            {publicUploading === null ? (
+              <span className="text-xs text-gray-500">Loading...</span>
             ) : (
-              <input type="url" placeholder="https://..." value={link} onChange={e => setLink(e.target.value)} className="bg-gray-100 dark:bg-gray-700 rounded p-2" />
+              <button
+                onClick={togglePublicUploading}
+                className={`px-3 py-1 rounded text-xs font-semibold ${publicUploading ? 'bg-green-600 text-white' : 'bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}`}
+              >
+                {publicUploading ? 'ON' : 'OFF'}
+              </button>
             )}
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition" disabled={uploading}>
-              {uploading ? "Uploading..." : "Upload"}
-            </button>
-            {uploadMsg && <div className="text-center text-green-600 dark:text-green-400">{uploadMsg}</div>}
-          </form>
+          </div>
         </div>
+        <form onSubmit={handleUpload} className="flex flex-col gap-2 mb-2">
+          <div className="flex gap-4 mb-2">
+            <label>
+              <input type="radio" checked={uploadType === 'file'} onChange={() => setUploadType('file')} /> File
+            </label>
+            <label>
+              <input type="radio" checked={uploadType === 'link'} onChange={() => setUploadType('link')} /> Link
+            </label>
+          </div>
+          {uploadType === 'file' ? (
+            <input type="file" onChange={e => setFile(e.target.files?.[0] || null)} className="bg-gray-100 dark:bg-gray-700 rounded p-2" />
+          ) : (
+            <input type="url" placeholder="https://..." value={link} onChange={e => setLink(e.target.value)} className="bg-gray-100 dark:bg-gray-700 rounded p-2" />
+          )}
+          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition" disabled={uploading}>
+            {uploading ? "Uploading..." : uploadType === 'file' ? 'Upload File' : 'Upload Link'}
+          </button>
+          {uploadMsg && <div className="text-center text-green-600 dark:text-green-400">{uploadMsg}</div>}
+        </form>
         <div>
-          <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Your Resources</h3>
+          <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">All Resources</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-gray-100 dark:bg-gray-700">
                   <th className="p-2">Type</th>
                   <th className="p-2">Name/URL</th>
+                  <th className="p-2">Uploader</th>
                   <th className="p-2">Active</th>
                   <th className="p-2">Public</th>
                   <th className="p-2">Created</th>
@@ -176,6 +221,11 @@ export default function AdminPage() {
                       ) : (
                         <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{r.url}</a>
                       )}
+                    </td>
+                    <td className="p-2 text-xs text-gray-700 dark:text-gray-300">
+                      {r.uploaderType === 'admin'
+                        ? (r.uploadedBy?.username || 'Admin')
+                        : 'General Public'}
                     </td>
                     <td className="p-2 text-center">
                       <input type="checkbox" checked={r.active} onChange={e => toggleResource(r.id, 'active', e.target.checked)} />
