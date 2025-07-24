@@ -91,6 +91,46 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* CV Section */}
+      <section className="py-8 md:py-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">My CV</h2>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6">Download or view my latest CV (PDF format).</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+            <a
+              href="https://drive.google.com/uc?export=download&id=1ezj8Wux5PLUXak2bJTDhiHkzfNGwRrae"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
+                Download CV
+              </Button>
+            </a>
+            <a
+              href="https://drive.google.com/file/d/1ezj8Wux5PLUXak2bJTDhiHkzfNGwRrae/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button size="lg" variant="outline" className="dark:border-gray-600 dark:text-gray-300">
+                View in Google Drive
+              </Button>
+            </a>
+          </div>
+          <div className="w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" style={{ minHeight: 400 }}>
+            <iframe
+              src="https://drive.google.com/file/d/1ezj8Wux5PLUXak2bJTDhiHkzfNGwRrae/preview"
+              width="100%"
+              height="400"
+              allow="autoplay"
+              className="w-full h-[400px] border-0"
+              title="Mehedi Hasan Shad CV"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       {/* Education & Achievements Section */}
       <section className="py-12 md:py-16 bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
