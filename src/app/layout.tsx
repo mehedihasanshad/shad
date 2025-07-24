@@ -19,6 +19,29 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Mehedi Hasan Shad - Designer & Educator",
   description: "Creating exceptional visual experiences through logo design and motion graphics, while empowering students through personalized education.",
+  openGraph: {
+    title: "Mehedi Hasan Shad - Designer & Educator",
+    description: "Creating exceptional visual experiences through logo design and motion graphics, while empowering students through personalized education.",
+    url: "https://mhsshad.com/",
+    siteName: "Mehedi Hasan Shad",
+    images: [
+      {
+        url: "/shadphoto.jpg",
+        width: 800,
+        height: 600,
+        alt: "Mehedi Hasan Shad portrait",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mehedi Hasan Shad - Designer & Educator",
+    description: "Creating exceptional visual experiences through logo design and motion graphics, while empowering students through personalized education.",
+    images: ["/shadphoto.jpg"],
+    creator: "@mhsshad",
+  },
 };
 
 export default function RootLayout({
