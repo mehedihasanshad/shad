@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const projects = [
   {
@@ -86,6 +87,53 @@ export default function Portfolio() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education & Achievements Section */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Education & Achievements
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {/* SSC */}
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md p-6 flex flex-col items-center text-center">
+              <Image src="/Education/Akij.png" alt="Akij Ideal School & College" width={80} height={80} className="mb-4 rounded-full object-contain" />
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">SSC</h3>
+              <p className="text-sm text-blue-700 dark:text-blue-200 font-semibold mb-2">Akij Ideal School & College</p>
+              <p className="text-gray-600 dark:text-gray-300 text-xs mb-4">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</p>
+              <Link href="/tuition" className="w-full" passHref legacyBehavior>
+                <Button size="sm" variant="outline" className="w-full dark:border-gray-700" asChild>
+                  <span>See Tuition</span>
+                </Button>
+              </Link>
+            </div>
+            {/* HSC */}
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md p-6 flex flex-col items-center text-center">
+              <Image src="/Education/ADAMJEE.png" alt="Adamjee Cantonment College" width={80} height={80} className="mb-4 rounded-full object-contain" />
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">HSC</h3>
+              <p className="text-sm text-blue-700 dark:text-blue-200 font-semibold mb-2">Adamjee Cantonment College</p>
+              <p className="text-gray-600 dark:text-gray-300 text-xs mb-4">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</p>
+              <Link href="/portfolio" className="w-full" passHref legacyBehavior>
+                <Button size="sm" variant="outline" className="w-full dark:border-gray-700" asChild>
+                  <span>See Portfolio</span>
+                </Button>
+              </Link>
+            </div>
+            {/* BBA-General */}
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md p-6 flex flex-col items-center text-center sm:col-span-2">
+              <Image src="/Education/bup.png" alt="Bangladesh University of Professionals" width={80} height={80} className="mb-4 rounded-full object-contain" />
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">BBA - General</h3>
+              <p className="text-sm text-blue-700 dark:text-blue-200 font-semibold mb-2">Bangladesh University of Professionals</p>
+              <p className="text-gray-600 dark:text-gray-300 text-xs mb-4">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</p>
+              <Link href="/contact" className="w-full" passHref legacyBehavior>
+                <Button size="sm" variant="outline" className="w-full dark:border-gray-700" asChild>
+                  <span>Contact Me</span>
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
