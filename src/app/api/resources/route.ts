@@ -34,10 +34,16 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   // Allow admin or public (if enabled) to upload links
+  let body;
+  try {
+    body = await req.json();
+  } catch (e) {
+    return NextResponse.json({ error: 'Invalid or missing JSON body.' }, { status: 400 });
+  }
   const user = getUserFromRequest(req);
   const setting = await prisma.globalSetting.findUnique({ where: { key: 'public_uploading' } });
   const publicUploading = setting?.value === 'on';
-  const { type, url, filename, public: isPublic, active: isActive } = await req.json();
+  const { type, url, filename, public: isPublic, active: isActive } = body;
   if (type !== 'file' && type !== 'link') {
     return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
   }
