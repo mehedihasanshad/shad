@@ -30,9 +30,9 @@ export default function ResourcesPage() {
                 <div>
                   <span className="font-semibold text-blue-700 dark:text-blue-300 mr-2">{r.type === 'file' ? 'File:' : 'Link:'}</span>
                   {r.type === 'file' ? (
-                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename}</a>
+                    <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename || r.url}</a>
                   ) : (
-                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.url}</a>
+                    <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.url}</a>
                   )}
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">{new Date(r.createdAt).toLocaleString()}</div>
