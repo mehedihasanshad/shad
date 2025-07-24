@@ -4,26 +4,34 @@ import type { Resource } from "@prisma/client";
 
 type ResourceWithUser = Resource & { uploadedBy?: { username: string } | null };
 
+const FILE_ICONS: Record<string, string> = {
+  pdf: '📄',
+  doc: '📄',
+  docx: '📄',
+  png: '🖼️',
+  jpg: '🖼️',
+  jpeg: '🖼️',
+  gif: '🖼️',
+  mp4: '🎬',
+  mp3: '🎵',
+  zip: '🗜️',
+  txt: '📝',
+  csv: '📊',
+  xlsx: '📊',
+  pptx: '📊',
+};
+
+function getFileIcon(filename?: string) {
+  if (!filename) return '📁';
+  const ext = filename.split('.').pop()?.toLowerCase() || '';
+  return FILE_ICONS[ext] || '📁';
+}
+
 export default function ResourcesPage() {
   const [resources, setResources] = useState<ResourceWithUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-
-  const FILE_ICONS: Record<string, string> = {
-    pdf: '📄',
-    doc: '📄',
-    docx: '📄',
-    png: '🖼️',
-    jpg: '🖼️',
-    jpeg: '🖼️',
-    mp4: '🎬',
-    zip: '🗜️',
-  };
-  function getFileIcon(filename?: string) {
-    if (!filename) return '📁';
-    const ext = filename.split('.').pop()?.toLowerCase() || '';
-    return FILE_ICONS[ext] || '📁';
-  }
+  const [filterType, setFilterType] = useState('all');
 
   useEffect(() => {
     fetch("/api/resources")
@@ -34,46 +42,138 @@ export default function ResourcesPage() {
       });
   }, []);
 
-  const filteredResources = resources.filter(r =>
-    (r.filename || r.url || '').toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredResources = resources
+    .filter(r => (filterType === 'all' ? true : r.type === filterType))
+    .filter(r => (r.filename || r.url || '').toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
-      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded shadow p-6">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white text-center">Shared Resources</h2>
-        <input
-          type="text"
-          placeholder="Search resources..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="w-full mb-4 p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
-        />
-        {loading ? (
-          <div className="text-center text-gray-500">Loading...</div>
-        ) : filteredResources.length === 0 ? (
-          <div className="text-center text-gray-500">No resources found.</div>
-        ) : (
-          <ul className="space-y-4">
-            {filteredResources.map(r => (
-              <li key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <div>
-                  <span className="mr-2">{r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}</span>
-                  <span className="font-semibold text-blue-700 dark:text-blue-300 mr-2">{r.type === 'file' ? 'File:' : 'Link:'}</span>
-                  {r.type === 'file' ? (
-                    <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename || r.url}</a>
-                  ) : (
-                    <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.url}</a>
-                  )}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
+            <span className="text-2xl text-white">📚</span>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Shared Resources</h1>
+          <p className="text-gray-600 dark:text-gray-400">Discover and access shared files and links</p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Search and Filter */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-400">🔍</span>
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  Uploaded by {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'General Public'}<br />
-                  {new Date(r.createdAt).toLocaleString()}
+                <input
+                  type="text"
+                  placeholder="Search resources..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+              
+              <select 
+                value={filterType} 
+                onChange={e => setFilterType(e.target.value)} 
+                className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="all">All Resources</option>
+                <option value="file">📁 Files Only</option>
+                <option value="link">🔗 Links Only</option>
+              </select>
+            </div>
+            
+            {filteredResources.length > 0 && (
+              <div className="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">
+                Showing {filteredResources.length} of {resources.length} resources
+              </div>
+            )}
+          </div>
+
+          {/* Resources Grid */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+                <p className="text-gray-500 dark:text-gray-400">Loading resources...</p>
+              </div>
+            ) : filteredResources.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">
+                  {search || filterType !== 'all' ? '🔍' : '📭'}
                 </div>
-              </li>
-            ))}
-          </ul>
-        )}
+                <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">
+                  {search || filterType !== 'all' ? 'No resources match your search' : 'No resources available'}
+                </p>
+                <p className="text-gray-400 dark:text-gray-500 text-sm">
+                  {search || filterType !== 'all' ? 'Try adjusting your search terms or filters' : 'Check back later for new resources'}
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredResources.map(r => (
+                  <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200 hover:scale-105">
+                    {/* Resource Icon and Type */}
+                    <div className="flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-4 mx-auto">
+                      <span className="text-2xl">
+                        {r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}
+                      </span>
+                    </div>
+                    
+                    {/* Resource Title */}
+                    <div className="text-center mb-4">
+                      <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full mb-2">
+                        {r.type === 'file' ? 'File' : 'Link'}
+                      </span>
+                      
+                      {r.type === 'file' ? (
+                        <a 
+                          href={r.url || undefined} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words"
+                        >
+                          {r.filename || r.url}
+                        </a>
+                      ) : (
+                        <a 
+                          href={r.url || undefined} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words"
+                        >
+                          {r.url}
+                        </a>
+                      )}
+                    </div>
+                    
+                    {/* Resource Info */}
+                    <div className="text-center text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                      <p>
+                        Shared by {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'General Public'}
+                      </p>
+                      <p>{new Date(r.createdAt).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          {/* Upload Link */}
+          <div className="text-center mt-8">
+            <a 
+              href="/resources/upload" 
+              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+            >
+              <span className="mr-2">📤</span>
+              Share Your Own Resource
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
