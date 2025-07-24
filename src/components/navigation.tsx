@@ -11,6 +11,7 @@ const menuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/tuition", label: "Tuition", icon: BookOpen },
   { href: "/portfolio", label: "Portfolio", icon: FolderOpen },
+  { href: "/tuition#cv", label: "CV", icon: BookOpen },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 

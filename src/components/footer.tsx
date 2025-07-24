@@ -98,6 +98,11 @@ export function Footer() {
         {/* Bottom Footer */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-center items-center text-center gap-4">
           <p className="text-gray-400 text-sm">&copy; 2025 Mehedi Hasan Shad. All rights reserved.</p>
+          <div className="flex flex-col md:flex-row md:items-center gap-2 text-gray-400 text-sm">
+            <span>Email: <a href="mailto:mhsshad143@gmail.com" className="underline">mhsshad143@gmail.com</a></span>
+            <span className="hidden md:inline">|</span>
+            <span>Phone: <a href="tel:+8801522102652" className="underline">+8801522102652</a></span>
+          </div>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
               Privacy Policy

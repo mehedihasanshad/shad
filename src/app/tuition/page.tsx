@@ -125,6 +125,48 @@ export default function Tuition() {
         </div>
       </section>
 
+      {/* Tuition CV Section */}
+      <section className="py-8 md:py-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">My Tuition CV</h2>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6">Download or view my tuition credentials (PDF format).</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+            <a
+              href="https://drive.google.com/uc?export=download&id=1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+              aria-label="Download Tuition CV"
+            >
+              <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
+                Download CV
+              </Button>
+            </a>
+            <a
+              href="https://drive.google.com/file/d/1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+              aria-label="View Tuition CV in Google Drive"
+            >
+              <Button size="lg" variant="outline" className="dark:border-gray-600 dark:text-gray-300">
+                View in Google Drive
+              </Button>
+            </a>
+          </div>
+          <div className="w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" style={{ minHeight: 400 }}>
+            <iframe
+              src="https://drive.google.com/file/d/1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-/preview"
+              width="100%"
+              height="400"
+              allow="autoplay"
+              className="w-full h-[400px] border-0"
+              title="Mehedi Hasan Shad Tuition CV"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       {/* Teaching Philosophy */}
       <section className="py-16 lg:py-24 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
