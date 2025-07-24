@@ -40,6 +40,23 @@ export async function POST(req: NextRequest) {
   if (!file || typeof file === 'string') {
     return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
   }
+  // File type and size validation
+  const allowedTypes = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'image/png',
+    'image/jpeg',
+    'image/jpg',
+    'video/mp4',
+    'application/zip',
+  ];
+  if (!allowedTypes.includes(file.type)) {
+    return NextResponse.json({ error: 'File type not allowed.' }, { status: 400 });
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    return NextResponse.json({ error: 'File too large (max 10MB).' }, { status: 400 });
+  }
   const filename = `${Date.now()}-${file.name}`;
   const uploadDir = path.join(process.cwd(), 'public', 'uploads');
   await mkdir(uploadDir, { recursive: true });
