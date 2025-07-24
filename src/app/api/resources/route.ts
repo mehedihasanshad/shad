@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import type { JwtPayload } from 'jsonwebtoken';
-import type { Resource } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
 
-function getUserFromRequest(req: NextRequest): JwtPayload | null {
+type UserJwt = JwtPayload & { isAdmin?: boolean, userId?: number };
+function getUserFromRequest(req: NextRequest): UserJwt | null {
   const auth = req.headers.get('authorization');
   if (!auth) return null;
   const token = auth.replace('Bearer ', '');
@@ -22,7 +22,7 @@ function getUserFromRequest(req: NextRequest): JwtPayload | null {
 export async function GET(req: NextRequest) {
   // List all resources (admin: all, public: only active+public)
   const user = getUserFromRequest(req);
-  const isAdmin = user && typeof user === 'object' && 'isAdmin' in user ? (user as any).isAdmin : false;
+  const isAdmin = user?.isAdmin ?? false;
   const where = isAdmin ? {} : { active: true, public: true };
   const resources = await prisma.resource.findMany({ where, orderBy: { createdAt: 'desc' } });
   return NextResponse.json({ resources });
