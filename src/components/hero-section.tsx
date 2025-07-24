@@ -73,32 +73,32 @@ export function HeroSection() {
               <div className="text-center lg:text-left">
                 <h3 className="text-lg font-semibold text-foreground mb-6">Connect with me</h3>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-3 max-w-md">
-                  <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Facebook">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1877F2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-sm sm:text-base">f</span>
                     </div>
                   </a>
-                  <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Instagram">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-sm sm:text-base">ig</span>
                     </div>
                   </a>
-                  <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group" aria-label="LinkedIn">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0A66C2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-sm sm:text-base">in</span>
                     </div>
                   </a>
-                  <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group" aria-label="Behance">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1769FF] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-sm sm:text-base">Be</span>
                     </div>
                   </a>
-                  <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group" aria-label="YouTube">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FF0000] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-sm sm:text-base">YT</span>
                     </div>
                   </a>
-                  <a href="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" rel="noopener noreferrer" className="group">
+                  <a href="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" rel="noopener noreferrer" className="group" aria-label="Personal Website">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#4285F4] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       <span className="text-white font-bold text-sm sm:text-base">Web</span>
                     </div>
@@ -121,7 +121,7 @@ export function HeroSection() {
                 <div className="w-full h-[120%] relative transform -translate-y-16">
                   <Image
                     src="/shadphoto.jpg"
-                    alt="Mehedi Hasan Shad"
+                    alt="Mehedi Hasan Shad portrait"
                     fill
                     className="object-cover object-top rounded-3xl shadow-2xl"
                     priority
