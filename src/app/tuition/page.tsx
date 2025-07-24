@@ -86,6 +86,9 @@ export default function Tuition() {
               একাডেমিক এক্সিলেন্স{" "}
               <span className="text-cyan-300">ব্যক্তিগত শিক্ষার মাধ্যমে</span>
             </h1>
+            <p className="text-base sm:text-lg text-cyan-100 mb-4 font-semibold">
+              Founder of SUCCESSORS' University Admissions Program & Ex-Head of Content Development, CampusX
+            </p>
             <p className="text-lg sm:text-xl text-blue-100 mb-8 md:mb-12 leading-relaxed px-4">
               গণিত ও পদার্থবিজ্ঞানে আপনার সম্ভাবনা উন্মোচন করুন বিশেষজ্ঞ
               গাইডেন্স এবং প্রমাণিত শিক্ষা পদ্ধতির মাধ্যমে
