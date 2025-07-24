@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { RouteContext } from 'next';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import { unlink } from 'fs/promises';
@@ -24,8 +25,9 @@ function getUserFromRequest(req: NextRequest): UserJwt | null {
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
+  const { params } = context;
   const user = getUserFromRequest(req);
   if (!user?.isAdmin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
