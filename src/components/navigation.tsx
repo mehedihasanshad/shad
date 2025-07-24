@@ -5,13 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Menu, X, Home, BookOpen, FolderOpen, Mail } from "lucide-react";
+import { Menu, X, Home, BookOpen, FolderOpen, Mail, Shield, FileText } from "lucide-react";
 
 const menuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/tuition", label: "Tuition", icon: BookOpen },
   { href: "/portfolio", label: "Portfolio", icon: FolderOpen },
-  { href: "/tuition#cv", label: "CV", icon: BookOpen },
+  { href: "/resources", label: "Resources", icon: FileText },
+  { href: "/admin", label: "Admin", icon: Shield },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 
