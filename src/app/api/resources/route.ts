@@ -100,9 +100,13 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function OPTIONS(req: NextRequest) {
-  // Get global settings (admin only)
+  // Always return the public_uploading setting for all users
   const user = getUserFromRequest(req);
-  if (!user?.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const settings = await prisma.globalSetting.findMany();
-  return NextResponse.json({ settings });
+  const publicSetting = await prisma.globalSetting.findUnique({ where: { key: 'public_uploading' } });
+  if (user?.isAdmin) {
+    const settings = await prisma.globalSetting.findMany();
+    return NextResponse.json({ settings });
+  } else {
+    return NextResponse.json({ settings: publicSetting ? [publicSetting] : [] });
+  }
 } 
