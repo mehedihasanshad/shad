@@ -35,24 +35,24 @@ export default function Portfolio() {
   return (
     <div className="pt-16 lg:pt-20">
       {/* Hero Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            My <span className="bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">Portfolio</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
+            My <span className="bg-gradient-to-r from-red-500 to-gray-900 dark:from-red-400 dark:to-gray-100 bg-clip-text text-transparent">Portfolio</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
             Explore my creative journey through logo design, motion graphics, and educational content creation.
           </p>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-500 overflow-hidden">
-                <div className="relative h-48 overflow-hidden">
+              <Card key={index} className="group hover:shadow-xl transition-all duration-500 overflow-hidden dark:bg-gray-800 dark:border-gray-700">
+                <div className="relative h-40 sm:h-48 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -60,13 +60,13 @@ export default function Portfolio() {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900">{project.title}</CardTitle>
-                  <CardDescription className="text-gray-600">
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{project.title}</CardTitle>
+                  <CardDescription className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
                     {project.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, tagIndex) => (
                       <Badge key={tagIndex} variant="secondary" className="text-xs">
@@ -75,12 +75,12 @@ export default function Portfolio() {
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white flex-1">
-                      <ExternalLink className="w-4 h-4 mr-2" />
+                    <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white flex-1 text-xs sm:text-sm">
+                      <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                       View Project
                     </Button>
-                    <Button size="sm" variant="outline">
-                      <Github className="w-4 h-4" />
+                    <Button size="sm" variant="outline" className="dark:border-gray-600 dark:text-gray-300">
+                      <Github className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                   </div>
                 </CardContent>
@@ -91,12 +91,12 @@ export default function Portfolio() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+      <section className="py-12 md:py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 px-4">
             Like What You See?
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8 px-4">
             Let&apos;s work together to bring your vision to life with exceptional design and creativity.
           </p>
           <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">

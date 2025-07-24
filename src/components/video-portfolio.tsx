@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Play, ExternalLink } from "lucide-react";
@@ -10,40 +16,49 @@ import { Play, ExternalLink } from "lucide-react";
 const videos = [
   {
     id: "fYTbbgbOXgs",
-    title: "TRI VUBONER PRIO MUHAMMAD (PBUH) | SLIDESHOW ISLAMIC NASHEED PROJECT",
-    description: "A beautiful Islamic nasheed slideshow project showcasing motion graphics and video editing skills.",
+    title:
+      "TRI VUBONER PRIO MUHAMMAD (PBUH) | SLIDESHOW ISLAMIC NASHEED PROJECT",
+    description:
+      "A beautiful Islamic nasheed slideshow project showcasing motion graphics and video editing skills.",
     thumbnail: `https://img.youtube.com/vi/fYTbbgbOXgs/maxresdefault.jpg`,
     tags: ["Motion Graphics", "Video Editing", "Islamic Content"],
-    embedUrl: "https://www.youtube.com/embed/fYTbbgbOXgs?si=PSgdfa7S6Chn2NRd&autoplay=1",
-    category: "Motion Graphics"
+    embedUrl:
+      "https://www.youtube.com/embed/fYTbbgbOXgs?si=PSgdfa7S6Chn2NRd&autoplay=1",
+    category: "Motion Graphics",
   },
   {
     id: "Nr3XIPYr9M4",
     title: "Professional Logo Animation",
-    description: "Dynamic logo animation showcasing brand identity and motion design expertise.",
+    description:
+      "Dynamic logo animation showcasing brand identity and motion design expertise.",
     thumbnail: `https://img.youtube.com/vi/Nr3XIPYr9M4/maxresdefault.jpg`,
     tags: ["Logo Animation", "Brand Identity", "After Effects"],
-    embedUrl: "https://www.youtube.com/embed/Nr3XIPYr9M4?si=K9TrUEgLRzfDhnAo&autoplay=1",
-    category: "Logo Animation"
+    embedUrl:
+      "https://www.youtube.com/embed/Nr3XIPYr9M4?si=K9TrUEgLRzfDhnAo&autoplay=1",
+    category: "Logo Animation",
   },
   {
     id: "--anKmEqy0k",
     title: "Color Correction & Grading",
-    description: "Professional color correction and grading techniques for cinematic video production.",
+    description:
+      "Professional color correction and grading techniques for cinematic video production.",
     thumbnail: `https://img.youtube.com/vi/--anKmEqy0k/maxresdefault.jpg`,
     tags: ["Color Correction", "Video Editing", "Cinematic"],
-    embedUrl: "https://www.youtube.com/embed/--anKmEqy0k?si=i916jceBXJ8p8HRP&autoplay=1",
-    category: "Color Correction"
+    embedUrl:
+      "https://www.youtube.com/embed/--anKmEqy0k?si=i916jceBXJ8p8HRP&autoplay=1",
+    category: "Color Correction",
   },
   {
     id: "gxtWRHMeVRs",
     title: "Advanced Video Editing",
-    description: "Showcase of advanced video editing techniques and creative storytelling.",
+    description:
+      "Showcase of advanced video editing techniques and creative storytelling.",
     thumbnail: `https://img.youtube.com/vi/gxtWRHMeVRs/maxresdefault.jpg`,
     tags: ["Video Editing", "Storytelling", "Creative"],
-    embedUrl: "https://www.youtube.com/embed/gxtWRHMeVRs?si=vLJBUrb86foufJGG&autoplay=1",
-    category: "Video Editing"
-  }
+    embedUrl:
+      "https://www.youtube.com/embed/gxtWRHMeVRs?si=vLJBUrb86foufJGG&autoplay=1",
+    category: "Video Editing",
+  },
 ];
 
 export function VideoPortfolio() {
@@ -61,19 +76,23 @@ export function VideoPortfolio() {
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Video <span className="bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">Portfolio</span>
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 px-4">
+            Video{" "}
+            <span className="bg-gradient-to-r from-red-500 to-gray-900 dark:from-red-400 dark:to-gray-100 bg-clip-text text-transparent">
+              Portfolio
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore my creative video projects showcasing motion graphics, logo animations, and professional video editing.
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
+            Explore my creative video projects showcasing motion graphics, logo
+            animations, and professional video editing.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {videos.map((video) => (
-            <Card 
-              key={video.id} 
+            <Card
+              key={video.id}
               className="group hover:shadow-xl transition-all duration-500 overflow-hidden cursor-pointer"
               onMouseEnter={() => setHoveredVideo(video.id)}
               onMouseLeave={() => setHoveredVideo(null)}
@@ -103,7 +122,7 @@ export function VideoPortfolio() {
                       alt={video.title}
                       fill
                       className={`object-cover transition-transform duration-500 ${
-                        hoveredVideo === video.id ? 'scale-110' : 'scale-100'
+                        hoveredVideo === video.id ? "scale-110" : "scale-100"
                       }`}
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
@@ -123,7 +142,7 @@ export function VideoPortfolio() {
                   </>
                 )}
               </div>
-              
+
               <CardHeader>
                 <CardTitle className="text-xl font-bold text-gray-900 line-clamp-2">
                   {video.title}
@@ -132,28 +151,37 @@ export function VideoPortfolio() {
                   {video.description}
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {video.tags.map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="secondary" className="text-xs">
+                    <Badge
+                      key={tagIndex}
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {tag}
                     </Badge>
                   ))}
                 </div>
                 <div className="flex gap-2">
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     className="bg-red-600 hover:bg-red-700 text-white flex-1"
                     onClick={() => handleVideoPlay(video.id)}
                   >
                     <Play className="w-4 h-4 mr-2" />
                     Watch Video
                   </Button>
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     variant="outline"
-                    onClick={() => window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank')}
+                    onClick={() =>
+                      window.open(
+                        `https://www.youtube.com/watch?v=${video.id}`,
+                        "_blank"
+                      )
+                    }
                   >
                     <ExternalLink className="w-4 h-4" />
                   </Button>
