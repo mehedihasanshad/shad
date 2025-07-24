@@ -41,3 +41,4 @@ yarn-error.log*
 next-env.d.ts
 # Vue backup (exclude from Next.js build)
 /vue-backup
+/src/generated/prisma
