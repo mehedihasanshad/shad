@@ -273,108 +273,8 @@ export default function Tuition() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-12 md:py-16 lg:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 px-4">
-              Tutoring Packages
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 px-4">
-              Flexible options to suit your learning needs and budget
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <Card className="border-2 border-gray-200 dark:border-gray-700 hover:border-red-500 dark:hover:border-red-400 transition-colors duration-300 dark:bg-gray-800">
-              <CardHeader className="text-center">
-                <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-                  Individual Sessions
-                </CardTitle>
-                <div className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-400 mt-4">
-                  $30
-                  <span className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
-                    /hour
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    One-on-one personalized attention
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Flexible scheduling
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Customized learning materials
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Progress tracking
-                  </li>
-                </ul>
-                <Button className="w-full mt-6 bg-red-600 hover:bg-red-700 text-white">
-                  Book Single Session
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-red-500 dark:border-red-400 relative dark:bg-gray-800">
-              <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-red-600 text-white">
-                Most Popular
-              </Badge>
-              <CardHeader className="text-center">
-                <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-                  Monthly Package
-                </CardTitle>
-                <div className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-400 mt-4">
-                  $100
-                  <span className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
-                    /month
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  4 sessions included
-                </p>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />4 one-hour
-                    sessions per month
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Priority scheduling
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Homework help via email
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Monthly progress reports
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="w-5 h-5 text-green-500 mr-3" />
-                    Save $20 per month
-                  </li>
-                </ul>
-                <Button className="w-full mt-6 bg-red-600 hover:bg-red-700 text-white">
-                  Choose Monthly Plan
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Class Options */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900">
+      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -702,7 +602,7 @@ export default function Tuition() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-400 to-cyan-300 text-white">
+      <section className="py-16 bg-gradient-to-br from-blue-400 to-cyan-300 text-blue-900 dark:text-blue-100">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
             আপনার পড়াশোনায় এক্সিলেন্স অর্জনের জন্য প্রস্তুত?
@@ -714,14 +614,14 @@ export default function Tuition() {
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-50 font-semibold shadow-lg"
+              className="bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-gray-700 font-semibold shadow-lg"
             >
               বিনামূল্যে ট্রায়াল ক্লাস বুক করুন
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold"
+              className="border-2 border-blue-200 dark:border-gray-700 text-blue-700 dark:text-blue-200 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-800 dark:hover:text-blue-100 font-semibold"
             >
               সময়সূচী দেখুন
             </Button>

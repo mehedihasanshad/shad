@@ -15,13 +15,13 @@ export function CTASection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/contact">
-            <Button size="lg" className="bg-white text-red-600 hover:bg-gray-50 font-semibold shadow-lg hover:scale-105 transition-all duration-300">
+            <Button size="lg" className="bg-red-100 dark:bg-gray-800 text-red-700 dark:text-red-200 hover:bg-red-200 dark:hover:bg-gray-700 font-semibold shadow-lg hover:scale-105 transition-all duration-300">
               <MessageCircle className="w-5 h-5 mr-2" />
               Send Message
             </Button>
           </Link>
           <Link href="/tuition">
-            <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white hover:text-red-600 font-semibold transition-all duration-300">
+            <Button variant="outline" size="lg" className="border-2 border-red-200 dark:border-gray-700 text-red-700 dark:text-red-200 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-red-800 dark:hover:text-red-100 font-semibold transition-all duration-300">
               <BookOpen className="w-5 h-5 mr-2" />
               Learn About Tutoring
             </Button>
