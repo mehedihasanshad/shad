@@ -302,34 +302,34 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {showToast && (
-        <div className={`fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ${
+        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg transform transition-all duration-300 max-w-sm ${
           showToast.type === 'success' 
             ? 'bg-green-600 text-white' 
             : 'bg-red-600 text-white'
         }`}>
           <div className="flex items-center">
-            <span className="mr-2">{showToast.type === 'success' ? '✅' : '❌'}</span>
-            {showToast.msg}
+            <span className="mr-2 text-lg">{showToast.type === 'success' ? '✅' : '❌'}</span>
+            <span className="text-sm">{showToast.msg}</span>
           </div>
         </div>
       )}
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl">
         {/* Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center mb-4 sm:mb-0">
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
-                <span className="text-xl text-white">⚡</span>
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-3 sm:mr-4">
+                <span className="text-lg sm:text-xl text-white">⚡</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
-                <p className="text-gray-600 dark:text-gray-400">Manage resources and settings</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Manage resources and settings</p>
               </div>
             </div>
             <button 
               onClick={() => setJwt(null)} 
-              className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+              className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm sm:text-base"
             >
               <span className="mr-2">🚪</span>
               Logout
@@ -337,24 +337,24 @@ export default function AdminPage() {
           </div>
         </div>
         {/* Upload Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          <div className="xl:col-span-2">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <span className="mr-2">📤</span>
                 Upload Resource
               </h3>
               
               <form onSubmit={handleUpload} className="space-y-4">
-                <div className="flex gap-4">
-                  <label className="flex items-center cursor-pointer">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                  <label className="flex items-center cursor-pointer flex-1">
                     <input 
                       type="radio" 
                       checked={uploadType === 'file'} 
                       onChange={() => setUploadType('file')}
                       className="sr-only"
                     />
-                    <div className={`flex items-center px-4 py-2 rounded-lg border-2 transition-colors ${
+                    <div className={`flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg border-2 transition-colors w-full text-sm sm:text-base ${
                       uploadType === 'file' 
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
@@ -363,14 +363,14 @@ export default function AdminPage() {
                       File Upload
                     </div>
                   </label>
-                  <label className="flex items-center cursor-pointer">
+                  <label className="flex items-center cursor-pointer flex-1">
                     <input 
                       type="radio" 
                       checked={uploadType === 'link'} 
                       onChange={() => setUploadType('link')}
                       className="sr-only"
                     />
-                    <div className={`flex items-center px-4 py-2 rounded-lg border-2 transition-colors ${
+                    <div className={`flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg border-2 transition-colors w-full text-sm sm:text-base ${
                       uploadType === 'link' 
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
                         : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
@@ -386,7 +386,7 @@ export default function AdminPage() {
                     <input 
                       type="file" 
                       onChange={e => setFile(e.target.files?.[0] || null)} 
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       Supported: PDF, DOC, DOCX, PNG, JPG, MP4, ZIP (max 10MB)
@@ -398,18 +398,18 @@ export default function AdminPage() {
                     placeholder="https://example.com/resource" 
                     value={link} 
                     onChange={e => setLink(e.target.value)} 
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                   />
                 )}
                 
                 <button 
                   type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 sm:py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-sm sm:text-base"
                   disabled={uploading}
                 >
                   {uploading ? (
                     <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <svg className="animate-spin -ml-1 mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
@@ -437,8 +437,8 @@ export default function AdminPage() {
           </div>
           
           {/* Settings Panel */}
-          <div className="space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <span className="mr-2">⚙️</span>
                 Settings
@@ -446,9 +446,9 @@ export default function AdminPage() {
               
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Public Uploading</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Allow public users to upload</p>
+                  <div className="flex-1 min-w-0 mr-4">
+                    <p className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Public Uploading</p>
+                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Allow public users to upload</p>
                   </div>
                   {publicUploading === null ? (
                     <div className="animate-pulse bg-gray-300 dark:bg-gray-600 h-6 w-12 rounded-full"></div>
@@ -470,32 +470,32 @@ export default function AdminPage() {
               </div>
             </div>
             
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <span className="mr-2">📊</span>
                 Quick Stats
               </h3>
               
               <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Total Resources</span>
-                  <span className="font-semibold text-gray-900 dark:text-white">{resources.length}</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Total Resources</span>
+                  <span className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">{resources.length}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Active</span>
-                  <span className="font-semibold text-green-600">{resources.filter(r => r.active).length}</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Active</span>
+                  <span className="font-semibold text-green-600 text-sm sm:text-base">{resources.filter(r => r.active).length}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Public</span>
-                  <span className="font-semibold text-blue-600">{resources.filter(r => r.public).length}</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Public</span>
+                  <span className="font-semibold text-blue-600 text-sm sm:text-base">{resources.filter(r => r.public).length}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* Resources Management */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
               <span className="mr-2">📋</span>
               Resource Management
@@ -506,7 +506,7 @@ export default function AdminPage() {
           </div>
           
           {/* Filters */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span className="text-gray-400">🔍</span>
@@ -516,14 +516,14 @@ export default function AdminPage() {
                 placeholder="Search resources..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
               />
             </div>
             
             <select 
               value={filterType} 
               onChange={e => setFilterType(e.target.value)} 
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             >
               <option value="all">All Types</option>
               <option value="file">📁 Files Only</option>
@@ -533,7 +533,7 @@ export default function AdminPage() {
             <select 
               value={sort} 
               onChange={e => setSort(e.target.value as 'asc' | 'desc')} 
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base sm:col-span-2 lg:col-span-1"
             >
               <option value="desc">📅 Newest First</option>
               <option value="asc">📅 Oldest First</option>
@@ -541,24 +541,24 @@ export default function AdminPage() {
           </div>
           
           {/* Resources Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
             {filteredResources.length === 0 ? (
-              <div className="col-span-full text-center py-12">
-                <div className="text-6xl mb-4">📭</div>
-                <p className="text-gray-500 dark:text-gray-400 text-lg">No resources found</p>
+              <div className="col-span-full text-center py-8 sm:py-12">
+                <div className="text-4xl sm:text-6xl mb-4">📭</div>
+                <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg">No resources found</p>
                 <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
                   {search ? 'Try adjusting your search terms' : 'Upload your first resource to get started'}
                 </p>
               </div>
             ) : (
               filteredResources.map(r => (
-                <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{AVATAR_ICON[r.uploaderType as 'admin' | 'public']}</span>
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                      <span className="text-xl sm:text-2xl flex-shrink-0">{AVATAR_ICON[r.uploaderType as 'admin' | 'public']}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-gray-900 dark:text-white text-sm sm:text-base truncate">
                           {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'General Public'}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -566,15 +566,15 @@ export default function AdminPage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 flex-shrink-0">
                       {STATUS_BADGE(r.active)}
                       {PUBLIC_BADGE(r.public)}
                     </div>
                   </div>
                   
                   {/* Resource Link */}
-                  <div className="flex items-center gap-3 mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
-                    <span className="text-2xl">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">
                       {r.type === 'file' ? getFileIcon(r.filename || undefined) : '🔗'}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -583,7 +583,7 @@ export default function AdminPage() {
                           href={r.url || undefined} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium truncate block"
+                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium truncate block text-sm sm:text-base"
                         >
                           {r.filename || r.url}
                         </a>
@@ -592,7 +592,7 @@ export default function AdminPage() {
                           href={r.url || undefined} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium truncate block"
+                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium truncate block text-sm sm:text-base"
                         >
                           {r.url}
                         </a>
@@ -601,8 +601,8 @@ export default function AdminPage() {
                   </div>
                   
                   {/* Controls */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div className="flex flex-wrap gap-3 sm:gap-4">
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input 
                           type="checkbox" 
@@ -624,7 +624,7 @@ export default function AdminPage() {
                     </div>
                     <button 
                       onClick={() => handleDelete(r.id)} 
-                      className="inline-flex items-center px-3 py-1.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                      className="inline-flex items-center px-3 py-1.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors self-start sm:self-auto"
                     >
                       <span className="mr-1">🗑️</span>
                       Delete

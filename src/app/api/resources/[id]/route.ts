@@ -15,7 +15,7 @@ function getUserFromRequest(req: NextRequest): UserJwt | null {
   if (!auth) return null;
   const token = auth.replace('Bearer ', '');
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as UserJwt;
+    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
     return typeof decoded === 'object' ? decoded : null;
   } catch {
     return null;
@@ -37,29 +37,30 @@ export async function DELETE(
   }
 
   try {
-    // Get the resource first to check if it's a file that needs to be deleted from filesystem
+    // Get the resource first to check if it's a file
     const resource = await prisma.resource.findUnique({
-      where: { id }
+      where: { id },
     });
 
     if (!resource) {
       return NextResponse.json({ error: 'Resource not found' }, { status: 404 });
     }
 
-    // If it's a file, delete from filesystem
+    // If it's a file, try to delete the physical file
     if (resource.type === 'file' && resource.url) {
       try {
-        const filePath = path.join(process.cwd(), 'public', resource.url);
+        const filename = resource.url.replace('/uploads/', '');
+        const filePath = path.join(process.cwd(), 'public', 'uploads', filename);
         await unlink(filePath);
-      } catch (error) {
-        // File might not exist, continue with database deletion
-        console.warn('Could not delete file:', error);
+      } catch (fileError) {
+        // File might not exist or already deleted, continue with database deletion
+        console.warn('Could not delete file:', fileError);
       }
     }
 
     // Delete from database
     await prisma.resource.delete({
-      where: { id }
+      where: { id },
     });
 
     return NextResponse.json({ success: true });

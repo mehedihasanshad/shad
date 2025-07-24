@@ -48,20 +48,20 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
-            <span className="text-2xl text-white">📚</span>
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-4">
+            <span className="text-xl sm:text-2xl text-white">📚</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Shared Resources</h1>
-          <p className="text-gray-600 dark:text-gray-400">Discover and access shared files and links</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Shared Resources</h1>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Discover and access shared files and links</p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Search and Filter */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <span className="text-gray-400">🔍</span>
@@ -71,14 +71,14 @@ export default function ResourcesPage() {
                   placeholder="Search resources..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                 />
               </div>
               
               <select 
                 value={filterType} 
                 onChange={e => setFilterType(e.target.value)} 
-                className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
               >
                 <option value="all">All Resources</option>
                 <option value="file">📁 Files Only</option>
@@ -87,45 +87,45 @@ export default function ResourcesPage() {
             </div>
             
             {filteredResources.length > 0 && (
-              <div className="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">
+              <div className="mt-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center">
                 Showing {filteredResources.length} of {resources.length} resources
               </div>
             )}
           </div>
 
           {/* Resources Grid */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
             {loading ? (
-              <div className="text-center py-12">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
-                <p className="text-gray-500 dark:text-gray-400">Loading resources...</p>
+              <div className="text-center py-8 sm:py-12">
+                <div className="inline-block animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-600 mb-4"></div>
+                <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Loading resources...</p>
               </div>
             ) : filteredResources.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="text-6xl mb-4">
+              <div className="text-center py-8 sm:py-12">
+                <div className="text-4xl sm:text-6xl mb-4">
                   {search || filterType !== 'all' ? '🔍' : '📭'}
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">
+                <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 mb-2">
                   {search || filterType !== 'all' ? 'No resources match your search' : 'No resources available'}
                 </p>
-                <p className="text-gray-400 dark:text-gray-500 text-sm">
+                <p className="text-sm text-gray-400 dark:text-gray-500">
                   {search || filterType !== 'all' ? 'Try adjusting your search terms or filters' : 'Check back later for new resources'}
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {filteredResources.map(r => (
-                  <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200 hover:scale-105">
+                  <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200 hover:scale-105">
                     {/* Resource Icon and Type */}
-                    <div className="flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-4 mx-auto">
-                      <span className="text-2xl">
+                    <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-3 sm:mb-4 mx-auto">
+                      <span className="text-lg sm:text-2xl">
                         {r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}
                       </span>
                     </div>
                     
                     {/* Resource Title */}
-                    <div className="text-center mb-4">
-                      <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full mb-2">
+                    <div className="text-center mb-3 sm:mb-4">
+                      <span className="inline-block px-2 py-1 sm:px-3 sm:py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full mb-2">
                         {r.type === 'file' ? 'File' : 'Link'}
                       </span>
                       
@@ -134,7 +134,7 @@ export default function ResourcesPage() {
                           href={r.url || undefined} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words"
+                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm sm:text-base"
                         >
                           {r.filename || r.url}
                         </a>
@@ -143,7 +143,7 @@ export default function ResourcesPage() {
                           href={r.url || undefined} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words"
+                          className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm sm:text-base"
                         >
                           {r.url}
                         </a>
@@ -164,10 +164,10 @@ export default function ResourcesPage() {
           </div>
           
           {/* Upload Link */}
-          <div className="text-center mt-8">
+          <div className="text-center mt-6 sm:mt-8">
             <a 
               href="/resources/upload" 
-              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+              className="inline-flex items-center px-4 py-2.5 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
             >
               <span className="mr-2">📤</span>
               Share Your Own Resource
