@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model GlobalSetting {
+  id        Int     @id @default(autoincrement())
+  key       String  @unique
+  value     String
+}
+
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @unique
@@ -30,5 +36,6 @@ model Resource {
   public     Boolean @default(false)
   uploadedBy User?   @relation("UserResources", fields: [uploadedById], references: [id])
   uploadedById Int?
+  uploaderType String @default("admin") // 'admin' or 'public'
   createdAt  DateTime @default(now())
 }
