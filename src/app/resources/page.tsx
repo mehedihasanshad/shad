@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import type { Resource } from "@prisma/client";
 
+type ResourceWithUser = Resource & { uploadedBy?: { username: string } | null };
+
 export default function ResourcesPage() {
-  const [resources, setResources] = useState<Resource[]>([]);
+  const [resources, setResources] = useState<ResourceWithUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
@@ -56,7 +58,7 @@ export default function ResourcesPage() {
             {filteredResources.map(r => (
               <li key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <span className="mr-2">{r.type === 'file' ? getFileIcon(r.filename) : '🔗'}</span>
+                  <span className="mr-2">{r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}</span>
                   <span className="font-semibold text-blue-700 dark:text-blue-300 mr-2">{r.type === 'file' ? 'File:' : 'Link:'}</span>
                   {r.type === 'file' ? (
                     <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline break-all">{r.filename || r.url}</a>

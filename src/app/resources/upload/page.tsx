@@ -22,11 +22,12 @@ function getFileIcon(filename?: string) {
 
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
-  uploaderType?: string;
+  uploaderType: string;
 }
 
 function safeHref(url: string | null | undefined): string | undefined {
-  return typeof url === 'string' ? url : undefined;
+  if (typeof url === 'string') return url;
+  return undefined;
 }
 
 export default function PublicUploadPage() {
@@ -188,11 +189,11 @@ export default function PublicUploadPage() {
                 .map(r => (
                   <li key={r.id} className="bg-gray-100 dark:bg-gray-700 rounded p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>
-                      <span className="mr-2">{r.type === 'file' ? getFileIcon(r.filename) : '🔗'}</span>
+                      <span className="mr-2">{r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}</span>
                       <span className="font-semibold text-blue-700 dark:text-blue-300 mr-2">{r.type === 'file' ? 'File:' : 'Link:'}</span>
                       {r.type === 'file' ? (
                         <a
-                          href={r.url as string}
+                          href={safeHref(r.url)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 underline break-all"
@@ -201,7 +202,7 @@ export default function PublicUploadPage() {
                         </a>
                       ) : (
                         <a
-                          href={r.url as string}
+                          href={safeHref(r.url)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 underline break-all"
