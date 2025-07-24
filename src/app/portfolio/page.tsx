@@ -98,7 +98,7 @@ export default function Portfolio() {
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6">Download or view my latest CV (PDF format).</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
             <a
-              href="https://drive.google.com/uc?export=download&id=1ezj8Wux5PLUXak2bJTDhiHkzfNGwRrae"
+              href="https://drive.google.com/uc?export=download&id=1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
@@ -108,7 +108,7 @@ export default function Portfolio() {
               </Button>
             </a>
             <a
-              href="https://drive.google.com/file/d/1ezj8Wux5PLUXak2bJTDhiHkzfNGwRrae/view"
+              href="https://drive.google.com/file/d/1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-/view"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
@@ -120,7 +120,7 @@ export default function Portfolio() {
           </div>
           <div className="w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" style={{ minHeight: 400 }}>
             <iframe
-              src="https://drive.google.com/file/d/1ezj8Wux5PLUXak2bJTDhiHkzfNGwRrae/preview"
+              src="https://drive.google.com/file/d/1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-/preview"
               width="100%"
               height="400"
               allow="autoplay"
