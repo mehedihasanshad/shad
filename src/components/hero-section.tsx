@@ -86,32 +86,34 @@ export function HeroSection() {
                 <div className="flex flex-wrap justify-center lg:justify-start gap-3 max-w-md">
                   <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Facebook">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1877F2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Image src="/social/facebook.svg" alt="Facebook" width={32} height={32} className="w-8 h-8" />
+                      <Facebook className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </a>
                   <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Instagram">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Image src="/social/instagram.svg" alt="Instagram" width={32} height={32} className="w-8 h-8" />
+                      <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </a>
                   <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group" aria-label="LinkedIn">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0A66C2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Image src="/social/linkedin.svg" alt="LinkedIn" width={32} height={32} className="w-8 h-8" />
+                      <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </a>
                   <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group" aria-label="Behance">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1769FF] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Image src="/social/behance.svg" alt="Behance" width={32} height={32} className="w-8 h-8" />
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.67.76-.62.16-1.25.24-1.89.24H0V4.51h6.938v-.007zM3.495 8.876h2.563c.62 0 1.11-.89 1.11-.89s.48-.64.48-1.23c0-.75-.19-1.28-.58-1.61-.39-.33-.94-.49-1.65-.49H3.495v4.22zm0 7.176h3.04c.7 0 1.266-.19 1.695-.57.43-.38.65-.98.65-1.8 0-.83-.23-1.41-.69-1.73-.46-.32-1.08-.48-1.86-.48H3.495v4.58zm19.77-8.11h-4.939v-1.28h4.939v1.28zm-1.307 3.626c0-.563-.09-1.02-.27-1.39-.18-.37-.43-.67-.74-.9-.31-.23-.68-.39-1.11-.49-.43-.1-.9-.15-1.41-.15-.51 0-.98.05-1.41.15-.43.1-.8.26-1.11.49-.31.23-.56.53-.74.9-.18.37-.27.827-.27 1.39v4.046c0 .563.09 1.02.27 1.39.18.37.43.67.74.9.31.23.68.39 1.11.49.43.1.9.15 1.41.15.51 0 .98-.05 1.41-.15.43-.1.8-.26 1.11-.49.31-.23.56-.53.74-.9.18-.37.27-.827.27-1.39v-4.046zm-2.405 4.006c0 .563-.227.842-.68.842-.454 0-.681-.279-.681-.842v-3.966c0-.563.227-.842.681-.842.453 0 .68.279.68.842v3.966z"/>
+                      </svg>
                     </div>
                   </a>
                   <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group" aria-label="YouTube">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FF0000] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Image src="/social/youtube.svg" alt="YouTube" width={32} height={32} className="w-8 h-8" />
+                      <Youtube className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </a>
                   <a href="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" rel="noopener noreferrer" className="group" aria-label="Personal Website">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#4285F4] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Image src="/social/google.svg" alt="Personal Website" width={32} height={32} className="w-8 h-8" />
+                      <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </a>
                 </div>
