@@ -172,9 +172,9 @@ export default function AdminPage() {
                     <td className="p-2">{r.type}</td>
                     <td className="p-2 break-all">
                       {r.type === 'file' ? (
-                        <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{r.filename}</a>
+                        <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{r.filename || r.url}</a>
                       ) : (
-                        <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{r.url}</a>
+                        <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{r.url}</a>
                       )}
                     </td>
                     <td className="p-2 text-center">
