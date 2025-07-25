@@ -506,63 +506,96 @@ export default function ResourcesPage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {filteredResources.map(r => (
-                  <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200 hover:scale-105">
-                    {/* Resource Icon and Type */}
-                    <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-3 sm:mb-4 mx-auto">
-                      <span className="text-lg sm:text-2xl">
-                        {r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}
-                      </span>
+                  <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200 overflow-hidden">
+                    {/* Thumbnail or Icon */}
+                    <div className="relative h-32 sm:h-40 bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
+                      {r.type === 'link' && r.thumbnail ? (
+                        <img 
+                          src={r.thumbnail} 
+                          alt={r.title || 'Link preview'} 
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                      ) : null}
+                      <div className={`flex items-center justify-center w-full h-full ${r.type === 'link' && r.thumbnail ? 'hidden' : ''}`}>
+                        <span className="text-3xl sm:text-4xl">
+                          {r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}
+                        </span>
+                      </div>
+                      
+                      {/* Type Badge */}
+                      <div className="absolute top-2 right-2">
+                        <span className="inline-block px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded">
+                          {r.type === 'file' ? 'File' : 'Link'}
+                        </span>
+                      </div>
                     </div>
                     
-                    {/* Resource Title */}
-                    <div className="text-center mb-3 sm:mb-4">
-                      <span className="inline-block px-2 py-1 sm:px-3 sm:py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium rounded-full mb-2">
-                        {r.type === 'file' ? 'File' : 'Link'}
-                      </span>
-                      
-                      {/* Display title if available, otherwise filename/url */}
-                      <div className="mb-2">
+                    <div className="p-4">
+                      {/* Resource Title */}
+                      <div className="mb-3">
                         {r.title ? (
-                          <h4 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base mb-1">
+                          <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2">
                             {r.title}
                           </h4>
                         ) : null}
                         
+                        <div className="text-xs text-blue-600 dark:text-blue-400 truncate">
+                          {r.type === 'file' 
+                            ? (typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : 'File')
+                            : (typeof r.url === 'string' ? new URL(r.url).hostname : 'Link')
+                          }
+                        </div>
+                        
+                        {/* Display description if available */}
+                        {r.description && (
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                            {r.description}
+                          </p>
+                        )}
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 mb-3">
+                        <button
+                          onClick={() => openPreview(r)}
+                          className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
+                        >
+                          <Eye className="w-3 h-3" />
+                          Preview
+                        </button>
+                        
                         {r.type === 'file' ? (
-                          <a 
-                            href={safeHref(r.url)} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm"
+                          <button
+                            onClick={() => downloadFile(r)}
+                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors"
                           >
-                            {typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : (typeof r.url === 'string' ? r.url : '')}
-                          </a>
+                            <Download className="w-3 h-3" />
+                            Download
+                          </button>
                         ) : (
-                          <a 
-                            href={safeHref(r.url)} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="block text-blue-600 dark:text-blue-400 hover:underline font-medium text-center break-words text-sm"
+                          <a
+                            href={safeHref(r.url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors"
                           >
-                            {typeof r.url === 'string' ? r.url : ''}
+                            <ExternalLink className="w-3 h-3" />
+                            Visit
                           </a>
                         )}
                       </div>
                       
-                      {/* Display description if available */}
-                      {r.description && (
-                        <p className="text-xs text-gray-600 dark:text-gray-400 text-center px-2">
-                          {r.description}
+                      {/* Resource Info */}
+                      <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                        <p className="truncate">
+                          By {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'Public'}
                         </p>
-                      )}
-                    </div>
-                    
-                    {/* Resource Info */}
-                    <div className="text-center text-xs text-gray-500 dark:text-gray-400 space-y-1">
-                      <p>
-                        Shared by {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'General Public'}
-                      </p>
-                      <p>{new Date(r.createdAt).toLocaleDateString()}</p>
+                        <p>{new Date(r.createdAt).toLocaleDateString()}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
