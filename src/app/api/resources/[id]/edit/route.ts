@@ -35,7 +35,7 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { title, description, thumbnail, url } = body;
+    const { title, description, thumbnail, url, filename, active, public: isPublic } = body;
 
     // Get the existing resource
     const existingResource = await prisma.resource.findUnique({
@@ -50,18 +50,28 @@ export async function PUT(req: NextRequest) {
     const updatedResource = await prisma.resource.update({
       where: { id },
       data: {
-        title: title || null,
-        description: description || null,
-        thumbnail: thumbnail || null,
-        // Only update URL for links, not files
-        ...(existingResource.type === 'link' && url ? { url } : {}),
+        title: title !== undefined ? title : existingResource.title,
+        description: description !== undefined ? description : existingResource.description,
+        thumbnail: thumbnail !== undefined ? thumbnail : existingResource.thumbnail,
+        url: url !== undefined ? url : existingResource.url,
+        filename: filename !== undefined ? filename : existingResource.filename,
+        active: active !== undefined ? active : existingResource.active,
+        public: isPublic !== undefined ? isPublic : existingResource.public,
       },
-      include: { uploadedBy: true },
+      include: {
+        uploadedBy: true,
+      },
     });
 
-    return NextResponse.json({ success: true, resource: updatedResource });
+    return NextResponse.json({ 
+      success: true, 
+      resource: {
+        ...updatedResource,
+        uploaderType: updatedResource.uploaderType || 'admin'
+      }
+    });
   } catch (error) {
-    console.error('Edit error:', error);
+    console.error('Update error:', error);
     return NextResponse.json({ error: 'Failed to update resource' }, { status: 500 });
   }
 }
