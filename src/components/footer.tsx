@@ -83,15 +83,40 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services & Partners */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-2">
+            <h4 className="text-lg font-semibold mb-4">Services & Partners</h4>
+            <ul className="space-y-2 mb-4">
               <li><span className="text-gray-300">Logo Design</span></li>
               <li><span className="text-gray-300">Motion Graphics</span></li>
               <li><span className="text-gray-300">Digital Marketing</span></li>
               <li><span className="text-gray-300">Academic Tutoring</span></li>
             </ul>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-400 font-medium">Partner Services:</p>
+              <div>
+                <a 
+                  href="https://webcloudor.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition-colors duration-200 block"
+                  title="Web Development & Cloud Solutions"
+                >
+                  WebCloudor - Web Development
+                </a>
+              </div>
+              <div>
+                <a 
+                  href="https://syedhabib.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-green-400 hover:text-green-300 transition-colors duration-200 block"
+                  title="Creative Design & Portfolio Services"
+                >
+                  SyedHabib - Design Portfolio
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
