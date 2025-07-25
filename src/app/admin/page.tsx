@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import type { Resource } from "@prisma/client";
-import { Download, Eye, ExternalLink, X } from "lucide-react";
+import { Download, Eye, ExternalLink, X, Edit } from "lucide-react";
 
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
@@ -79,6 +79,12 @@ export default function AdminPage() {
   const [progress, setProgress] = useState(0);
   const [previewResource, setPreviewResource] = useState<ResourceWithUploader | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [editResource, setEditResource] = useState<ResourceWithUploader | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editThumbnail, setEditThumbnail] = useState("");
+  const [editUrl, setEditUrl] = useState("");
 
   // On mount, check for JWT in localStorage
   useEffect(() => {
@@ -195,6 +201,58 @@ export default function AdminPage() {
     if (['mp3', 'wav', 'ogg'].includes(ext)) return 'audio';
     if (['doc', 'docx'].includes(ext)) return 'document';
     return 'file';
+  }
+
+  function openEditModal(resource: ResourceWithUploader) {
+    setEditResource(resource);
+    setEditTitle(resource.title || '');
+    setEditDescription(resource.description || '');
+    setEditThumbnail(resource.thumbnail || '');
+    setEditUrl(resource.url || '');
+    setShowEditModal(true);
+  }
+
+  function closeEditModal() {
+    setEditResource(null);
+    setEditTitle('');
+    setEditDescription('');
+    setEditThumbnail('');
+    setEditUrl('');
+    setShowEditModal(false);
+  }
+
+  async function handleEditSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!editResource) return;
+
+    try {
+      const res = await fetch(`/api/resources/${editResource.id}/edit`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: editTitle || null,
+          description: editDescription || null,
+          thumbnail: editThumbnail || null,
+          url: editResource.type === 'link' ? editUrl : undefined,
+        }),
+      });
+
+      const data = await res.json();
+      
+      if (data.success) {
+        showNotification('Resource updated successfully!', 'success');
+        fetchResources();
+        closeEditModal();
+      } else {
+        showNotification(data.error || 'Failed to update resource', 'error');
+      }
+    } catch (error) {
+      console.error('Edit error:', error);
+      showNotification('Failed to update resource', 'error');
+    }
   }
 
   async function handleUpload(e: React.FormEvent) {
