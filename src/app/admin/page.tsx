@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import type { Resource } from "@prisma/client";
+import { Download, Eye, ExternalLink, X } from "lucide-react";
 
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
@@ -73,6 +74,8 @@ export default function AdminPage() {
   const [sort, setSort] = useState<'desc' | 'asc'>('desc');
   const [showToast, setShowToast] = useState<{msg: string, type: 'success' | 'error'}|null>(null);
   const [progress, setProgress] = useState(0);
+  const [previewResource, setPreviewResource] = useState<ResourceWithUploader | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   // On mount, check for JWT in localStorage
   useEffect(() => {
