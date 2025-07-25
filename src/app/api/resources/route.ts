@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import type { JwtPayload } from 'jsonwebtoken';
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 import { Readable } from 'stream';
 
 cloudinary.config({
@@ -94,14 +94,14 @@ export async function POST(req: NextRequest) {
     // Upload image to Cloudinary
     const buffer = Buffer.from(await imageFile.arrayBuffer());
     const stream = Readable.from(buffer);
-    const uploadResult = await new Promise((resolve, reject) => {
+    const uploadResult: UploadApiResponse = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream({ folder: 'resource-thumbnails' }, (err, result) => {
-        if (err) reject(err);
+        if (err || !result) reject(err);
         else resolve(result);
       });
       stream.pipe(uploadStream);
     });
-    thumbnailUrl = (uploadResult as any).secure_url;
+    thumbnailUrl = uploadResult.secure_url;
   } else if (type === 'link' && thumbnail) {
     thumbnailUrl = thumbnail;
   }

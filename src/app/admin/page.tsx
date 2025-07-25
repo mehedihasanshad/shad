@@ -341,7 +341,7 @@ export default function AdminPage() {
       };
       xhr.send(formData);
     } else if (uploadType === 'link' && link) {
-      let res, data;
+      let res;
       if (thumbnail) {
         // If thumbnail is a file, use multipart/form-data
         const formData = new FormData();
@@ -373,7 +373,7 @@ export default function AdminPage() {
           }),
         });
       }
-      data = await res.json();
+      const data = await res.json();
       setUploading(false);
       showNotification(data.success ? "Link uploaded!" : data.error || "Upload failed", data.success ? 'success' : 'error');
       if (data.success) fetchResources();
