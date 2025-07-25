@@ -71,7 +71,7 @@ export async function PUT(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Update error:', error);
+    console.error('Edit error:', error);
     return NextResponse.json({ error: 'Failed to update resource' }, { status: 500 });
   }
 }
