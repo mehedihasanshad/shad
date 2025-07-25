@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Upload, Image as ImageIcon } from "lucide-react";
+import { X, Save, Upload } from "lucide-react";
 import type { Resource } from "@prisma/client";
 
 interface ResourceWithUploader extends Resource {
@@ -27,72 +27,51 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
   const [isPublic, setIsPublic] = useState(resource.public);
   const [saving, setSaving] = useState(false);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
 
+  // Reset form when resource changes
   useEffect(() => {
-    if (isOpen) {
-      setTitle(resource.title || "");
-      setDescription(resource.description || "");
-      setThumbnail(resource.thumbnail || "");
-      setUrl(resource.url || "");
-      setFilename(resource.filename || "");
-      setActive(resource.active);
-      setIsPublic(resource.public);
-      setThumbnailFile(null);
-      setThumbnailPreview(null);
-    }
-  }, [resource, isOpen]);
-
-  const handleThumbnailFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setThumbnailFile(file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setThumbnailPreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const uploadThumbnailToCloudinary = async (file: File): Promise<string> => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'thumbnails'); // You'll need to create this preset in Cloudinary
-    
-    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
-      method: 'POST',
-      body: formData,
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to upload thumbnail');
-    }
-    
-    const data = await response.json();
-    return data.secure_url;
-  };
+    setTitle(resource.title || "");
+    setDescription(resource.description || "");
+    setThumbnail(resource.thumbnail || "");
+    setUrl(resource.url || "");
+    setFilename(resource.filename || "");
+    setActive(resource.active);
+    setIsPublic(resource.public);
+    setThumbnailFile(null);
+  }, [resource]);
 
   const handleSave = async () => {
     setSaving(true);
     try {
       let finalThumbnail = thumbnail;
-      
+
       // Upload thumbnail file if selected
       if (thumbnailFile) {
-        try {
-          finalThumbnail = await uploadThumbnailToCloudinary(thumbnailFile);
-        } catch (error) {
-          console.error('Thumbnail upload failed:', error);
-          // Continue with the save even if thumbnail upload fails
+        setUploadingThumbnail(true);
+        const formData = new FormData();
+        formData.append('file', thumbnailFile);
+        formData.append('title', 'Thumbnail');
+        formData.append('description', `Thumbnail for ${resource.title || resource.filename}`);
+
+        const uploadRes = await fetch("/api/resources/upload", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${jwt}` },
+          body: formData,
+        });
+
+        const uploadData = await uploadRes.json();
+        if (uploadData.success) {
+          finalThumbnail = uploadData.url;
         }
+        setUploadingThumbnail(false);
       }
 
       const response = await fetch(`/api/resources/${resource.id}/edit`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Authorization': `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
         },
         body: JSON.stringify({
           title: title || null,
@@ -105,18 +84,35 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to update resource');
-      }
-
       const data = await response.json();
-      onSave(data.resource);
-      onClose();
+      if (data.success) {
+        onSave(data.resource);
+        onClose();
+      } else {
+        alert(data.error || "Failed to update resource");
+      }
     } catch (error) {
-      console.error('Save error:', error);
-      alert('Failed to save changes. Please try again.');
+      console.error("Error updating resource:", error);
+      alert("Failed to update resource");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleThumbnailFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file for thumbnail');
+        return;
+      }
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Thumbnail file size must be less than 5MB');
+        return;
+      }
+      setThumbnailFile(file);
     }
   };
 
@@ -127,9 +123,14 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
       <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Edit Resource
-          </h3>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Edit Resource
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {resource.type === 'file' ? 'File' : 'Link'} • ID: {resource.id}
+            </p>
+          </div>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
@@ -139,137 +140,149 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
         </div>
 
         {/* Modal Content */}
-        <div className="p-4 max-h-[70vh] overflow-auto space-y-4">
-          {/* Title */}
-          <div>
-            <label htmlFor="edit-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Title
-            </label>
-            <input
-              id="edit-title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter resource title"
-            />
-          </div>
-
-          {/* Description */}
-          <div>
-            <label htmlFor="edit-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Description
-            </label>
-            <textarea
-              id="edit-description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={3}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter resource description"
-            />
-          </div>
-
-          {/* URL (for links) */}
-          {resource.type === 'link' && (
+        <div className="p-4 max-h-[70vh] overflow-auto">
+          <div className="space-y-4">
+            {/* Title */}
             <div>
-              <label htmlFor="edit-url" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                URL
+              <label htmlFor="edit-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Title
               </label>
               <input
-                id="edit-url"
-                type="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="https://example.com"
-              />
-            </div>
-          )}
-
-          {/* Filename (for files) */}
-          {resource.type === 'file' && (
-            <div>
-              <label htmlFor="edit-filename" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Filename
-              </label>
-              <input
-                id="edit-filename"
+                id="edit-title"
                 type="text"
-                value={filename}
-                onChange={(e) => setFilename(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter resource title"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="filename.ext"
               />
             </div>
-          )}
 
-          {/* Thumbnail */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Thumbnail
-            </label>
-            
-            {/* Current thumbnail or preview */}
-            {(thumbnailPreview || thumbnail) && (
-              <div className="mb-3">
-                <img 
-                  src={thumbnailPreview || thumbnail} 
-                  alt="Thumbnail preview" 
-                  className="w-32 h-24 object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+            {/* Description */}
+            <div>
+              <label htmlFor="edit-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Description
+              </label>
+              <textarea
+                id="edit-description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Enter resource description"
+                rows={3}
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* URL (for links) */}
+            {resource.type === 'link' && (
+              <div>
+                <label htmlFor="edit-url" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  URL
+                </label>
+                <input
+                  id="edit-url"
+                  type="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://example.com"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
             )}
 
-            {/* Thumbnail URL input */}
-            <input
-              type="url"
-              value={thumbnail}
-              onChange={(e) => setThumbnail(e.target.value)}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-2"
-              placeholder="https://example.com/thumbnail.jpg"
-            />
-
-            {/* File upload for thumbnail */}
-            <div className="flex items-center gap-2">
-              <label htmlFor="thumbnail-file" className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
-                <Upload className="w-4 h-4" />
-                <span className="text-sm">Upload Image</span>
+            {/* Filename (for files) */}
+            {resource.type === 'file' && (
+              <div>
+                <label htmlFor="edit-filename" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Filename
+                </label>
                 <input
-                  id="thumbnail-file"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleThumbnailFileChange}
-                  className="sr-only"
+                  id="edit-filename"
+                  type="text"
+                  value={filename}
+                  onChange={(e) => setFilename(e.target.value)}
+                  placeholder="filename.ext"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
-              </label>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
-                Or enter URL above
-              </span>
-            </div>
-          </div>
+              </div>
+            )}
 
-          {/* Status toggles */}
-          <div className="flex gap-6">
-            <label className="flex items-center gap-2 cursor-pointer">
+            {/* Thumbnail */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Thumbnail
+              </label>
+              
+              {/* Current thumbnail preview */}
+              {thumbnail && (
+                <div className="mb-3">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Current thumbnail:</p>
+                  <img 
+                    src={thumbnail} 
+                    alt="Current thumbnail" 
+                    className="w-32 h-20 object-cover rounded border"
+                  />
+                </div>
+              )}
+
+              {/* Thumbnail URL input */}
               <input
-                type="checkbox"
-                checked={active}
-                onChange={(e) => setActive(e.target.checked)}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                type="url"
+                value={thumbnail}
+                onChange={(e) => setThumbnail(e.target.value)}
+                placeholder="https://example.com/thumbnail.jpg"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-3"
               />
-              <span className="text-sm text-gray-700 dark:text-gray-300">Active</span>
-            </label>
-            
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isPublic}
-                onChange={(e) => setIsPublic(e.target.checked)}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-sm text-gray-700 dark:text-gray-300">Public</span>
-            </label>
+
+              {/* File upload for thumbnail */}
+              <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                <div className="text-center">
+                  <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+                  <label htmlFor="thumbnail-upload" className="cursor-pointer">
+                    <span className="text-sm text-blue-600 hover:text-blue-500 font-medium">
+                      Upload new thumbnail
+                    </span>
+                    <input
+                      id="thumbnail-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleThumbnailFileChange}
+                      className="sr-only"
+                    />
+                  </label>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    PNG, JPG, GIF up to 5MB
+                  </p>
+                  {thumbnailFile && (
+                    <p className="text-xs text-green-600 dark:text-green-400 mt-2">
+                      Selected: {thumbnailFile.name}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Status toggles */}
+            <div className="grid grid-cols-2 gap-4">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={(e) => setActive(e.target.checked)}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <span className="text-sm text-gray-700 dark:text-gray-300">Active</span>
+              </label>
+
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isPublic}
+                  onChange={(e) => setIsPublic(e.target.checked)}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <span className="text-sm text-gray-700 dark:text-gray-300">Public</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -283,16 +296,19 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
           </button>
           <button
             onClick={handleSave}
-            disabled={saving}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            disabled={saving || uploadingThumbnail}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {saving ? (
+            {saving || uploadingThumbnail ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                Saving...
+                {uploadingThumbnail ? 'Uploading...' : 'Saving...'}
               </>
             ) : (
-              'Save Changes'
+              <>
+                <Save className="w-4 h-4" />
+                Save Changes
+              </>
             )}
           </button>
         </div>

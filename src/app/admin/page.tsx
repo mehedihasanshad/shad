@@ -82,6 +82,10 @@ export default function AdminPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [editResource, setEditResource] = useState<ResourceWithUploader | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editUrl, setEditUrl] = useState("");
+  const [editThumbnail, setEditThumbnail] = useState("");
 
   // On mount, check for JWT in localStorage
   useEffect(() => {
@@ -263,11 +267,6 @@ export default function AdminPage() {
       console.error('Edit error:', error);
       showNotification('Failed to update resource', 'error');
     }
-  }
-
-  function handleResourceUpdate(updatedResource: ResourceWithUploader) {
-    setResources(prev => prev.map(r => r.id === updatedResource.id ? updatedResource : r));
-    showNotification('Resource updated successfully!', 'success');
   }
 
   async function handleUpload(e: React.FormEvent) {
