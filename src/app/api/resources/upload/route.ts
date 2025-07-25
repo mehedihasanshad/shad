@@ -56,13 +56,13 @@ export async function POST(req: NextRequest) {
   if (file.size > 10 * 1024 * 1024) {
     return NextResponse.json({ error: 'File too large (max 10MB).' }, { status: 400 });
   }
-  const filename = `${Date.now()}-${file.name}`;
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-  await mkdir(uploadDir, { recursive: true });
-  const filePath = path.join(uploadDir, filename);
+  // Upload to Cloudinary
   const arrayBuffer = await file.arrayBuffer();
-  await writeFile(filePath, Buffer.from(arrayBuffer));
-  const url = `/uploads/${filename}`;
+  const buffer = Buffer.from(arrayBuffer);
+  
+  try {
+    const uploadResult = await uploadToCloudinary(buffer, file.name, 'resources');
+    const url = uploadResult.url;
 
   // Determine uploaderType and flags
   let uploaderType = 'public';
@@ -80,18 +80,22 @@ export async function POST(req: NextRequest) {
   const title = formData.get('title') as string | null;
   const description = formData.get('description') as string | null;
 
-  const resource = await prisma.resource.create({
-    data: {
-      type: 'file',
-      url,
-      filename: file.name,
-      title: title || null,
-      description: description || null,
-      public: isPublic,
-      active: isActive,
-      uploadedById,
-      uploaderType,
-    },
-  });
-  return NextResponse.json({ success: true, resource, url });
+    const resource = await prisma.resource.create({
+      data: {
+        type: 'file',
+        url,
+        filename: file.name,
+        title: title || null,
+        description: description || null,
+        public: isPublic,
+        active: isActive,
+        uploadedById,
+        uploaderType,
+      },
+    });
+    return NextResponse.json({ success: true, resource, url });
+  } catch (error) {
+    console.error('Cloudinary upload error:', error);
+    return NextResponse.json({ error: 'File upload failed' }, { status: 500 });
+  }
 } 
