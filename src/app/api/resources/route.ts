@@ -41,85 +41,90 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  // Accept both JSON and multipart/form-data for link uploads
-  const contentType = req.headers.get('content-type') || '';
-  let type, url, filename, title, description, thumbnail, isPublic, isActive, imageFile;
-  if (contentType.includes('multipart/form-data')) {
-    const formData = await req.formData();
-    type = formData.get('type');
-    url = formData.get('url');
-    title = formData.get('title');
-    description = formData.get('description');
-    isPublic = formData.get('public');
-    isActive = formData.get('active');
-    imageFile = formData.get('thumbnail');
-    filename = null;
-  } else {
-    let body;
-    try {
-      body = await req.json();
-    } catch (e) {
-      return NextResponse.json({ error: 'Invalid or missing JSON body.' }, { status: 400 });
+  try {
+    // Accept both JSON and multipart/form-data for link uploads
+    const contentType = req.headers.get('content-type') || '';
+    let type, url, filename, title, description, thumbnail, isPublic, isActive, imageFile;
+    if (contentType.includes('multipart/form-data')) {
+      const formData = await req.formData();
+      type = formData.get('type');
+      url = formData.get('url');
+      title = formData.get('title');
+      description = formData.get('description');
+      isPublic = formData.get('public');
+      isActive = formData.get('active');
+      imageFile = formData.get('thumbnail');
+      filename = null;
+    } else {
+      let body;
+      try {
+        body = await req.json();
+      } catch (e) {
+        return NextResponse.json({ error: 'Invalid or missing JSON body.' }, { status: 400 });
+      }
+      type = body.type;
+      url = body.url;
+      filename = body.filename;
+      title = body.title;
+      description = body.description;
+      thumbnail = body.thumbnail;
+      isPublic = body.public;
+      isActive = body.active;
+      imageFile = null;
     }
-    type = body.type;
-    url = body.url;
-    filename = body.filename;
-    title = body.title;
-    description = body.description;
-    thumbnail = body.thumbnail;
-    isPublic = body.public;
-    isActive = body.active;
-    imageFile = null;
-  }
-  const user = getUserFromRequest(req);
-  const setting = await prisma.globalSetting.findUnique({ where: { key: 'public_uploading' } });
-  const publicUploading = setting?.value === 'on';
-  if (type !== 'file' && type !== 'link') {
-    return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-  }
-  let uploaderType = 'public';
-  let uploadedById = null;
-  let _isPublic = true;
-  let _isActive = true;
-  if (user?.isAdmin) {
-    uploaderType = 'admin';
-    uploadedById = user.userId;
-    _isPublic = !!isPublic;
-    _isActive = !!isActive;
-  } else if (!publicUploading) {
-    return NextResponse.json({ error: 'Public uploading is turned off.' }, { status: 403 });
-  }
-  let thumbnailUrl = null;
-  if (type === 'link' && imageFile && typeof imageFile === 'object' && 'arrayBuffer' in imageFile) {
-    // Upload image to Cloudinary
-    const buffer = Buffer.from(await imageFile.arrayBuffer());
-    const stream = Readable.from(buffer);
-    const uploadResult: UploadApiResponse = await new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream({ folder: 'resource-thumbnails' }, (err, result) => {
-        if (err || !result) reject(err);
-        else resolve(result);
+    const user = getUserFromRequest(req);
+    const setting = await prisma.globalSetting.findUnique({ where: { key: 'public_uploading' } });
+    const publicUploading = setting?.value === 'on';
+    if (type !== 'file' && type !== 'link') {
+      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+    }
+    let uploaderType = 'public';
+    let uploadedById = null;
+    let _isPublic = true;
+    let _isActive = true;
+    if (user?.isAdmin) {
+      uploaderType = 'admin';
+      uploadedById = user.userId;
+      _isPublic = !!isPublic;
+      _isActive = !!isActive;
+    } else if (!publicUploading) {
+      return NextResponse.json({ error: 'Public uploading is turned off.' }, { status: 403 });
+    }
+    let thumbnailUrl = null;
+    if (type === 'link' && imageFile && typeof imageFile === 'object' && 'arrayBuffer' in imageFile) {
+      // Upload image to Cloudinary
+      const buffer = Buffer.from(await imageFile.arrayBuffer());
+      const stream = Readable.from(buffer);
+      const uploadResult: UploadApiResponse = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ folder: 'resource-thumbnails' }, (err, result) => {
+          if (err || !result) reject(err);
+          else resolve(result);
+        });
+        stream.pipe(uploadStream);
       });
-      stream.pipe(uploadStream);
+      thumbnailUrl = uploadResult.secure_url;
+    } else if (type === 'link' && thumbnail) {
+      thumbnailUrl = thumbnail;
+    }
+    const resource = await prisma.resource.create({
+      data: {
+        type,
+        url,
+        filename,
+        title: title || null,
+        description: description || null,
+        thumbnail: thumbnailUrl || null,
+        public: _isPublic,
+        active: _isActive,
+        uploadedById,
+        uploaderType,
+      },
     });
-    thumbnailUrl = uploadResult.secure_url;
-  } else if (type === 'link' && thumbnail) {
-    thumbnailUrl = thumbnail;
+    return NextResponse.json({ success: true, resource });
+  } catch (error) {
+    console.error('POST /api/resources error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-  const resource = await prisma.resource.create({
-    data: {
-      type,
-      url,
-      filename,
-      title: title || null,
-      description: description || null,
-      thumbnail: thumbnailUrl || null,
-      public: _isPublic,
-      active: _isActive,
-      uploadedById,
-      uploaderType,
-    },
-  });
-  return NextResponse.json({ success: true, resource });
 }
 
 export async function PATCH(req: NextRequest) {
