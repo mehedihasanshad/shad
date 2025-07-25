@@ -538,7 +538,12 @@ export default function ResourcesPage() {
                       {/* Resource Title */}
                       <div className="mb-3">
                         {r.title ? (
-                          <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2">
+                          <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1" style={{ 
+                            display: '-webkit-box', 
+                            WebkitLineClamp: 2, 
+                            WebkitBoxOrient: 'vertical', 
+                            overflow: 'hidden' 
+                          }}>
                             {r.title}
                           </h4>
                         ) : null}
