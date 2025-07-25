@@ -68,13 +68,57 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
    npm install
    ```
 
-3. **Run the development server**
+3. **Environment Setup**
+   Create a `.env` file in the root directory:
+   ```env
+   # Database Configuration
+   DATABASE_URL="your_database_url_here"
+   
+   # JWT Secret for Authentication
+   JWT_SECRET="your_jwt_secret_here"
+   
+   # Cloudinary Configuration for File Management
+   CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
+
+4. **Database Setup**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Run the development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+## ☁️ Cloudinary Integration
+
+This project uses Cloudinary for file storage and image optimization:
+
+### Features:
+- **File Upload**: Automatic upload to Cloudinary cloud storage
+- **Image Optimization**: Automatic format conversion and compression
+- **Thumbnail Generation**: Auto-generated thumbnails for images
+- **CDN Delivery**: Fast global content delivery
+- **File Management**: Easy file deletion and management
+
+### Setup:
+1. Create a free account at [cloudinary.com](https://cloudinary.com)
+2. Get your credentials from the dashboard
+3. Add them to your `.env` file as shown above
+4. Test the connection: `GET /api/cloudinary/test`
+
+### Usage:
+- Files uploaded through the admin panel are automatically stored in Cloudinary
+- Images get optimized thumbnails for better performance
+- All files are served through Cloudinary's CDN for faster loading
 
 ## 📦 Available Scripts
 
