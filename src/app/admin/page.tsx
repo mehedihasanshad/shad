@@ -82,10 +82,6 @@ export default function AdminPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [editResource, setEditResource] = useState<ResourceWithUploader | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editTitle, setEditTitle] = useState("");
-  const [editDescription, setEditDescription] = useState("");
-  const [editUrl, setEditUrl] = useState("");
-  const [editThumbnail, setEditThumbnail] = useState("");
 
   // On mount, check for JWT in localStorage
   useEffect(() => {
