@@ -144,9 +144,9 @@ export default function Portfolio() {
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">SSC</h3>
               <p className="text-sm text-blue-700 dark:text-blue-200 font-semibold mb-2">Akij Ideal School & College</p>
               <p className="text-gray-600 dark:text-gray-300 text-xs mb-4">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</p>
-              <Link href="/tuition" className="w-full" passHref legacyBehavior>
-                <Button size="sm" variant="outline" className="w-full dark:border-gray-700" asChild>
-                  <span>See Tuition</span>
+              <Link href="/tuition" className="w-full">
+                <Button size="sm" variant="outline" className="w-full dark:border-gray-700">
+                  See Tuition
                 </Button>
               </Link>
             </div>
@@ -156,9 +156,9 @@ export default function Portfolio() {
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">HSC</h3>
               <p className="text-sm text-blue-700 dark:text-blue-200 font-semibold mb-2">Adamjee Cantonment College</p>
               <p className="text-gray-600 dark:text-gray-300 text-xs mb-4">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</p>
-              <Link href="/portfolio" className="w-full" passHref legacyBehavior>
-                <Button size="sm" variant="outline" className="w-full dark:border-gray-700" asChild>
-                  <span>See Portfolio</span>
+              <Link href="/portfolio" className="w-full">
+                <Button size="sm" variant="outline" className="w-full dark:border-gray-700">
+                  See Portfolio
                 </Button>
               </Link>
             </div>
@@ -168,9 +168,9 @@ export default function Portfolio() {
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">BBA - General</h3>
               <p className="text-sm text-blue-700 dark:text-blue-200 font-semibold mb-2">Bangladesh University of Professionals</p>
               <p className="text-gray-600 dark:text-gray-300 text-xs mb-4">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</p>
-              <Link href="/contact" className="w-full" passHref legacyBehavior>
-                <Button size="sm" variant="outline" className="w-full dark:border-gray-700" asChild>
-                  <span>Contact Me</span>
+              <Link href="/contact" className="w-full">
+                <Button size="sm" variant="outline" className="w-full dark:border-gray-700">
+                  Contact Me
                 </Button>
               </Link>
             </div>
@@ -187,9 +187,11 @@ export default function Portfolio() {
           <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8 px-4">
             Let&apos;s work together to bring your vision to life with exceptional design and creativity.
           </p>
-          <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
-            Start Your Project
-          </Button>
+          <Link href="/contact">
+            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
+              Start Your Project
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
