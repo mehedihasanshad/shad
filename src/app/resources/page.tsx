@@ -8,6 +8,9 @@ type ResourceWithUser = Resource & { uploadedBy?: { username: string } | null };
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
   uploaderType: string;
+  thumbnail?: string | null;
+  title?: string | null;
+  description?: string | null;
 }
 
 function safeHref(url: string | null | undefined): string | undefined {
