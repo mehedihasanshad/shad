@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Public uploading is turned off.' }, { status: 403 });
     }
     let thumbnailUrl = null;
-    if (type === 'link' && imageFile && typeof imageFile === 'object' && 'arrayBuffer' in imageFile) {
+    if (type === 'link' && imageFile && typeof imageFile === 'object' && typeof imageFile.arrayBuffer === 'function') {
       // Upload image to Cloudinary
       const buffer = Buffer.from(await imageFile.arrayBuffer());
       const stream = Readable.from(buffer);
@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
         stream.pipe(uploadStream);
       });
       thumbnailUrl = uploadResult.secure_url;
-    } else if (type === 'link' && thumbnail) {
+    } else if (type === 'link' && typeof thumbnail === 'string') {
       thumbnailUrl = thumbnail;
     }
     const resource = await prisma.resource.create({
@@ -154,8 +154,19 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json({ success: true, resource });
   } catch (error) {
-    console.error('POST /api/resources error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    // Log more details for debugging
+    let debug = {};
+    try {
+      debug = {
+        error: error instanceof Error ? error.message : String(error),
+        imageFileType: typeof imageFile,
+        imageFileHasArrayBuffer: imageFile && typeof imageFile === 'object' && typeof imageFile.arrayBuffer === 'function',
+        thumbnailType: typeof thumbnail,
+        thumbnailValue: thumbnail,
+      };
+    } catch {}
+    console.error('POST /api/resources error:', error, debug);
+    return NextResponse.json({ error: 'Internal server error', debug }, { status: 500 });
   }
 }
 

@@ -105,20 +105,38 @@ export default function ResourcesPage() {
         setShowUploadForm(false);
       }
     } else if (uploadType === 'link' && link) {
-      const res = await fetch("/api/resources", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          type: 'link', 
-          url: link, 
-          title: title || undefined,
-          description: description || undefined,
-          thumbnail: thumbnail || undefined,
-          public: true, 
-          active: true 
-        }),
-      });
-      const data = await res.json();
+      let res, data;
+      if (thumbnail && typeof thumbnail !== 'string') {
+        // Send as multipart/form-data
+        const formData = new FormData();
+        formData.append('type', 'link');
+        formData.append('url', link);
+        if (title) formData.append('title', title);
+        if (description) formData.append('description', description);
+        formData.append('thumbnail', thumbnail);
+        formData.append('public', 'true');
+        formData.append('active', 'true');
+        res = await fetch("/api/resources", {
+          method: "POST",
+          body: formData,
+        });
+      } else {
+        // Send as JSON
+        res = await fetch("/api/resources", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            type: 'link', 
+            url: link, 
+            title: title || undefined,
+            description: description || undefined,
+            thumbnail: thumbnail || undefined,
+            public: true, 
+            active: true 
+          }),
+        });
+      }
+      data = await res.json();
       setUploading(false);
       setMsg(data.success ? "Link shared!" : data.error || "Upload failed");
       if (data.success) {
