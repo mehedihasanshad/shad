@@ -202,6 +202,21 @@ export default function AdminPage() {
 
   function openEditModal(resource: ResourceWithUploader) {
     setEditResource(resource);
+    setShowEditModal(true);
+  }
+
+  function closeEditModal() {
+    setEditResource(null);
+    setShowEditModal(false);
+  }
+
+  function handleResourceUpdate(updatedResource: ResourceWithUploader) {
+    setResources(prev => prev.map(r => r.id === updatedResource.id ? updatedResource : r));
+    showNotification('Resource updated successfully!', 'success');
+  }
+
+  function openEditModal(resource: ResourceWithUploader) {
+    setEditResource(resource);
     setEditTitle(resource.title || '');
     setEditDescription(resource.description || '');
     setEditThumbnail(resource.thumbnail || '');
