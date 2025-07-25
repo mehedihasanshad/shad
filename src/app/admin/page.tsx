@@ -178,6 +178,21 @@ export default function AdminPage() {
     setShowPreview(false);
   }
 
+  function openEdit(resource: ResourceWithUploader) {
+    setEditResource(resource);
+    setShowEditModal(true);
+  }
+
+  function closeEdit() {
+    setEditResource(null);
+    setShowEditModal(false);
+  }
+
+  function handleResourceUpdate(updatedResource: ResourceWithUploader) {
+    setResources(prev => prev.map(r => r.id === updatedResource.id ? updatedResource : r));
+    showNotification('Resource updated successfully!', 'success');
+  }
+
   function downloadFile(resource: ResourceWithUploader) {
     if (resource.url) {
       const link = document.createElement('a');
@@ -769,8 +784,8 @@ export default function AdminPage() {
                     </button>
                     
                     <button
-                      onClick={() => openEditModal(r)}
-                      className="flex items-center gap-1 px-3 py-1.5 bg-yellow-600 hover:bg-yellow-700 text-white text-xs rounded transition-colors"
+                      onClick={() => openEdit(r)}
+                      className="flex items-center gap-1 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-xs rounded transition-colors"
                     >
                       <Edit className="w-3 h-3" />
                       Edit
