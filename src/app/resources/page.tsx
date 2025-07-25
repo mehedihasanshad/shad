@@ -218,7 +218,7 @@ export default function ResourcesPage() {
     .filter(r => (r.filename || r.url || '').toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 mt-16">
       <div className="container mx-auto px-4 py-6 sm:py-8">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">

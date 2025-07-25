@@ -136,15 +136,20 @@ export function HeroSection() {
 
           {/* Hero Visual */}
           <div className="relative mt-8 lg:mt-0">
-            <div className="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
+            <div className="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 flex items-end justify-center overflow-visible">
+              {/* Red background exactly matches image size */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 via-red-400 to-pink-500 z-0" />
-              <Image
-                src="/shadphoto.jpg"
-                alt="Mehedi Hasan Shad portrait"
-                fill
-                className="relative z-10 object-cover object-top rounded-3xl shadow-2xl"
-                priority
-              />
+              <div className="absolute left-0 right-0 bottom-0 flex justify-center overflow-visible" style={{ height: '120%' }}>
+                <Image
+                  src="/shadphoto.jpg"
+                  alt="Mehedi Hasan Shad portrait"
+                  width={384}
+                  height={460}
+                  className="object-cover object-center rounded-3xl shadow-2xl"
+                  priority
+                  style={{ maxHeight: 'none' }}
+                />
+              </div>
             </div>
 
             {/* Floating Skill Badges */}

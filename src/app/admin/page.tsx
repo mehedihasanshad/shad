@@ -223,7 +223,7 @@ export default function AdminPage() {
     setEditResource(resource);
     setEditTitle(resource.title || '');
     setEditDescription(resource.description || '');
-    setEditUrl(resource.url || '');
+    setEditUrl(resource.type === 'link' ? (resource.url || '') : '');
     setEditThumbnail(resource.thumbnail || '');
     setShowEditModal(true);
   }
@@ -456,7 +456,7 @@ export default function AdminPage() {
         </div>
       )}
       
-      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl pt-20">
+      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl mt-16">
         {/* Header */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -751,7 +751,7 @@ export default function AdminPage() {
                         <img
                           src={r.thumbnail}
                           alt={r.title || 'Link thumbnail'}
-                          className="w-20 h-14 object-cover rounded border mr-3 hover:opacity-80 transition-opacity"
+                          className="w-20 h-14 object-cover rounded border mr-3 hover:opacity-80 transition-opacity block"
                           style={{ minWidth: 80, minHeight: 56 }}
                         />
                       </a>
