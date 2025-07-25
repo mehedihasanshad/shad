@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { Resource } from "@prisma/client";
+import { Download, Eye, ExternalLink, X, Image as ImageIcon } from "lucide-react";
 
 type ResourceWithUser = Resource & { uploadedBy?: { username: string } | null };
 
@@ -53,6 +54,9 @@ export default function ResourcesPage() {
   const [msg, setMsg] = useState("");
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const [thumbnail, setThumbnail] = useState("");
+  const [previewResource, setPreviewResource] = useState<ResourceWithUploader | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     fetchResources();
