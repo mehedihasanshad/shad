@@ -162,6 +162,38 @@ export default function AdminPage() {
     setTimeout(() => setShowToast(null), 3000);
   }
 
+  function openPreview(resource: ResourceWithUploader) {
+    setPreviewResource(resource);
+    setShowPreview(true);
+  }
+
+  function closePreview() {
+    setPreviewResource(null);
+    setShowPreview(false);
+  }
+
+  function downloadFile(resource: ResourceWithUploader) {
+    if (resource.url) {
+      const link = document.createElement('a');
+      link.href = resource.url;
+      link.download = resource.filename || 'download';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+  function getFileType(filename?: string) {
+    if (!filename) return 'unknown';
+    const ext = filename.split('.').pop()?.toLowerCase() || '';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return 'image';
+    if (['pdf'].includes(ext)) return 'pdf';
+    if (['mp4', 'webm', 'ogg'].includes(ext)) return 'video';
+    if (['mp3', 'wav', 'ogg'].includes(ext)) return 'audio';
+    if (['doc', 'docx'].includes(ext)) return 'document';
+    return 'file';
+  }
+
   async function handleUpload(e: React.FormEvent) {
     e.preventDefault();
     setUploading(true);
