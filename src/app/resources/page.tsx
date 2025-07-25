@@ -110,6 +110,7 @@ export default function ResourcesPage() {
           url: link, 
           title: title || undefined,
           description: description || undefined,
+          thumbnail: thumbnail || undefined,
           public: true, 
           active: true 
         }),
@@ -121,6 +122,7 @@ export default function ResourcesPage() {
         setLink("");
         setTitle("");
         setDescription("");
+        setThumbnail("");
         fetchResources();
         setShowUploadForm(false);
       }
@@ -128,6 +130,38 @@ export default function ResourcesPage() {
       setUploading(false);
       setMsg("Please select a file or enter a link.");
     }
+  }
+
+  function openPreview(resource: ResourceWithUploader) {
+    setPreviewResource(resource);
+    setShowPreview(true);
+  }
+
+  function closePreview() {
+    setPreviewResource(null);
+    setShowPreview(false);
+  }
+
+  function downloadFile(resource: ResourceWithUploader) {
+    if (resource.url) {
+      const link = document.createElement('a');
+      link.href = resource.url;
+      link.download = resource.filename || 'download';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+  function getFileType(filename?: string) {
+    if (!filename) return 'unknown';
+    const ext = filename.split('.').pop()?.toLowerCase() || '';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return 'image';
+    if (['pdf'].includes(ext)) return 'pdf';
+    if (['mp4', 'webm', 'ogg'].includes(ext)) return 'video';
+    if (['mp3', 'wav', 'ogg'].includes(ext)) return 'audio';
+    if (['doc', 'docx'].includes(ext)) return 'document';
+    return 'file';
   }
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -384,19 +418,37 @@ export default function ResourcesPage() {
                         </div>
                       </div>
                     ) : (
-                      <div>
-                        <label htmlFor="link-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Enter URL to share
-                        </label>
-                        <input
-                          id="link-input"
-                          type="url"
-                          placeholder="https://example.com"
-                          value={link}
-                          onChange={e => setLink(e.target.value)}
-                          className="w-full p-3 sm:p-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          required
-                        />
+                      <div className="space-y-4">
+                        <div>
+                          <label htmlFor="link-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Enter URL to share
+                          </label>
+                          <input
+                            id="link-input"
+                            type="url"
+                            placeholder="https://example.com"
+                            value={link}
+                            onChange={e => setLink(e.target.value)}
+                            className="w-full p-3 sm:p-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="thumbnail-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Thumbnail URL (optional)
+                          </label>
+                          <input
+                            id="thumbnail-input"
+                            type="url"
+                            placeholder="https://example.com/image.jpg"
+                            value={thumbnail}
+                            onChange={e => setThumbnail(e.target.value)}
+                            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          />
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            Add a preview image for your link
+                          </p>
+                        </div>
                       </div>
                     )}
                   </div>
