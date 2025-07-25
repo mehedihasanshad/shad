@@ -206,21 +206,20 @@ export default function AdminPage() {
 
   function openEditModal(resource: ResourceWithUploader) {
     setEditResource(resource);
-    setEditTitle(resource.title || "");
-    setEditDescription(resource.description || "");
-    setEditUrl(resource.url || "");
-    setEditThumbnail(resource.thumbnail || "");
+    setEditTitle(resource.title || '');
+    setEditDescription(resource.description || '');
+    setEditUrl(resource.url || '');
+    setEditThumbnail(resource.thumbnail || '');
     setShowEditModal(true);
   }
 
   function closeEditModal() {
     setEditResource(null);
+    setEditTitle('');
+    setEditDescription('');
+    setEditUrl('');
+    setEditThumbnail('');
     setShowEditModal(false);
-  }
-
-  function handleResourceUpdate(updatedResource: ResourceWithUploader) {
-    setResources(prev => prev.map(r => r.id === updatedResource.id ? updatedResource : r));
-    showNotification('Resource updated successfully!', 'success');
   }
 
   async function handleEditSubmit(e: React.FormEvent) {
@@ -255,56 +254,9 @@ export default function AdminPage() {
     }
   }
 
-  function openEditModal(resource: ResourceWithUploader) {
-    setEditResource(resource);
-    setEditTitle(resource.title || '');
-    setEditDescription(resource.description || '');
-    setEditThumbnail(resource.thumbnail || '');
-    setEditUrl(resource.url || '');
-    setShowEditModal(true);
-  }
-
-  function closeEditModal() {
-    setEditResource(null);
-    setEditTitle('');
-    setEditDescription('');
-    setEditThumbnail('');
-    setEditUrl('');
-    setShowEditModal(false);
-  }
-
-  async function handleEditSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!editResource) return;
-
-    try {
-      const res = await fetch(`/api/resources/${editResource.id}/edit`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: editTitle || null,
-          description: editDescription || null,
-          thumbnail: editThumbnail || null,
-          url: editResource.type === 'link' ? editUrl : undefined,
-        }),
-      });
-
-      const data = await res.json();
-      
-      if (data.success) {
-        showNotification('Resource updated successfully!', 'success');
-        fetchResources();
-        closeEditModal();
-      } else {
-        showNotification(data.error || 'Failed to update resource', 'error');
-      }
-    } catch (error) {
-      console.error('Edit error:', error);
-      showNotification('Failed to update resource', 'error');
-    }
+  function handleResourceUpdate(updatedResource: ResourceWithUploader) {
+    setResources(prev => prev.map(r => r.id === updatedResource.id ? updatedResource : r));
+    showNotification('Resource updated successfully!', 'success');
   }
 
   async function handleUpload(e: React.FormEvent) {
