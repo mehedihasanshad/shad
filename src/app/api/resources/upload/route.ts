@@ -80,6 +80,13 @@ export async function POST(req: NextRequest) {
   const title = formData.get('title') as string | null;
   const description = formData.get('description') as string | null;
 
+    // Generate thumbnail for images
+    let thumbnailUrl = null;
+    if (file.type.startsWith('image/')) {
+      // Create a thumbnail version using Cloudinary transformations
+      thumbnailUrl = uploadResult.url.replace('/upload/', '/upload/w_300,h_200,c_fill,q_auto,f_auto/');
+    }
+
     const resource = await prisma.resource.create({
       data: {
         type: 'file',
@@ -87,6 +94,7 @@ export async function POST(req: NextRequest) {
         filename: file.name,
         title: title || null,
         description: description || null,
+        thumbnail: thumbnailUrl,
         public: isPublic,
         active: isActive,
         uploadedById,
