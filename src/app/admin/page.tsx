@@ -65,6 +65,9 @@ export default function AdminPage() {
   const [uploadType, setUploadType] = useState<'file' | 'link'>('file');
   const [file, setFile] = useState<File | null>(null);
   const [link, setLink] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
@@ -202,6 +205,8 @@ export default function AdminPage() {
     if (uploadType === 'file' && file) {
       const formData = new FormData();
       formData.append('file', file);
+      if (title) formData.append('title', title);
+      if (description) formData.append('description', description);
       const xhr = new XMLHttpRequest();
       xhr.open('POST', '/api/resources/upload');
       xhr.setRequestHeader('Authorization', `Bearer ${jwt}`);
@@ -229,7 +234,13 @@ export default function AdminPage() {
       const res = await fetch("/api/resources", {
         method: "POST",
         headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ type: 'link', url: link }),
+        body: JSON.stringify({ 
+          type: 'link', 
+          url: link,
+          title: title || undefined,
+          description: description || undefined,
+          thumbnail: thumbnail || undefined
+        }),
       });
       const data = await res.json();
       setUploading(false);
@@ -241,6 +252,9 @@ export default function AdminPage() {
     }
     setFile(null);
     setLink("");
+    setTitle("");
+    setDescription("");
+    setThumbnail("");
   }
 
   async function toggleResource(id: number, field: 'active' | 'public', value: boolean) {
