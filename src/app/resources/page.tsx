@@ -54,7 +54,7 @@ export default function ResourcesPage() {
   const [msg, setMsg] = useState("");
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState<File | string | null>(null);
   const [previewResource, setPreviewResource] = useState<ResourceWithUploader | null>(null);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -434,19 +434,26 @@ export default function ResourcesPage() {
                           />
                         </div>
                         <div>
-                          <label htmlFor="thumbnail-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Thumbnail URL (optional)
+                          <label htmlFor="thumbnail-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Upload Thumbnail Image (optional)
                           </label>
                           <input
-                            id="thumbnail-input"
-                            type="url"
-                            placeholder="https://example.com/image.jpg"
-                            value={thumbnail}
-                            onChange={e => setThumbnail(e.target.value)}
+                            id="thumbnail-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                // We'll handle Cloudinary upload in the backend, so just store the file for now
+                                setThumbnail(file);
+                              } else {
+                                setThumbnail("");
+                              }
+                            }}
                             className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            Add a preview image for your link
+                            Upload an image to use as a thumbnail for your link (optional)
                           </p>
                         </div>
                       </div>
@@ -510,15 +517,17 @@ export default function ResourcesPage() {
                     {/* Thumbnail or Icon */}
                     <div className="relative h-32 sm:h-40 bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
                       {r.type === 'link' && r.thumbnail ? (
-                        <img 
-                          src={r.thumbnail} 
-                          alt={r.title || 'Link preview'} 
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                          }}
-                        />
+                        <a href={safeHref(r.url)} target="_blank" rel="noopener noreferrer">
+                          <img 
+                            src={r.thumbnail} 
+                            alt={r.title || 'Link thumbnail'} 
+                            className="w-full h-full object-cover hover:opacity-80 transition-opacity"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                            }}
+                          />
+                        </a>
                       ) : null}
                       <div className={`flex items-center justify-center w-full h-full ${r.type === 'link' && r.thumbnail ? 'hidden' : ''}`}>
                         <span className="text-3xl sm:text-4xl">
