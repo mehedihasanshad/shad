@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { SocialIcon } from 'react-social-icons';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -178,15 +179,9 @@ export default function Contact() {
               <div className="pt-6 md:pt-8 border-t border-gray-200 dark:border-gray-700">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-4 text-sm md:text-base">Follow Me</h3>
                 <div className="flex space-x-3 md:space-x-4">
-                  <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-[#0A66C2] rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-bold text-sm">in</span>
-                  </a>
-                  <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-[#1769FF] rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-bold text-sm">Be</span>
-                  </a>
-                  <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-bold text-sm">ig</span>
-                  </a>
+                  <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 40, width: 40 }} />
+                  <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} />
+                  <SocialIcon url="https://instagram.com/mhsshad" target="_blank" style={{ height: 40, width: 40 }} />
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SocialIcon } from 'react-social-icons';
 
 export function Footer() {
   return (
@@ -21,38 +22,10 @@ export function Footer() {
               empowering students through personalized education.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
-              >
-                <span className="text-sm font-semibold">Li</span>
-              </a>
-              <a
-                href="https://www.youtube.com/@ShadsVisualGfx"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
-              >
-                <span className="text-sm font-semibold">YT</span>
-              </a>
-              <a
-                href="https://www.behance.net/mobasherhossain143"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
-              >
-                <span className="text-sm font-semibold">Be</span>
-              </a>
-              <a
-                href="https://sites.google.com/view/mhs-shad-portfolio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-300"
-              >
-                <span className="text-sm font-semibold">Web</span>
-              </a>
+              <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 40, width: 40 }} />
+              <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 40, width: 40 }} />
+              <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} />
+              <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 40, width: 40 }} />
             </div>
           </div>
 

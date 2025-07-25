@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowRight, MessageCircle, Globe } from "lucide-react";
 import { useInView } from "react-intersection-observer";
+import { SocialIcon } from 'react-social-icons';
 
 const roles = ["Logo Designer", "Motion Graphics Expert", "Academic Tutor", "Digital Media Marketer"];
 
@@ -89,46 +90,12 @@ export function HeroSection() {
               <div className="text-center lg:text-left">
                 <h3 className="text-lg font-semibold text-foreground mb-6">Connect with me</h3>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-3 max-w-md">
-                  <a href="https://facebook.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Facebook">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1877F2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                      </svg>
-                    </div>
-                  </a>
-                  <a href="https://instagram.com/mhsshad" target="_blank" rel="noopener noreferrer" className="group" aria-label="Instagram">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#E4405F] via-[#F56040] to-[#FFDC80] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987c6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.418-3.323C6.001 8.198 7.152 7.708 8.449 7.708s2.448.49 3.323 1.416c.875.926 1.365 2.077 1.365 3.374s-.49 2.448-1.365 3.323C10.897 16.498 9.746 16.988 8.449 16.988zM15.017 16.988c-1.297 0-2.448-.49-3.323-1.297c-.875-.926-1.365-2.077-1.365-3.374s.49-2.448 1.365-3.323c.875-.926 2.026-1.416 3.323-1.416s2.448.49 3.323 1.416c.875.926 1.365 2.077 1.365 3.374s-.49 2.448-1.365 3.323C17.465 16.498 16.314 16.988 15.017 16.988z"/>
-                      </svg>
-                    </div>
-                  </a>
-                  <a href="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" rel="noopener noreferrer" className="group" aria-label="LinkedIn">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0A66C2] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                      </svg>
-                    </div>
-                  </a>
-                  <a href="https://www.behance.net/mobasherhossain143" target="_blank" rel="noopener noreferrer" className="group" aria-label="Behance">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1769FF] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.67.76-.62.16-1.25.24-1.89.24H0V4.51h6.938v-.007zM3.495 8.876h2.563c.62 0 1.11-.89 1.11-.89s.48-.64.48-1.23c0-.75-.19-1.28-.58-1.61-.39-.33-.94-.49-1.65-.49H3.495v4.22zm0 7.176h3.04c.7 0 1.266-.19 1.695-.57.43-.38.65-.98.65-1.8 0-.83-.23-1.41-.69-1.73-.46-.32-1.08-.48-1.86-.48H3.495v4.58zm19.77-8.11h-4.939v-1.28h4.939v1.28zm-1.307 3.626c0-.563-.09-1.02-.27-1.39-.18-.37-.43-.67-.74-.9-.31-.23-.68-.39-1.11-.49-.43-.1-.9-.15-1.41-.15-.51 0-.98.05-1.41.15-.43.1-.8.26-1.11.49-.31.23-.56.53-.74.9-.18.37-.27.827-.27 1.39v4.046c0 .563.09 1.02.27 1.39.18.37.43.67.74.9.31.23.68.39 1.11.49.43.1.9.15 1.41.15.51 0 .98-.05 1.41-.15.43-.1.8-.26 1.11-.49.31-.23.56-.53.74-.9.18-.37.27-.827.27-1.39v-4.046zm-2.405 4.006c0 .563-.227.842-.68.842-.454 0-.681-.279-.681-.842v-3.966c0-.563.227-.842.681-.842.453 0 .68.279.68.842v3.966z"/>
-                      </svg>
-                    </div>
-                  </a>
-                  <a href="https://www.youtube.com/@ShadsVisualGfx" target="_blank" rel="noopener noreferrer" className="group" aria-label="YouTube">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FF0000] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                    </div>
-                  </a>
-                  <a href="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" rel="noopener noreferrer" className="group" aria-label="Personal Website">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#4285F4] rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                      <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                    </div>
-                  </a>
+                  <SocialIcon url="https://facebook.com/mhsshad" target="_blank" style={{ height: 48, width: 48 }} />
+                  <SocialIcon url="https://instagram.com/mhsshad" target="_blank" style={{ height: 48, width: 48 }} />
+                  <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 48, width: 48 }} />
+                  <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 48, width: 48 }} />
+                  <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 48, width: 48 }} />
+                  <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 48, width: 48 }} />
                 </div>
               </div>
             </div>
