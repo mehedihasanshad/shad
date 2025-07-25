@@ -67,7 +67,7 @@ export default function AdminPage() {
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState<File | string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
@@ -231,18 +231,39 @@ export default function AdminPage() {
       };
       xhr.send(formData);
     } else if (uploadType === 'link' && link) {
-      const res = await fetch("/api/resources", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          type: 'link', 
-          url: link,
-          title: title || undefined,
-          description: description || undefined,
-          thumbnail: thumbnail || undefined
-        }),
-      });
-      const data = await res.json();
+      let res, data;
+      if (thumbnail && typeof thumbnail !== 'string') {
+        // If thumbnail is a file, use multipart/form-data
+        const formData = new FormData();
+        formData.append('type', 'link');
+        formData.append('url', link);
+        if (title) formData.append('title', title);
+        if (description) formData.append('description', description);
+        formData.append('thumbnail', thumbnail);
+        formData.append('public', 'true');
+        formData.append('active', 'true');
+        res = await fetch("/api/resources", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${jwt}` },
+          body: formData,
+        });
+      } else {
+        // If thumbnail is a URL or not provided, use JSON
+        res = await fetch("/api/resources", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            type: 'link', 
+            url: link,
+            title: title || undefined,
+            description: description || undefined,
+            thumbnail: thumbnail || undefined,
+            public: true,
+            active: true
+          }),
+        });
+      }
+      data = await res.json();
       setUploading(false);
       showNotification(data.success ? "Link uploaded!" : data.error || "Upload failed", data.success ? 'success' : 'error');
       if (data.success) fetchResources();
@@ -254,7 +275,7 @@ export default function AdminPage() {
     setLink("");
     setTitle("");
     setDescription("");
-    setThumbnail("");
+    setThumbnail(null);
   }
 
   async function toggleResource(id: number, field: 'active' | 'public', value: boolean) {
@@ -469,14 +490,13 @@ export default function AdminPage() {
                       className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                     <input 
-                      type="url" 
-                      placeholder="Thumbnail URL (optional)" 
-                      value={thumbnail} 
-                      onChange={e => setThumbnail(e.target.value)} 
+                      type="file"
+                      accept="image/*"
+                      onChange={e => setThumbnail(e.target.files?.[0] || null)}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     />
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Add a preview image for your link
+                      Upload an image to use as a thumbnail for your link (optional)
                     </p>
                   </div>
                 )}

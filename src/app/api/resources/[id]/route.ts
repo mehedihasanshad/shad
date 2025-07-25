@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
-import { unlink } from 'fs/promises';
-import path from 'path';
+import { deleteFromCloudinary } from '@/lib/cloudinary';
 import type { JwtPayload } from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
@@ -44,15 +43,17 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'Resource not found' }, { status: 404 });
     }
 
-    // If it's a file, try to delete the physical file
+    // If it's a file, try to delete from Cloudinary
     if (resource.type === 'file' && resource.url) {
       try {
-        const filename = resource.url.replace('/uploads/', '');
-        const filePath = path.join(process.cwd(), 'public', 'uploads', filename);
-        await unlink(filePath);
+        // Extract public_id from Cloudinary URL
+        const urlParts = resource.url.split('/');
+        const publicIdWithExtension = urlParts[urlParts.length - 1];
+        const publicId = `resources/${publicIdWithExtension.split('.')[0]}`;
+        await deleteFromCloudinary(publicId);
       } catch (fileError) {
         // File might not exist or already deleted, continue with database deletion
-        console.warn('Could not delete file:', fileError);
+        console.warn('Could not delete file from Cloudinary:', fileError);
       }
     }
 
