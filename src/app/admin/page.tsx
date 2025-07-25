@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import type { Resource } from "@prisma/client";
 import { Download, Eye, ExternalLink, X, Edit } from "lucide-react";
+import { ResourceEditModal } from "@/components/resource-edit-modal";
 
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
@@ -81,10 +82,6 @@ export default function AdminPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [editResource, setEditResource] = useState<ResourceWithUploader | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editTitle, setEditTitle] = useState("");
-  const [editDescription, setEditDescription] = useState("");
-  const [editThumbnail, setEditThumbnail] = useState("");
-  const [editUrl, setEditUrl] = useState("");
 
   // On mount, check for JWT in localStorage
   useEffect(() => {
