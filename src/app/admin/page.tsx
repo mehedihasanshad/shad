@@ -456,7 +456,7 @@ export default function AdminPage() {
         </div>
       )}
       
-      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl">
+      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl pt-20">
         {/* Header */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -744,11 +744,22 @@ export default function AdminPage() {
                     </div>
                   </div>
                   
-                  {/* Resource Link */}
+                  {/* Resource Link/Thumbnail */}
                   <div className="flex items-center gap-2 sm:gap-3 mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">
-                      {r.type === 'file' ? getFileIcon(r.filename || undefined) : '🔗'}
-                    </span>
+                    {r.type === 'link' && r.thumbnail ? (
+                      <a href={r.url || undefined} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={r.thumbnail}
+                          alt={r.title || 'Link thumbnail'}
+                          className="w-20 h-14 object-cover rounded border mr-3 hover:opacity-80 transition-opacity"
+                          style={{ minWidth: 80, minHeight: 56 }}
+                        />
+                      </a>
+                    ) : (
+                      <span className="text-xl sm:text-2xl flex-shrink-0">
+                        {r.type === 'file' ? getFileIcon(r.filename || undefined) : '🔗'}
+                      </span>
+                    )}
                     <div className="flex-1 min-w-0">
                       {r.type === 'file' ? (
                         <a 
