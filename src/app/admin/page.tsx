@@ -768,6 +768,14 @@ export default function AdminPage() {
                       Preview
                     </button>
                     
+                    <button
+                      onClick={() => openEditModal(r)}
+                      className="flex items-center gap-1 px-3 py-1.5 bg-yellow-600 hover:bg-yellow-700 text-white text-xs rounded transition-colors"
+                    >
+                      <Edit className="w-3 h-3" />
+                      Edit
+                    </button>
+                    
                     {r.type === 'file' ? (
                       <button
                         onClick={() => downloadFile(r)}
