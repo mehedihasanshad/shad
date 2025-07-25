@@ -543,7 +543,7 @@ export default function ResourcesPage() {
                           </h4>
                         ) : null}
                         
-                        <div className="text-xs text-blue-600 dark:text-blue-400 truncate">
+                        <div className="text-xs text-blue-600 dark:text-blue-400 truncate" style={{ maxWidth: '100%' }}>
                           {r.type === 'file' 
                             ? (typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : 'File')
                             : (typeof r.url === 'string' ? new URL(r.url).hostname : 'Link')
@@ -606,6 +606,140 @@ export default function ResourcesPage() {
 
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && previewResource && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl max-h-[90vh] w-full overflow-hidden">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {previewResource.title || previewResource.filename || 'Resource Preview'}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {previewResource.type === 'file' ? 'File' : 'Link'} • 
+                  Shared by {previewResource.uploaderType === 'admin' ? (previewResource.uploadedBy?.username || 'Admin') : 'General Public'}
+                </p>
+              </div>
+              <button
+                onClick={closePreview}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-4 max-h-[70vh] overflow-auto">
+              {previewResource.type === 'file' ? (
+                <div>
+                  {getFileType(previewResource.filename || '') === 'image' ? (
+                    <img 
+                      src={previewResource.url || ''} 
+                      alt={previewResource.title || previewResource.filename || 'Image'} 
+                      className="max-w-full h-auto mx-auto rounded-lg"
+                    />
+                  ) : getFileType(previewResource.filename || '') === 'pdf' ? (
+                    <iframe 
+                      src={previewResource.url || ''} 
+                      className="w-full h-96 border rounded-lg"
+                      title="PDF Preview"
+                    />
+                  ) : getFileType(previewResource.filename || '') === 'video' ? (
+                    <video 
+                      src={previewResource.url || ''} 
+                      controls 
+                      className="max-w-full h-auto mx-auto rounded-lg"
+                    />
+                  ) : getFileType(previewResource.filename || '') === 'audio' ? (
+                    <audio 
+                      src={previewResource.url || ''} 
+                      controls 
+                      className="w-full"
+                    />
+                  ) : (
+                    <div className="text-center py-8">
+                      <div className="text-6xl mb-4">
+                        {getFileIcon(previewResource.filename || '')}
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        Preview not available for this file type
+                      </p>
+                      <button
+                        onClick={() => downloadFile(previewResource)}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                      >
+                        <Download className="w-4 h-4" />
+                        Download File
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  {previewResource.thumbnail && (
+                    <img 
+                      src={previewResource.thumbnail} 
+                      alt={previewResource.title || 'Link preview'} 
+                      className="w-full max-h-64 object-cover rounded-lg mb-4"
+                    />
+                  )}
+                  <div className="text-center">
+                    <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      {previewResource.title || 'External Link'}
+                    </h4>
+                    {previewResource.description && (
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        {previewResource.description}
+                      </p>
+                    )}
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 break-all">
+                      {previewResource.url}
+                    </p>
+                    <a
+                      href={safeHref(previewResource.url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      Visit Link
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                {previewResource.description && (
+                  <p>{previewResource.description}</p>
+                )}
+                <p>Shared on {new Date(previewResource.createdAt).toLocaleDateString()}</p>
+              </div>
+              <div className="flex gap-2">
+                {previewResource.type === 'file' && (
+                  <button
+                    onClick={() => downloadFile(previewResource)}
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download
+                  </button>
+                )}
+                <button
+                  onClick={closePreview}
+                  className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
