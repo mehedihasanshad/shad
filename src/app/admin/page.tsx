@@ -67,7 +67,7 @@ export default function AdminPage() {
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState<File | string | null>(null);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
   const [publicUploading, setPublicUploading] = useState<boolean | null>(null);
@@ -232,7 +232,7 @@ export default function AdminPage() {
       xhr.send(formData);
     } else if (uploadType === 'link' && link) {
       let res, data;
-      if (thumbnail && typeof thumbnail !== 'string') {
+      if (thumbnail) {
         // If thumbnail is a file, use multipart/form-data
         const formData = new FormData();
         formData.append('type', 'link');
@@ -493,6 +493,7 @@ export default function AdminPage() {
                       type="file"
                       accept="image/*"
                       onChange={e => setThumbnail(e.target.files?.[0] || null)}
+                      value={undefined}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     />
                     <p className="text-xs text-gray-500 dark:text-gray-400">
