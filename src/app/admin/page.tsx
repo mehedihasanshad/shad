@@ -430,6 +430,24 @@ export default function AdminPage() {
                   </label>
                 </div>
                 
+                {/* Title and Description Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input 
+                    type="text" 
+                    placeholder="Title (optional)" 
+                    value={title} 
+                    onChange={e => setTitle(e.target.value)} 
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="Description (optional)" 
+                    value={description} 
+                    onChange={e => setDescription(e.target.value)} 
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                </div>
+
                 {uploadType === 'file' ? (
                   <div className="space-y-2">
                     <input 
@@ -442,13 +460,25 @@ export default function AdminPage() {
                     </p>
                   </div>
                 ) : (
-                  <input 
-                    type="url" 
-                    placeholder="https://example.com/resource" 
-                    value={link} 
-                    onChange={e => setLink(e.target.value)} 
-                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
-                  />
+                  <div className="space-y-3">
+                    <input 
+                      type="url" 
+                      placeholder="https://example.com/resource" 
+                      value={link} 
+                      onChange={e => setLink(e.target.value)} 
+                      className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
+                    />
+                    <input 
+                      type="url" 
+                      placeholder="Thumbnail URL (optional)" 
+                      value={thumbnail} 
+                      onChange={e => setThumbnail(e.target.value)} 
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    />
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Add a preview image for your link
+                    </p>
+                  </div>
                 )}
                 
                 <button 
