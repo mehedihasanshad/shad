@@ -32,6 +32,9 @@ model Resource {
   type       String  // 'file' or 'link'
   url        String? // for links or file path
   filename   String? // for files
+  title      String? // optional title for the resource
+  description String? // optional description
+  thumbnail  String? // optional thumbnail URL for links
   active     Boolean @default(true)
   public     Boolean @default(false)
   uploadedBy User?   @relation("UserResources", fields: [uploadedById], references: [id])
