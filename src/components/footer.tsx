@@ -96,20 +96,93 @@ export function Footer() {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-center items-center text-center gap-4">
-          <p className="text-gray-400 text-sm">&copy; 2025 Mehedi Hasan Shad. All rights reserved.</p>
-          <div className="flex flex-col md:flex-row md:items-center gap-2 text-gray-400 text-sm">
-            <span>Email: <a href="mailto:mhsshad143@gmail.com" className="underline">mhsshad143@gmail.com</a></span>
-            <span className="hidden md:inline">|</span>
-            <span>Phone: <a href="tel:+8801522102652" className="underline">+8801522102652</a></span>
+        <div className="border-t border-gray-800 mt-12 pt-8">
+          {/* Main Footer Content */}
+          <div className="flex flex-col lg:flex-row justify-between items-center text-center lg:text-left gap-6 mb-6">
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
+              <p className="text-gray-400 text-sm">&copy; 2025 Mehedi Hasan Shad. All rights reserved.</p>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-gray-400 text-sm">
+                <span>Email: <a href="mailto:mhsshad143@gmail.com" className="text-red-400 hover:text-red-300 underline transition-colors">mhsshad143@gmail.com</a></span>
+                <span className="hidden sm:inline">|</span>
+                <span>Phone: <a href="tel:+8801522102652" className="text-red-400 hover:text-red-300 underline transition-colors">+8801522102652</a></span>
+              </div>
+            </div>
+            
+            <div className="flex flex-wrap justify-center lg:justify-end gap-6">
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
+                Terms of Service
+              </a>
+            </div>
           </div>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
-              Terms of Service
-            </a>
+
+          {/* SEO Partner Links Section */}
+          <div className="border-t border-gray-800 pt-6 mb-6">
+            <div className="text-center">
+              <h5 className="text-gray-300 text-sm font-semibold mb-3">Trusted Partners & Services</h5>
+              <div className="flex flex-wrap justify-center items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400">Web Development:</span>
+                  <a 
+                    href="https://webcloudor.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200"
+                    title="Professional Web Development Services - WebCloudor"
+                  >
+                    WebCloudor.com
+                  </a>
+                </div>
+                <span className="text-gray-600 hidden sm:inline">•</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400">Portfolio & Design:</span>
+                  <a 
+                    href="https://syedhabib.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-400 hover:text-green-300 font-medium transition-colors duration-200"
+                    title="Creative Design Portfolio - Syed Habib"
+                  >
+                    SyedHabib.com
+                  </a>
+                </div>
+              </div>
+              <p className="text-gray-500 text-xs mt-3 max-w-2xl mx-auto">
+                Explore cutting-edge web development solutions at WebCloudor and discover innovative design portfolios at SyedHabib.com - 
+                your trusted partners for digital excellence and creative solutions.
+              </p>
+            </div>
+          </div>
+
+          {/* Developer Attribution */}
+          <div className="border-t border-gray-800 pt-6 text-center">
+            <p className="text-gray-400 text-sm flex items-center justify-center gap-2">
+              Crafted with 
+              <span className="text-green-400 text-base">💚</span> 
+              by 
+              <a 
+                href="https://syedhabib.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-green-400 hover:text-green-300 font-semibold transition-colors duration-200"
+                title="Ahsan Habib Akik - Co-founder of WebCloudor"
+              >
+                Ahsan Habib Akik
+              </a>
+              <span className="text-gray-500">•</span>
+              <span className="text-gray-500">Co-founder of</span>
+              <a 
+                href="https://webcloudor.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-200"
+                title="WebCloudor - Professional Web Development Company"
+              >
+                WebCloudor
+              </a>
+            </p>
           </div>
         </div>
       </div>
