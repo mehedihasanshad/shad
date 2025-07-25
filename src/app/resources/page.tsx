@@ -557,7 +557,12 @@ export default function ResourcesPage() {
                         
                         {/* Display description if available */}
                         {r.description && (
-                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1" style={{ 
+                            display: '-webkit-box', 
+                            WebkitLineClamp: 2, 
+                            WebkitBoxOrient: 'vertical', 
+                            overflow: 'hidden' 
+                          }}>
                             {r.description}
                           </p>
                         )}
