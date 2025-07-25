@@ -967,6 +967,131 @@ export default function AdminPage() {
           </div>
         </div>
       )}
+
+      {/* Edit Modal */}
+      {showEditModal && editResource && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Edit Resource
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {editResource.type === 'file' ? 'File' : 'Link'} • 
+                  {editResource.filename || 'Resource'}
+                </p>
+              </div>
+              <button
+                onClick={closeEditModal}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <form onSubmit={handleEditSubmit} className="p-4 space-y-4">
+              {/* Title */}
+              <div>
+                <label htmlFor="edit-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Title
+                </label>
+                <input
+                  id="edit-title"
+                  type="text"
+                  placeholder="Enter title (optional)"
+                  value={editTitle}
+                  onChange={e => setEditTitle(e.target.value)}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label htmlFor="edit-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Description
+                </label>
+                <textarea
+                  id="edit-description"
+                  placeholder="Enter description (optional)"
+                  value={editDescription}
+                  onChange={e => setEditDescription(e.target.value)}
+                  rows={3}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                />
+              </div>
+
+              {/* URL (for links only) */}
+              {editResource.type === 'link' && (
+                <div>
+                  <label htmlFor="edit-url" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    URL
+                  </label>
+                  <input
+                    id="edit-url"
+                    type="url"
+                    placeholder="https://example.com"
+                    value={editUrl}
+                    onChange={e => setEditUrl(e.target.value)}
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              )}
+
+              {/* Thumbnail */}
+              <div>
+                <label htmlFor="edit-thumbnail" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Thumbnail URL
+                </label>
+                <input
+                  id="edit-thumbnail"
+                  type="url"
+                  placeholder="https://example.com/image.jpg"
+                  value={editThumbnail}
+                  onChange={e => setEditThumbnail(e.target.value)}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Add a preview image URL for this resource
+                </p>
+                
+                {/* Thumbnail Preview */}
+                {editThumbnail && (
+                  <div className="mt-2">
+                    <img 
+                      src={editThumbnail} 
+                      alt="Thumbnail preview" 
+                      className="w-32 h-20 object-cover rounded border"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button
+                  type="button"
+                  onClick={closeEditModal}
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
