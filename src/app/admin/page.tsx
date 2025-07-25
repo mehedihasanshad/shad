@@ -82,6 +82,10 @@ export default function AdminPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [editResource, setEditResource] = useState<ResourceWithUploader | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editUrl, setEditUrl] = useState("");
+  const [editThumbnail, setEditThumbnail] = useState("");
 
   // On mount, check for JWT in localStorage
   useEffect(() => {
@@ -202,6 +206,10 @@ export default function AdminPage() {
 
   function openEditModal(resource: ResourceWithUploader) {
     setEditResource(resource);
+    setEditTitle(resource.title || "");
+    setEditDescription(resource.description || "");
+    setEditUrl(resource.url || "");
+    setEditThumbnail(resource.thumbnail || "");
     setShowEditModal(true);
   }
 
@@ -213,6 +221,38 @@ export default function AdminPage() {
   function handleResourceUpdate(updatedResource: ResourceWithUploader) {
     setResources(prev => prev.map(r => r.id === updatedResource.id ? updatedResource : r));
     showNotification('Resource updated successfully!', 'success');
+  }
+
+  async function handleEditSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!editResource || !jwt) return;
+
+    try {
+      const response = await fetch(`/api/resources/${editResource.id}/edit`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify({
+          title: editTitle || null,
+          description: editDescription || null,
+          thumbnail: editThumbnail || null,
+          url: editResource.type === 'link' ? editUrl : editResource.url,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        handleResourceUpdate(data.resource);
+        closeEditModal();
+      } else {
+        showNotification(data.error || 'Failed to update resource', 'error');
+      }
+    } catch (error) {
+      console.error('Edit error:', error);
+      showNotification('Failed to update resource', 'error');
+    }
   }
 
   function openEditModal(resource: ResourceWithUploader) {
