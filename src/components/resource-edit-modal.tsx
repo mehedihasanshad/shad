@@ -17,7 +17,13 @@ interface ResourceEditModalProps {
   jwt: string;
 }
 
-export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: ResourceEditModalProps) {
+export function ResourceEditModal({
+  resource,
+  isOpen,
+  onClose,
+  onSave,
+  jwt,
+}: ResourceEditModalProps) {
   const [title, setTitle] = useState(resource.title || "");
   const [description, setDescription] = useState(resource.description || "");
   const [thumbnail, setThumbnail] = useState(resource.thumbnail || "");
@@ -50,9 +56,12 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
       if (thumbnailFile) {
         setUploadingThumbnail(true);
         const formData = new FormData();
-        formData.append('file', thumbnailFile);
-        formData.append('title', 'Thumbnail');
-        formData.append('description', `Thumbnail for ${resource.title || resource.filename}`);
+        formData.append("file", thumbnailFile);
+        formData.append("title", "Thumbnail");
+        formData.append(
+          "description",
+          `Thumbnail for ${resource.title || resource.filename}`
+        );
 
         const uploadRes = await fetch("/api/resources/upload", {
           method: "POST",
@@ -77,8 +86,8 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
           title: title || null,
           description: description || null,
           thumbnail: finalThumbnail || null,
-          url: resource.type === 'link' ? url : resource.url,
-          filename: resource.type === 'file' ? filename : resource.filename,
+          url: resource.type === "link" ? url : resource.url,
+          filename: resource.type === "file" ? filename : resource.filename,
           active,
           public: isPublic,
         }),
@@ -99,17 +108,19 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
     }
   };
 
-  const handleThumbnailFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
       // Validate file type
-      if (!file.type.startsWith('image/')) {
-        alert('Please select an image file for thumbnail');
+      if (!file.type.startsWith("image/")) {
+        alert("Please select an image file for thumbnail");
         return;
       }
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        alert('Thumbnail file size must be less than 5MB');
+        alert("Thumbnail file size must be less than 5MB");
         return;
       }
       setThumbnailFile(file);
@@ -128,7 +139,7 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
               Edit Resource
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {resource.type === 'file' ? 'File' : 'Link'} • ID: {resource.id}
+              {resource.type === "file" ? "File" : "Link"} • ID: {resource.id}
             </p>
           </div>
           <button
@@ -144,7 +155,10 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
           <div className="space-y-4">
             {/* Title */}
             <div>
-              <label htmlFor="edit-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label
+                htmlFor="edit-title"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
                 Title
               </label>
               <input
@@ -159,7 +173,10 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
 
             {/* Description */}
             <div>
-              <label htmlFor="edit-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label
+                htmlFor="edit-description"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
                 Description
               </label>
               <textarea
@@ -173,9 +190,12 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
             </div>
 
             {/* URL (for links) */}
-            {resource.type === 'link' && (
+            {resource.type === "link" && (
               <div>
-                <label htmlFor="edit-url" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label
+                  htmlFor="edit-url"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >
                   URL
                 </label>
                 <input
@@ -190,9 +210,12 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
             )}
 
             {/* Filename (for files) */}
-            {resource.type === 'file' && (
+            {resource.type === "file" && (
               <div>
-                <label htmlFor="edit-filename" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label
+                  htmlFor="edit-filename"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >
                   Filename
                 </label>
                 <input
@@ -211,14 +234,16 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Thumbnail
               </label>
-              
+
               {/* Current thumbnail preview */}
               {thumbnail && (
                 <div className="mb-3">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Current thumbnail:</p>
-                  <img 
-                    src={thumbnail} 
-                    alt="Current thumbnail" 
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                    Current thumbnail:
+                  </p>
+                  <img
+                    src={thumbnail}
+                    alt="Current thumbnail"
                     className="w-32 h-20 object-cover rounded border"
                   />
                 </div>
@@ -270,7 +295,9 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
                   onChange={(e) => setActive(e.target.checked)}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">Active</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Active
+                </span>
               </label>
 
               <label className="flex items-center space-x-2 cursor-pointer">
@@ -280,7 +307,9 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
                   onChange={(e) => setIsPublic(e.target.checked)}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">Public</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Public
+                </span>
               </label>
             </div>
           </div>
@@ -302,7 +331,7 @@ export function ResourceEditModal({ resource, isOpen, onClose, onSave, jwt }: Re
             {saving || uploadingThumbnail ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                {uploadingThumbnail ? 'Uploading...' : 'Saving...'}
+                {uploadingThumbnail ? "Uploading..." : "Saving..."}
               </>
             ) : (
               <>

@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { v2 as cloudinary } from 'cloudinary';
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   let dbStatus = 'ok';
   let cloudinaryStatus = 'ok';
   let envStatus = {};
@@ -18,8 +18,8 @@ export async function GET(req: NextRequest) {
     };
     // Test DB connection
     await prisma.globalSetting.findFirst();
-  } catch (e) {
-    dbStatus = e.message || 'db error';
+  } catch (e: unknown) {
+    dbStatus = (e as Error).message || 'db error';
   }
   try {
     // Test Cloudinary config
@@ -29,8 +29,8 @@ export async function GET(req: NextRequest) {
         else resolve(res);
       });
     });
-  } catch (e) {
-    cloudinaryStatus = e.message || 'cloudinary error';
+  } catch (e: unknown) {
+    cloudinaryStatus = (e as Error).message || 'cloudinary error';
   }
   return NextResponse.json({ envStatus, dbStatus, cloudinaryStatus });
 } 

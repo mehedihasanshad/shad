@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { Resource } from "@prisma/client";
-import { Download, Eye, ExternalLink, X, Image as ImageIcon } from "lucide-react";
+import { Download, Eye, ExternalLink, X } from "lucide-react";
 
-type ResourceWithUser = Resource & { uploadedBy?: { username: string } | null };
+
 
 interface ResourceWithUploader extends Resource {
   uploadedBy?: { username: string } | null;
@@ -105,7 +105,7 @@ export default function ResourcesPage() {
         setShowUploadForm(false);
       }
     } else if (uploadType === 'link' && link) {
-      let res, data;
+      let res;
       if (thumbnail && typeof thumbnail !== 'string') {
         // Send as multipart/form-data
         const formData = new FormData();
@@ -136,7 +136,7 @@ export default function ResourcesPage() {
           }),
         });
       }
-      data = await res.json();
+      const data = await res.json();
       setUploading(false);
       setMsg(data.success ? "Link shared!" : data.error || "Upload failed");
       if (data.success) {

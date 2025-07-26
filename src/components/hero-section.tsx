@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Globe } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { SocialIcon } from 'react-social-icons';
 
