@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Play } from "lucide-react";
+import { ArrowRight, MessageCircle, Download, Play } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { SocialIcon } from 'react-social-icons';
 
@@ -57,24 +57,34 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-center min-h-[85vh] py-8 lg:py-12">
           
           {/* Enhanced Hero Content - Left Side - Takes 2 columns */}
-          <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-2 lg:order-1 animate-slide-in-left">
+          <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-1 lg:order-1 animate-slide-in-left">
             {/* Status Badge - Fixed positioning */}
-            <Badge variant="secondary" className="w-fit mx-auto lg:mx-0 px-3 py-1.5 lg:px-4 lg:py-2 bg-background/80 backdrop-blur-sm text-muted-foreground border-2 border-red-200 dark:border-red-800">
-              <span className="animate-pulse mr-2 text-sm lg:text-base">👋</span>
-              <span className="font-medium text-xs lg:text-sm">Hello, I&apos;m available for new projects</span>
+            <Badge variant="secondary" className="w-fit mx-auto lg:mx-0 px-3 py-1.5 lg:px-6 lg:py-3 bg-background/80 backdrop-blur-sm text-muted-foreground border-2 border-red-200 dark:border-red-800">
+              <span className="animate-pulse mr-2 lg:mr-3 text-sm lg:text-lg">👋</span>
+              <span className="font-medium text-xs lg:text-base">Hello, I&apos;m available for new projects</span>
             </Badge>
 
-            {/* Main Heading - More compact */}
-            <div className="space-y-2 lg:space-y-3 animate-slide-in-up [animation-delay:0.2s]">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-[0.9] tracking-tight">
-                <span className="block text-foreground">Mehedi Hasan</span>
-                <span className="block bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                  Shad
+            {/* Main Heading - Desktop: single line, Mobile: stacked */}
+            <div className="space-y-2 lg:space-y-4 animate-slide-in-up [animation-delay:0.2s]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-[0.9] tracking-tight">
+                {/* Mobile: Stacked layout */}
+                <span className="block lg:hidden">
+                  <span className="block text-foreground">Mehedi Hasan</span>
+                  <span className="block bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
+                    Shad
+                  </span>
+                </span>
+                {/* Desktop: Single line */}
+                <span className="hidden lg:block text-foreground">
+                  Mehedi Hasan{" "}
+                  <span className="bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
+                    Shad
+                  </span>
                 </span>
               </h1>
               
               {/* Dynamic Role with Enhanced Styling */}
-              <div className="text-base sm:text-lg lg:text-xl xl:text-2xl text-foreground">
+              <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-foreground">
                 <span className="font-medium">I&apos;m a </span>
                 <span className="font-bold text-red-600 dark:text-red-400 inline-block min-w-0 transition-all duration-500 ease-in-out">
                   {currentRole}
@@ -83,50 +93,113 @@ export function HeroSection() {
             </div>
 
             {/* Enhanced Description - More compact */}
-            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto lg:mx-0 leading-relaxed animate-slide-in-up [animation-delay:0.4s]">
+            <p className="text-sm sm:text-base lg:text-xl text-muted-foreground max-w-4xl mx-auto lg:mx-0 leading-relaxed animate-slide-in-up [animation-delay:0.4s]">
               Crafting exceptional visual experiences through innovative logo design and captivating
               motion graphics, while empowering the next generation through personalized mathematics
               and physics education.
             </p>
+          </div>
 
-            {/* Two-row layout for better space usage */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 animate-slide-in-up [animation-delay:0.6s]">
-              {/* Action Buttons Row */}
-              <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 justify-center lg:justify-start">
-                <Link href="/portfolio">
-                  <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                    <span>View My Work</span>
-                    <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button variant="outline" size="sm" className="group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg border-2 hover:bg-red-50 dark:hover:bg-red-950 transition-all duration-300 hover:scale-105">
-                    <MessageCircle className="w-3 h-3 lg:w-4 lg:h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
-                    <span>Get In Touch</span>
-                  </Button>
-                </Link>
+          {/* Enhanced Hero Visual - Right Side - Takes 1 column - Mobile: Order 2 */}
+          <div className="lg:col-span-1 relative flex justify-center lg:justify-end order-2 lg:order-2 animate-slide-in-right">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-88 xl:h-88 flex items-end justify-center animate-float">
+              {/* Enhanced Background with Multiple Layers */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 via-red-400 to-pink-500 shadow-2xl" />
+              <div className="absolute inset-2 rounded-3xl bg-gradient-to-br from-red-400 via-red-300 to-pink-400 opacity-80" />
+              
+              {/* Main Image Container - Fixed sizing and positioning */}
+              <div className="absolute left-3 right-3 bottom-0 flex justify-center overflow-visible h-[110%]">
+                <Image
+                  src="/shadphoto.jpg"
+                  alt="Mehedi Hasan Shad portrait"
+                  width={320}
+                  height={384}
+                  className="object-cover object-center rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500 hero-image-container"
+                  priority
+                />
               </div>
 
-              {/* Achievement Stats in second column */}
-              <div className="grid grid-cols-2 gap-3 lg:gap-4">
-                {achievements.slice(0, 4).map((achievement, index) => (
-                  <div 
-                    key={index} 
-                    className={`text-center lg:text-left animate-float ${
-                      index === 0 ? '[animation-delay:0s]' :
-                      index === 1 ? '[animation-delay:0.3s]' :
-                      index === 2 ? '[animation-delay:0.6s]' : '[animation-delay:0.9s]'
-                    }`}
-                  >
-                    <div className="text-lg lg:text-xl xl:text-2xl font-bold text-red-600 dark:text-red-400">
-                      {achievement.number}
-                    </div>
-                    <div className="text-xs lg:text-sm text-muted-foreground font-medium">
-                      {achievement.label}
-                    </div>
+              {/* Enhanced Floating Skill Badges - Better positioned */}
+              <div className="absolute -top-2 -left-2 lg:-top-3 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900">
+                <div className="flex items-center space-x-1">
+                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">L</span>
                   </div>
-                ))}
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Logo</span>
+                </div>
               </div>
+
+              <div className="absolute -top-2 -right-2 lg:-top-3 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:1s]">
+                <div className="flex items-center space-x-1">
+                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-purple-500 to-purple-600 rounded-md flex items-center justify-center shadow-lg">
+                    <Play className="w-2.5 h-2.5 lg:w-3 lg:h-3 text-white" />
+                  </div>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Motion</span>
+                </div>
+              </div>
+
+              <div className="absolute bottom-1 -left-2 lg:bottom-0 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:2s]">
+                <div className="flex items-center space-x-1">
+                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-md flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">T</span>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Tutor</span>
+                </div>
+              </div>
+
+              <div className="absolute bottom-1 -right-2 lg:bottom-0 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:3s]">
+                <div className="flex items-center space-x-1">
+                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-md flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">D</span>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Digital</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom section for mobile, part of left column for desktop - Order 3 */}
+          <div className="lg:col-span-3 flex flex-col space-y-4 lg:space-y-6 text-center lg:text-left order-3 lg:order-3 animate-slide-in-up [animation-delay:0.6s]">
+            
+            {/* Action Buttons Row - Full width */}
+            <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 justify-center lg:justify-start mb-4 lg:mb-6">
+              <Link href="/portfolio">
+                <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  <span>View My Work</span>
+                  <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" size="sm" className="group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg border-2 hover:bg-red-50 dark:hover:bg-red-950 transition-all duration-300 hover:scale-105">
+                  <MessageCircle className="w-3 h-3 lg:w-4 lg:h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                  <span>Get In Touch</span>
+                </Button>
+              </Link>
+              <Button variant="ghost" size="sm" className="group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                <Download className="w-3 h-3 lg:w-4 lg:h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                <span>Resume</span>
+              </Button>
+            </div>
+
+            {/* Achievement Stats - Separated row */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 border-t border-gray-200 dark:border-gray-700 pt-4 lg:pt-6">
+              {achievements.map((achievement, index) => (
+                <div 
+                  key={index} 
+                  className={`text-center lg:text-left animate-float ${
+                    index === 0 ? '[animation-delay:0s]' :
+                    index === 1 ? '[animation-delay:0.3s]' :
+                    index === 2 ? '[animation-delay:0.6s]' : '[animation-delay:0.9s]'
+                  }`}
+                >
+                  <div className="text-lg lg:text-xl xl:text-2xl font-bold text-red-600 dark:text-red-400">
+                    {achievement.number}
+                  </div>
+                  <div className="text-xs lg:text-sm text-muted-foreground font-medium">
+                    {achievement.label}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Enhanced Social Media Section - Horizontal layout */}
@@ -141,64 +214,6 @@ export function HeroSection() {
                 <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
                 <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
                 <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced Hero Visual - Right Side - Takes 1 column */}
-          <div className="lg:col-span-1 relative flex justify-center lg:justify-end order-1 lg:order-2 animate-slide-in-right">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 flex items-end justify-center animate-float">
-              {/* Enhanced Background with Multiple Layers */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 via-red-400 to-pink-500 shadow-2xl" />
-              <div className="absolute inset-2 rounded-3xl bg-gradient-to-br from-red-400 via-red-300 to-pink-400 opacity-80" />
-              
-              {/* Main Image Container */}
-              <div className="absolute left-4 right-4 bottom-0 flex justify-center overflow-visible h-[120%]">
-                <Image
-                  src="/shadphoto.jpg"
-                  alt="Mehedi Hasan Shad portrait"
-                  width={384}
-                  height={460}
-                  className="object-cover object-center rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500"
-                  priority
-                />
-              </div>
-
-              {/* Enhanced Floating Skill Badges - More compact */}
-              <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 lg:p-3 animate-bounce z-10 border-2 border-red-100 dark:border-red-900">
-                <div className="flex items-center space-x-1.5">
-                  <div className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">L</span>
-                  </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Logo</span>
-                </div>
-              </div>
-
-              <div className="absolute -top-3 -right-3 lg:-top-4 lg:-right-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 lg:p-3 animate-bounce z-10 border-2 border-red-100 dark:border-red-900 [animation-delay:1s]">
-                <div className="flex items-center space-x-1.5">
-                  <div className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-purple-500 to-purple-600 rounded-md flex items-center justify-center shadow-lg">
-                    <Play className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
-                  </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Motion</span>
-                </div>
-              </div>
-
-              <div className="absolute -bottom-1 -left-3 lg:-bottom-2 lg:-left-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 lg:p-3 animate-bounce z-10 border-2 border-red-100 dark:border-red-900 [animation-delay:2s]">
-                <div className="flex items-center space-x-1.5">
-                  <div className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-green-500 to-green-600 rounded-md flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">T</span>
-                  </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Tutor</span>
-                </div>
-              </div>
-
-              <div className="absolute -bottom-1 -right-3 lg:-bottom-2 lg:-right-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 lg:p-3 animate-bounce z-10 border-2 border-red-100 dark:border-red-900 [animation-delay:3s]">
-                <div className="flex items-center space-x-1.5">
-                  <div className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-orange-500 to-orange-600 rounded-md flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">D</span>
-                  </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Digital</span>
-                </div>
               </div>
             </div>
           </div>
@@ -248,8 +263,8 @@ function AnimatedSkillBar({ skill, delay }: { skill: { name: string; percent: nu
       </div>
       <div className="w-full h-2 lg:h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden shadow-inner">
         <div
-          className={`h-2 lg:h-3 rounded-full bg-gradient-to-r from-red-500 via-red-400 to-pink-500 dark:from-red-400 dark:via-red-500 dark:to-pink-400 transition-all duration-1000 ease-out shadow-md relative overflow-hidden`}
-          style={{ width: `${width}%` }}
+          className={`h-2 lg:h-3 rounded-full bg-gradient-to-r from-red-500 via-red-400 to-pink-500 dark:from-red-400 dark:via-red-500 dark:to-pink-400 skill-bar-progress shadow-md relative overflow-hidden`}
+          style={{ '--skill-width': `${width}%` } as React.CSSProperties}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
         </div>

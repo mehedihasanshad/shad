@@ -232,3 +232,9 @@ h6 {
 html {
   scroll-behavior: smooth;
 }
+
+/* Custom Image Container Styling */
+.hero-image-container {
+  max-height: 100%;
+  width: auto;
+}
