@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Resource } from "@prisma/client";
 import { Download, Eye, ExternalLink, X, Edit } from "lucide-react";
 import { ResourceEditModal } from "@/components/resource-edit-modal";
@@ -78,6 +78,25 @@ export default function AdminPage() {
   const [sort, setSort] = useState<'desc' | 'asc'>('desc');
   const [showToast, setShowToast] = useState<{msg: string, type: 'success' | 'error'}|null>(null);
   const [progress, setProgress] = useState(0);
+  
+  // Refs for file inputs to properly clear them
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const thumbnailInputRef = useRef<HTMLInputElement>(null);
+
+  // Helper function to reset form fields when switching upload types
+  const handleUploadTypeChange = (type: 'file' | 'link') => {
+    setUploadType(type);
+    // Reset relevant fields when switching types
+    setFile(null);
+    setLink('');
+    setThumbnail(null);
+    setTitle('');
+    setDescription('');
+    setProgress(0);
+    // Clear file input values
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (thumbnailInputRef.current) thumbnailInputRef.current.value = '';
+  };
   const [previewResource, setPreviewResource] = useState<ResourceWithUploader | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [editResource, setEditResource] = useState<ResourceWithUploader | null>(null);
@@ -297,6 +316,9 @@ export default function AdminPage() {
     setTitle("");
     setDescription("");
     setThumbnail(null);
+    // Clear file input values
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (thumbnailInputRef.current) thumbnailInputRef.current.value = '';
   }
 
   async function toggleResource(id: number, field: 'active' | 'public', value: boolean) {
@@ -442,7 +464,7 @@ export default function AdminPage() {
                     <input 
                       type="radio" 
                       checked={uploadType === 'file'} 
-                      onChange={() => setUploadType('file')}
+                      onChange={() => handleUploadTypeChange('file')}
                       className="sr-only"
                     />
                     <div className={`flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg border-2 transition-colors w-full text-sm sm:text-base ${
@@ -458,7 +480,7 @@ export default function AdminPage() {
                     <input 
                       type="radio" 
                       checked={uploadType === 'link'} 
-                      onChange={() => setUploadType('link')}
+                      onChange={() => handleUploadTypeChange('link')}
                       className="sr-only"
                     />
                     <div className={`flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg border-2 transition-colors w-full text-sm sm:text-base ${
@@ -492,7 +514,12 @@ export default function AdminPage() {
 
                 {uploadType === 'file' ? (
                   <div className="space-y-2">
+                    <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Choose File
+                    </label>
                     <input 
+                      id="file-upload"
+                      ref={fileInputRef}
                       type="file" 
                       onChange={e => setFile(e.target.files?.[0] || null)} 
                       className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
@@ -510,15 +537,19 @@ export default function AdminPage() {
                       onChange={e => setLink(e.target.value)} 
                       className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
+                    <label htmlFor="thumbnail-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Thumbnail Image (optional)
+                    </label>
                     <input 
+                      id="thumbnail-upload"
+                      ref={thumbnailInputRef}
                       type="file"
                       accept="image/*"
                       onChange={e => setThumbnail(e.target.files?.[0] || null)}
-                      value={undefined}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     />
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Upload an image to use as a thumbnail for your link (optional)
+                      Upload an image to use as a thumbnail for your link
                     </p>
                   </div>
                 )}
