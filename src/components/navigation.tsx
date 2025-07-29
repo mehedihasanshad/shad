@@ -25,15 +25,15 @@ export function Navigation() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo and Name */}
-          <div className="flex-shrink-0 flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-3">
-              {/* Logo Image - Using actual logo from public folder */}
-              <div className="relative w-10 h-10 lg:w-12 lg:h-12">
+          <div className="flex-shrink-0 flex items-center">
+            <Link href="/" className="flex items-center">
+              {/* Logo taking almost full navbar height */}
+              <div className="relative h-12 w-auto sm:h-14 lg:h-16 xl:h-18 aspect-[3/2]">
                 <Image
                   src="/logo/logo.png"
                   alt="Shad Logo"
                   fill
-                  className="object-contain rounded-xl hover:scale-105 transition-transform duration-300"
+                  className="object-contain hover:scale-105 transition-transform duration-300"
                   priority
                 />
               </div>
