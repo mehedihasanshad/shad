@@ -37,12 +37,6 @@ export function Navigation() {
                   priority
                 />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">
-                  Mehedi Hasan Shad
-                </h1>
-                <p className="text-xs text-muted-foreground -mt-1">Designer & Educator</p>
-              </div>
             </Link>
           </div>
 
