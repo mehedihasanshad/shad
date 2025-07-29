@@ -73,14 +73,14 @@ export function HeroSection() {
                     <AnimatedName text="Mehedi Hasan" delay={0} />
                   </span>
                   <span className="block bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                    <AnimatedName text="Shad" delay={1200} />
+                    <AnimatedName text="Shad" delay={600} />
                   </span>
                 </span>
                 {/* Desktop: Single line */}
                 <span className="hidden lg:block text-foreground">
                   <AnimatedName text="Mehedi Hasan" delay={0} />{" "}
                   <span className="bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                    <AnimatedName text="Shad" delay={1200} />
+                    <AnimatedName text="Shad" delay={600} />
                   </span>
                 </span>
               </h1>
