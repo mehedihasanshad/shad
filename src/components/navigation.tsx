@@ -25,10 +25,10 @@ export function Navigation() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo and Name */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center">
-              {/* Logo taking almost full navbar height */}
-              <div className="relative h-12 w-auto sm:h-14 lg:h-16 xl:h-18 aspect-[3/2]">
+          <div className="flex-shrink-0">
+            <Link href="/" className="block">
+              {/* Logo taking almost full navbar height with no container padding */}
+              <div className="relative h-14 w-auto sm:h-16 lg:h-18 xl:h-20 aspect-[4/3]">
                 <Image
                   src="/logo/logo.png"
                   alt="Shad Logo"
@@ -67,26 +67,32 @@ export function Navigation() {
           {/* CTA Button, Theme Toggle, Admin & Mobile Menu Button */}
           <div className="flex items-center space-x-2">
             <Link href="/contact" className="hidden lg:block">
-              <Button className="bg-red-600 hover:bg-red-700 text-white">
+              <Button className="bg-red-600 hover:bg-red-700 text-white h-14 lg:h-16 px-6">
                 Get Started
               </Button>
             </Link>
-            <ThemeToggle />
+            <Button
+              variant="outline"
+              size="icon"
+              className="hover:bg-gray-100 dark:hover:bg-gray-800 h-14 w-14 lg:h-16 lg:w-16"
+            >
+              <ThemeToggle />
+            </Button>
             <Link href="/admin">
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="hover:bg-gray-100 dark:hover:bg-gray-800 h-14 w-14 lg:h-16 lg:w-16"
                 title="Admin Login"
               >
-                <Shield className="h-5 w-5" />
+                <Shield className="h-6 w-6 lg:h-7 lg:w-7" />
               </Button>
             </Link>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden"
+              className="lg:hidden h-14 w-14"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>

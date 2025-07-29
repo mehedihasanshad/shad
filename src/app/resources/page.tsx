@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import type { Resource } from "@prisma/client";
 import { Download, Eye, ExternalLink, X } from "lucide-react";
+import Image from "next/image";
 
 
 
@@ -539,9 +540,11 @@ export default function ResourcesPage() {
                     <div className="relative h-32 sm:h-40 bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
                       {r.type === 'link' && r.thumbnail ? (
                         <a href={safeHref(r.url)} target="_blank" rel="noopener noreferrer">
-                          <img 
+                          <Image 
                             src={r.thumbnail} 
                             alt={r.title || 'Link thumbnail'} 
+                            width={400}
+                            height={256}
                             className="w-full h-full object-cover hover:opacity-80 transition-opacity"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none';
@@ -675,9 +678,11 @@ export default function ResourcesPage() {
               {previewResource.type === 'file' ? (
                 <div>
                   {getFileType(previewResource.filename || '') === 'image' ? (
-                    <img 
+                    <Image 
                       src={previewResource.url || ''} 
                       alt={previewResource.title || previewResource.filename || 'Image'} 
+                      width={800}
+                      height={600}
                       className="max-w-full h-auto mx-auto rounded-lg"
                     />
                   ) : getFileType(previewResource.filename || '') === 'pdf' ? (
@@ -719,9 +724,11 @@ export default function ResourcesPage() {
               ) : (
                 <div>
                   {previewResource.thumbnail && (
-                    <img 
+                    <Image 
                       src={previewResource.thumbnail} 
                       alt={previewResource.title || 'Link preview'} 
+                      width={800}
+                      height={256}
                       className="w-full max-h-64 object-cover rounded-lg mb-4"
                     />
                   )}

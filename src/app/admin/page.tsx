@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import type { Resource } from "@prisma/client";
 import { Download, Eye, ExternalLink, X, Edit } from "lucide-react";
 import { ResourceEditModal } from "@/components/resource-edit-modal";
@@ -728,9 +729,11 @@ export default function AdminPage() {
                   <div className="flex items-center gap-2 sm:gap-3 mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
                     {r.type === 'link' && r.thumbnail ? (
                       <a href={r.url || undefined} target="_blank" rel="noopener noreferrer">
-                        <img
+                        <Image
                           src={r.thumbnail}
                           alt={r.title || 'Link thumbnail'}
+                          width={80}
+                          height={56}
                           className="w-20 h-14 object-cover rounded border mr-3 hover:opacity-80 transition-opacity block"
                           style={{ minWidth: 80, minHeight: 56 }}
                         />
@@ -867,9 +870,11 @@ export default function AdminPage() {
               {previewResource.type === 'file' ? (
                 <div>
                   {getFileType(previewResource.filename || '') === 'image' ? (
-                    <img 
+                    <Image 
                       src={previewResource.url || ''} 
                       alt={previewResource.title || previewResource.filename || 'Image'} 
+                      width={800}
+                      height={600}
                       className="max-w-full h-auto mx-auto rounded-lg"
                     />
                   ) : getFileType(previewResource.filename || '') === 'pdf' ? (
@@ -911,9 +916,11 @@ export default function AdminPage() {
               ) : (
                 <div>
                   {previewResource.thumbnail && (
-                    <img 
+                    <Image 
                       src={previewResource.thumbnail} 
                       alt={previewResource.title || 'Link preview'} 
+                      width={400}
+                      height={256}
                       className="w-full max-h-64 object-cover rounded-lg mb-4"
                     />
                   )}
