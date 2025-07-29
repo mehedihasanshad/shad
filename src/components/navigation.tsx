@@ -33,6 +33,7 @@ export function Navigation() {
                   src="/logo/logo.png"
                   alt="Shad Logo"
                   fill
+                  sizes="(max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
                   className="object-contain hover:scale-105 transition-transform duration-300"
                   priority
                 />
@@ -71,13 +72,7 @@ export function Navigation() {
                 Get Started
               </Button>
             </Link>
-            <Button
-              variant="outline"
-              size="icon"
-              className="hover:bg-gray-100 dark:hover:bg-gray-800 h-14 w-14 lg:h-16 lg:w-16"
-            >
-              <ThemeToggle />
-            </Button>
+            <ThemeToggle />
             <Link href="/admin">
               <Button
                 variant="ghost"
