@@ -53,8 +53,8 @@ export function HeroSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] bg-gradient-to-br from-blue-200 to-red-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse [animation-delay:4s]" />
       </div>
 
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-center min-h-[85vh] py-8 lg:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-12 2xl:gap-16 items-center min-h-[85vh] py-8 lg:py-12">
           
           {/* Enhanced Hero Content - Left Side - Takes 2 columns */}
           <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-1 lg:order-1 animate-slide-in-left">
