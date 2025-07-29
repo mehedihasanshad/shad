@@ -135,40 +135,44 @@ export function HeroSection() {
                 />
               </div>
 
-              {/* Enhanced Floating Skill Badges - Better positioned */}
+              {/* Enhanced Floating Skill Badges - Compact and responsive */}
               <div className="absolute -top-2 -left-2 lg:-top-3 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900">
                 <div className="flex items-center space-x-1">
-                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">L</span>
+                  <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">🎨</span>
                   </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Logo</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block xl:hidden">Brand</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden xl:block">Brand Identity</span>
                 </div>
               </div>
 
               <div className="absolute -top-2 -right-2 lg:-top-3 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:1s]">
                 <div className="flex items-center space-x-1">
-                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-purple-500 to-purple-600 rounded-md flex items-center justify-center shadow-lg">
-                    <Play className="w-2.5 h-2.5 lg:w-3 lg:h-3 text-white" />
+                  <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-purple-500 to-purple-600 rounded-md flex items-center justify-center shadow-lg">
+                    <Play className="w-2 h-2 lg:w-2.5 lg:h-2.5 text-white" />
                   </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Motion</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block xl:hidden">Motion</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden xl:block">Motion Graphics</span>
                 </div>
               </div>
 
               <div className="absolute bottom-1 -left-2 lg:bottom-0 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:2s]">
                 <div className="flex items-center space-x-1">
-                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-md flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">T</span>
+                  <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-green-500 to-green-600 rounded-md flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">📚</span>
                   </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Tutor</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block xl:hidden">Tutor</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden xl:block">Academic Tutor</span>
                 </div>
               </div>
 
               <div className="absolute bottom-1 -right-2 lg:bottom-0 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:3s]">
                 <div className="flex items-center space-x-1">
-                  <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-md flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xs font-bold">D</span>
+                  <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-orange-500 to-orange-600 rounded-md flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">📱</span>
                   </div>
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block">Digital</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden sm:block xl:hidden">Digital</span>
+                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 hidden xl:block">Digital Marketing</span>
                 </div>
               </div>
             </div>

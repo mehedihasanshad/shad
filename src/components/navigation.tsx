@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -26,8 +27,20 @@ export function Navigation() {
           {/* Logo and Name */}
           <div className="flex-shrink-0 flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-gray-900 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">M</span>
+              {/* Logo Image - Replace /logo.png with your actual logo file */}
+              <div className="relative w-10 h-10 lg:w-12 lg:h-12">
+                {/* Fallback gradient logo with your initial */}
+                <div className="w-full h-full bg-gradient-to-br from-red-500 via-red-600 to-gray-900 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  <span className="text-white font-bold text-lg lg:text-xl">S</span>
+                </div>
+                {/* Uncomment below when you add your logo image to /public/logo.png */}
+                {/* <Image
+                  src="/logo.png"
+                  alt="Shad Logo"
+                  fill
+                  className="object-contain rounded-xl"
+                  priority
+                /> */}
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-red-500 to-gray-900 bg-clip-text text-transparent">
