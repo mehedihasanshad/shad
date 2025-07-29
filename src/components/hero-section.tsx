@@ -58,10 +58,18 @@ export function HeroSection() {
           
           {/* Enhanced Hero Content - Left Side - Takes 2 columns */}
           <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-1 lg:order-1 animate-slide-in-left">
-            {/* Status Badge - Fixed positioning */}
-            <Badge variant="secondary" className="w-fit mx-auto lg:mx-0 px-3 py-1.5 lg:px-6 lg:py-3 bg-background/80 backdrop-blur-sm text-muted-foreground border-2 border-red-200 dark:border-red-800">
-              <span className="animate-pulse mr-2 lg:mr-3 text-sm lg:text-lg">👋</span>
-              <span className="font-medium text-xs lg:text-base">Hello, I&apos;m available for new projects</span>
+            {/* Status Badge - Enhanced interactive design */}
+            <Badge variant="secondary" className="w-fit mx-auto lg:mx-0 px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 backdrop-blur-sm border-2 border-green-200 dark:border-green-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+              <span className="relative flex items-center">
+                <span className="animate-pulse mr-2 lg:mr-3 text-sm lg:text-lg group-hover:scale-110 transition-transform duration-300">👋</span>
+                <span className="relative">
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span className="font-medium text-xs lg:text-base text-green-700 dark:text-green-300 group-hover:text-green-800 dark:group-hover:text-green-200 transition-colors duration-300">
+                    Hello, I&apos;m available for new projects
+                  </span>
+                </span>
+              </span>
             </Badge>
 
             {/* Main Heading - Desktop: single line, Mobile: stacked */}
@@ -72,16 +80,22 @@ export function HeroSection() {
                   <span className="block text-foreground">
                     <AnimatedName text="Mehedi Hasan" delay={0} />
                   </span>
-                  <span className="block bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                    <AnimatedName text="Shad" delay={600} />
+                  <span className="block">
+                    <AnimatedName 
+                      text="Shad" 
+                      delay={600} 
+                      className="text-red-600 dark:text-red-400 font-bold text-shadow-sm" 
+                    />
                   </span>
                 </span>
                 {/* Desktop: Single line */}
                 <span className="hidden lg:block text-foreground">
                   <AnimatedName text="Mehedi Hasan" delay={0} />{" "}
-                  <span className="bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                    <AnimatedName text="Shad" delay={600} />
-                  </span>
+                  <AnimatedName 
+                    text="Shad" 
+                    delay={600} 
+                    className="text-red-600 dark:text-red-400 font-bold text-shadow-sm" 
+                  />
                 </span>
               </h1>
               
@@ -314,7 +328,7 @@ function TypingAnimation({ text }: { text: string }) {
 }
 
 // AnimatedName component for letter-by-letter animation
-function AnimatedName({ text, delay = 0 }: { text: string; delay?: number }) {
+function AnimatedName({ text, delay = 0, className = "" }: { text: string; delay?: number; className?: string }) {
   const [visibleLetters, setVisibleLetters] = useState(0);
 
   useEffect(() => {
@@ -339,12 +353,12 @@ function AnimatedName({ text, delay = 0 }: { text: string; delay?: number }) {
   }, [text, delay]); // Re-run when text or delay changes
 
   return (
-    <span className="inline-block">
+    <span className={`inline-block ${className}`}>
       {text.split('').map((letter, index) => (
         <span
           key={index}
-          className={`inline-block letter-animate transform ${
-            index < visibleLetters ? 'letter-visible' : 'letter-hidden'
+          className={`inline-block letter-animate transform transition-all duration-300 ${
+            index < visibleLetters ? 'letter-visible opacity-100 translate-y-0' : 'letter-hidden opacity-0 translate-y-2'
           }`}
           style={{ '--letter-delay': `${index * 25}ms` } as React.CSSProperties}
         >
