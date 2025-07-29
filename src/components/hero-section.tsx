@@ -36,7 +36,7 @@ export function HeroSection() {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
       setCurrentRole(roles[(roleIndex + 1) % roles.length]);
-    }, 3000);
+    }, 4000); // 4 seconds between role changes
 
     return () => clearInterval(interval);
   }, [roleIndex]);
@@ -69,25 +69,27 @@ export function HeroSection() {
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-[0.9] tracking-tight">
                 {/* Mobile: Stacked layout */}
                 <span className="block lg:hidden">
-                  <span className="block text-foreground">Mehedi Hasan</span>
+                  <span className="block text-foreground">
+                    <AnimatedName text="Mehedi Hasan" delay={0} />
+                  </span>
                   <span className="block bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                    Shad
+                    <AnimatedName text="Shad" delay={1200} />
                   </span>
                 </span>
                 {/* Desktop: Single line */}
                 <span className="hidden lg:block text-foreground">
-                  Mehedi Hasan{" "}
+                  <AnimatedName text="Mehedi Hasan" delay={0} />{" "}
                   <span className="bg-gradient-to-r from-red-500 via-red-600 to-gray-900 dark:from-red-400 dark:via-red-500 dark:to-gray-100 bg-clip-text text-transparent">
-                    Shad
+                    <AnimatedName text="Shad" delay={1200} />
                   </span>
                 </span>
               </h1>
               
-              {/* Dynamic Role with Enhanced Styling */}
+              {/* Dynamic Role with Enhanced Styling and Typing Animation */}
               <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-foreground">
-                <span className="font-medium">I&apos;m a </span>
-                <span className="font-bold text-red-600 dark:text-red-400 inline-block min-w-0 transition-all duration-500 ease-in-out">
-                  {currentRole}
+                <span className="font-medium">I&apos;m {currentRole.startsWith('Academic') ? 'an' : 'a'} </span>
+                <span className="font-bold text-red-600 dark:text-red-400 inline-block min-w-0">
+                  <TypingAnimation text={currentRole} key={currentRole} />
                 </span>
               </div>
             </div>
@@ -268,6 +270,88 @@ export function HeroSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+// TypingAnimation component for cool typing effect with cursor
+function TypingAnimation({ text }: { text: string }) {
+  const [displayedText, setDisplayedText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    // Reset animation
+    setDisplayedText('');
+    let currentIndex = 0;
+
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= text.length) {
+        setDisplayedText(text.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 80); // 80ms delay between each character
+
+    // Cursor blinking effect
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, [text]);
+
+  return (
+    <span className="relative">
+      {displayedText}
+      <span className={`typing-cursor ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+        |
+      </span>
+    </span>
+  );
+}
+
+// AnimatedName component for letter-by-letter animation
+function AnimatedName({ text, delay = 0 }: { text: string; delay?: number }) {
+  const [visibleLetters, setVisibleLetters] = useState(0);
+
+  useEffect(() => {
+    // Reset animation on every render/refresh
+    setVisibleLetters(0);
+    
+    const timer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setVisibleLetters((prev) => {
+          if (prev >= text.length) {
+            clearInterval(interval);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 50); // Faster animation - 50ms delay between each letter (was 100ms)
+
+      return () => clearInterval(interval);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [text, delay]); // Re-run when text or delay changes
+
+  return (
+    <span className="inline-block">
+      {text.split('').map((letter, index) => (
+        <span
+          key={index}
+          className={`inline-block letter-animate transform ${
+            index < visibleLetters ? 'letter-visible' : 'letter-hidden'
+          }`}
+          style={{ '--letter-delay': `${index * 25}ms` } as React.CSSProperties}
+        >
+          {letter === ' ' ? '\u00A0' : letter}
+        </span>
+      ))}
+    </span>
   );
 }
 

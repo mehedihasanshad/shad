@@ -238,3 +238,41 @@ html {
   max-height: 100%;
   width: auto;
 }
+
+/* Typing Animation Cursor */
+.typing-cursor {
+  color: #dc2626; /* red-600 */
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+.dark .typing-cursor {
+  color: #f87171; /* red-400 */
+}
+
+/* Letter animation for names */
+.letter-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.letter-hidden {
+  opacity: 0;
+  transform: translateY(1rem) scale(0.95);
+}
+
+.letter-animate {
+  transition: all 250ms ease-out;
+  transition-delay: var(--letter-delay, 0ms);
+}
+
+/* Role transition animations */
+.role-entering {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.role-leaving {
+  opacity: 0;
+  transform: scale(0.95) translateY(0.5rem);
+}
