@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { X, Save, Upload } from "lucide-react";
 import type { Resource } from "@prisma/client";
 
@@ -144,6 +145,7 @@ export function ResourceEditModal({
           </div>
           <button
             onClick={onClose}
+            title="Close modal"
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
@@ -241,9 +243,11 @@ export function ResourceEditModal({
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                     Current thumbnail:
                   </p>
-                  <img
+                  <Image
                     src={thumbnail}
                     alt="Current thumbnail"
+                    width={128}
+                    height={80}
                     className="w-32 h-20 object-cover rounded border"
                   />
                 </div>

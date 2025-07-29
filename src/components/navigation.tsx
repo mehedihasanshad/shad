@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -26,10 +27,15 @@ export function Navigation() {
           {/* Logo and Name */}
           <div className="flex-shrink-0">
             <Link href="/" className="block">
-              <img
+              <Image
                 src="/logo/logo.png"
                 alt="Shad Logo"
-                className="h-8 w-auto sm:h-10 lg:h-12 object-contain hover:scale-105 transition-transform duration-300"
+                width={32}
+                height={24}
+                quality={100}
+                unoptimized={true}
+                className="h-6 w-auto sm:h-8 lg:h-10 object-contain hover:scale-105 transition-transform duration-300"
+                priority
               />
             </Link>
           </div>
