@@ -161,24 +161,70 @@ export function HeroSection() {
           {/* Bottom section for mobile, part of left column for desktop - Order 3 */}
           <div className="lg:col-span-3 flex flex-col space-y-4 lg:space-y-6 text-center lg:text-left order-3 lg:order-3 animate-slide-in-up [animation-delay:0.6s]">
             
-            {/* Action Buttons Row - Full width */}
-            <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 justify-center lg:justify-start mb-4 lg:mb-6">
-              <Link href="/portfolio">
-                <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <span>View My Work</span>
-                  <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline" size="sm" className="group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg border-2 hover:bg-red-50 dark:hover:bg-red-950 transition-all duration-300 hover:scale-105">
-                  <MessageCircle className="w-3 h-3 lg:w-4 lg:h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
-                  <span>Get In Touch</span>
-                </Button>
-              </Link>
-              <Button variant="ghost" size="sm" className="group px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
-                <Download className="w-3 h-3 lg:w-4 lg:h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
-                <span>Resume</span>
-              </Button>
+            {/* Action Buttons and Social Media Row */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6 mb-4 lg:mb-6">
+              
+              {/* Action Buttons - Mobile: 2+1 layout, Desktop: horizontal */}
+              <div className="flex flex-col gap-2 lg:gap-0">
+                {/* Mobile: First row with 2 buttons side by side */}
+                <div className="flex gap-2 justify-center lg:justify-start lg:hidden">
+                  <Link href="/portfolio" className="flex-1">
+                    <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white group px-4 py-2 text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full">
+                      <span>View My Work</span>
+                      <ArrowRight className="w-3 h-3 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
+                    </Button>
+                  </Link>
+                  <Link href="/contact" className="flex-1">
+                    <Button variant="outline" size="sm" className="group px-4 py-2 text-sm font-semibold rounded-lg border-2 hover:bg-red-50 dark:hover:bg-red-950 transition-all duration-300 hover:scale-105 w-full">
+                      <MessageCircle className="w-3 h-3 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                      <span>Get In Touch</span>
+                    </Button>
+                  </Link>
+                </div>
+                
+                {/* Mobile: Second row with Resume button centered */}
+                <div className="flex justify-center lg:hidden">
+                  <Button variant="ghost" size="sm" className="group px-4 py-2 text-sm font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                    <Download className="w-3 h-3 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                    <span>Resume</span>
+                  </Button>
+                </div>
+                
+                {/* Desktop: All three buttons in one line */}
+                <div className="hidden lg:flex gap-3">
+                  <Link href="/portfolio">
+                    <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white group px-6 py-3 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                      <span>View My Work</span>
+                      <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
+                    </Button>
+                  </Link>
+                  <Link href="/contact">
+                    <Button variant="outline" size="sm" className="group px-6 py-3 text-base font-semibold rounded-lg border-2 hover:bg-red-50 dark:hover:bg-red-950 transition-all duration-300 hover:scale-105">
+                      <MessageCircle className="w-4 h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                      <span>Get In Touch</span>
+                    </Button>
+                  </Link>
+                  <Button variant="ghost" size="sm" className="group px-6 py-3 text-base font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                    <Download className="w-4 h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                    <span>Resume</span>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Social Media Section - Desktop: same row, Mobile: separate */}
+              <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6 mt-4 lg:mt-0">
+                <h3 className="text-sm lg:text-base font-semibold text-foreground text-center lg:text-left">
+                  Connect with me
+                </h3>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+                  <SocialIcon url="https://facebook.com/mhsshad" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                  <SocialIcon url="https://instagram.com/mhsshad" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                  <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                  <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                  <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                  <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                </div>
+              </div>
             </div>
 
             {/* Achievement Stats - Separated row */}
@@ -200,21 +246,6 @@ export function HeroSection() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Enhanced Social Media Section - Horizontal layout */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-6 animate-slide-in-up [animation-delay:0.8s]">
-              <h3 className="text-sm lg:text-base font-semibold text-foreground text-center lg:text-left">
-                Connect with me
-              </h3>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-                <SocialIcon url="https://facebook.com/mhsshad" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-                <SocialIcon url="https://instagram.com/mhsshad" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-                <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-                <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-                <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-                <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-              </div>
             </div>
           </div>
         </div>
