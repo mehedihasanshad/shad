@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -27,17 +26,11 @@ export function Navigation() {
           {/* Logo and Name */}
           <div className="flex-shrink-0">
             <Link href="/" className="block">
-              {/* Logo taking almost full navbar height with no container padding */}
-              <div className="relative h-14 w-auto sm:h-16 lg:h-18 xl:h-20 aspect-[4/3]">
-                <Image
-                  src="/logo/logo.png"
-                  alt="Shad Logo"
-                  fill
-                  sizes="(max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
-                  className="object-contain hover:scale-105 transition-transform duration-300"
-                  priority
-                />
-              </div>
+              <img
+                src="/logo/logo.png"
+                alt="Shad Logo"
+                className="h-8 w-auto sm:h-10 lg:h-12 object-contain hover:scale-105 transition-transform duration-300"
+              />
             </Link>
           </div>
 
