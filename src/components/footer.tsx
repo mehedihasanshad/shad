@@ -25,7 +25,7 @@ export function Footer() {
               <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 40, width: 40 }} />
               <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 40, width: 40 }} />
               <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} />
-              <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 40, width: 40 }} />
+              <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" style={{ height: 40, width: 40 }} />
             </div>
           </div>
 
@@ -56,40 +56,17 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services & Partners */}
+          {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Services & Partners</h4>
-            <ul className="space-y-2 mb-4">
+            <h4 className="text-lg font-semibold mb-4">Services</h4>
+            <ul className="space-y-2">
               <li><span className="text-gray-300">Logo Design</span></li>
               <li><span className="text-gray-300">Motion Graphics</span></li>
               <li><span className="text-gray-300">Digital Marketing</span></li>
               <li><span className="text-gray-300">Academic Tutoring</span></li>
+              <li><span className="text-gray-300">Brand Identity</span></li>
+              <li><span className="text-gray-300">Video Editing</span></li>
             </ul>
-            <div className="space-y-2 text-sm">
-              <p className="text-gray-400 font-medium">Partner Services:</p>
-              <div>
-                <a 
-                  href="https://webcloudor.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 transition-colors duration-200 block"
-                  title="Web Development & Cloud Solutions"
-                >
-                  WebCloudor - Web Development
-                </a>
-              </div>
-              <div>
-                <a 
-                  href="https://syedhabib.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-green-400 hover:text-green-300 transition-colors duration-200 block"
-                  title="Creative Design & Portfolio Services"
-                >
-                  SyedHabib - Design Portfolio
-                </a>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -136,19 +113,19 @@ export function Footer() {
                 <span className="text-gray-600 hidden sm:inline">•</span>
                 <div className="flex items-center gap-2">
                   <span className="text-gray-400">Portfolio & Design:</span>
-                  <a 
-                    href="https://syedhabib.com" 
-                    target="_blank" 
+                  <a
+                    href="https://ahsanhabibakik.com"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-green-400 hover:text-green-300 font-medium transition-colors duration-200"
-                    title="Creative Design Portfolio - Syed Habib"
+                    title="Creative Design Portfolio - Ahsan Habib Akik"
                   >
-                    SyedHabib.com
+                    ahsanhabibakik.com
                   </a>
                 </div>
               </div>
               <p className="text-gray-500 text-xs mt-3 max-w-2xl mx-auto">
-                Explore cutting-edge web development solutions at WebCloudor and discover innovative design portfolios at SyedHabib.com - 
+                Explore cutting-edge web development solutions at WebCloudor and discover innovative design portfolios at ahsanhabibakik.com -
                 your trusted partners for digital excellence and creative solutions.
               </p>
             </div>
@@ -160,9 +137,9 @@ export function Footer() {
               Crafted with 
               <span className="text-green-400 text-base">💚</span> 
               by 
-              <a 
-                href="https://syedhabib.com" 
-                target="_blank" 
+              <a
+                href="https://ahsanhabibakik.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-400 hover:text-green-300 font-semibold transition-colors duration-200"
                 title="Ahsan Habib Akik - Co-founder of WebCloudor"
