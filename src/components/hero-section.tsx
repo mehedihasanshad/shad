@@ -22,10 +22,7 @@ const skills = [
 ];
 
 const achievements = [
-  { number: "500+", label: "Projects Completed" },
-  { number: "50+", label: "Happy Clients" },
-  { number: "5+", label: "Years Experience" },
-  { number: "100+", label: "Students Tutored" },
+  { number: "150+", label: "Projects Completed" },
 ];
 
 export function HeroSection() {
@@ -54,10 +51,10 @@ export function HeroSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-12 2xl:gap-16 items-center min-h-[85vh] py-8 lg:py-12">
-          
+        <div className="flex flex-col lg:grid lg:grid-cols-5 gap-6 lg:gap-8 xl:gap-12 2xl:gap-16 items-center min-h-[85vh] py-8 lg:py-12">
+
           {/* Enhanced Hero Content - Left Side - Takes 2 columns */}
-          <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-1 lg:order-1 animate-slide-in-left">
+          <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-2 lg:order-1 animate-slide-in-left">
             {/* Status Badge - Enhanced interactive design */}
             <Badge variant="secondary" className="w-fit mx-auto lg:mx-0 px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 backdrop-blur-sm border-2 border-green-200 dark:border-green-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
               <span className="relative flex items-center">
@@ -116,27 +113,41 @@ export function HeroSection() {
             </p>
           </div>
 
-          {/* Enhanced Hero Visual - Right Side - Takes 1 column - Mobile: Order 2 */}
-          <div className="lg:col-span-1 relative flex justify-center lg:justify-end order-2 lg:order-2 animate-slide-in-right">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-88 xl:h-88 flex items-end justify-center animate-float">
-              {/* Enhanced Background with Multiple Layers */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 via-red-400 to-pink-500 shadow-2xl" />
-              <div className="absolute inset-2 rounded-3xl bg-gradient-to-br from-red-400 via-red-300 to-pink-400 opacity-80" />
-              
-              {/* Main Image Container - Fixed sizing and positioning */}
-              <div className="absolute left-3 right-3 bottom-0 flex justify-center overflow-visible h-[110%]">
-                <Image
-                  src="/shadphoto.jpg"
-                  alt="Mehedi Hasan Shad portrait"
-                  width={320}
-                  height={384}
-                  className="object-cover object-center rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500 hero-image-container"
-                  priority
-                />
+          {/* Enhanced Hero Visual - Center Column - Takes 1 column - Mobile: Order 1 */}
+          <div className="lg:col-span-1 relative flex justify-center order-1 lg:order-2 animate-slide-in-up">
+            <div className="relative w-80 h-80 sm:w-96 sm:h-96 lg:w-[400px] lg:h-[400px] xl:w-[450px] xl:h-[450px] flex items-center justify-center animate-float">
+              {/* Enhanced Background matching black photo background */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-900 via-black to-gray-800 shadow-2xl" />
+              <div className="absolute inset-2 rounded-full bg-gradient-to-br from-gray-800 via-gray-900 to-black opacity-80" />
+              <div className="absolute inset-4 rounded-full bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 opacity-60" />
+
+              {/* Subtle Golden Ring Effect for elegance */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-yellow-400/20 via-amber-400/20 to-orange-400/20 opacity-40 blur-2xl animate-pulse" />
+
+              {/* Main Image Container - Centered and enhanced */}
+              <div className="absolute inset-6 flex justify-center items-center overflow-hidden rounded-full">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/shadphoto.jpg"
+                    alt="Mehedi Hasan Shad - Professional Portrait"
+                    width={450}
+                    height={450}
+                    className="w-full h-full object-cover object-center rounded-full shadow-2xl hover:scale-110 transition-all duration-700 hero-image-container border-4 border-white/20"
+                    style={{
+                      filter: 'saturate(1.1) contrast(1.15) brightness(1.1)',
+                      mixBlendMode: 'normal'
+                    }}
+                    priority
+                  />
+                  {/* Enhanced overlay for black background harmony */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-500/5 via-transparent to-yellow-500/5 mix-blend-overlay pointer-events-none" />
+                  {/* Enhanced inner glow for depth */}
+                  <div className="absolute inset-0 rounded-full shadow-inner shadow-black/30" />
+                </div>
               </div>
 
-              {/* Enhanced Floating Skill Badges - Compact and responsive */}
-              <div className="absolute -top-2 -left-2 lg:-top-3 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900">
+              {/* Enhanced Floating Skill Badges - Updated to match new color scheme */}
+              <div className="absolute -top-2 -left-2 lg:-top-3 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-slate-200 dark:border-slate-600">
                 <div className="flex items-center space-x-1">
                   <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md flex items-center justify-center shadow-lg">
                     <span className="text-white text-xs font-bold">🎨</span>
@@ -146,7 +157,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="absolute -top-2 -right-2 lg:-top-3 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:1s]">
+              <div className="absolute -top-2 -right-2 lg:-top-3 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-slate-200 dark:border-slate-600 [animation-delay:1s]">
                 <div className="flex items-center space-x-1">
                   <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-purple-500 to-purple-600 rounded-md flex items-center justify-center shadow-lg">
                     <Play className="w-2 h-2 lg:w-2.5 lg:h-2.5 text-white" />
@@ -156,7 +167,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="absolute bottom-1 -left-2 lg:bottom-0 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:2s]">
+              <div className="absolute bottom-1 -left-2 lg:bottom-0 lg:-left-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-slate-200 dark:border-slate-600 [animation-delay:2s]">
                 <div className="flex items-center space-x-1">
                   <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-green-500 to-green-600 rounded-md flex items-center justify-center shadow-lg">
                     <span className="text-white text-xs font-bold">📚</span>
@@ -166,7 +177,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="absolute bottom-1 -right-2 lg:bottom-0 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-red-100 dark:border-red-900 [animation-delay:3s]">
+              <div className="absolute bottom-1 -right-2 lg:bottom-0 lg:-right-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-1.5 lg:p-2 animate-bounce z-10 border border-slate-200 dark:border-slate-600 [animation-delay:3s]">
                 <div className="flex items-center space-x-1">
                   <div className="w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-orange-500 to-orange-600 rounded-md flex items-center justify-center shadow-lg">
                     <span className="text-white text-xs font-bold">📱</span>
@@ -178,8 +189,37 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Bottom section for mobile, part of left column for desktop - Order 3 */}
-          <div className="lg:col-span-3 flex flex-col space-y-4 lg:space-y-6 text-center lg:text-left order-3 lg:order-3 animate-slide-in-up [animation-delay:0.6s]">
+          {/* Enhanced Right Content - Right Side - Takes 2 columns */}
+          <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-right order-3 lg:order-3 animate-slide-in-right">
+
+            {/* Project Achievement Highlight */}
+            <div className="mb-4 lg:mb-6">
+              <div className="text-center lg:text-right p-4 lg:p-6 bg-gradient-to-br from-amber-50/80 to-yellow-50/80 dark:from-amber-900/20 dark:to-yellow-900/20 backdrop-blur-sm rounded-2xl border border-amber-200/50 dark:border-amber-700/30 shadow-lg animate-float">
+                <div className="text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-amber-600 to-yellow-600 dark:from-amber-400 dark:to-yellow-400 bg-clip-text text-transparent">
+                  150+
+                </div>
+                <div className="text-sm lg:text-base text-amber-700 dark:text-amber-300 font-semibold mt-1">
+                  Projects Completed
+                </div>
+                <div className="text-xs text-amber-600/80 dark:text-amber-400/80 mt-1">
+                  Successfully delivered
+                </div>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="text-center lg:text-right">
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-3">
+                Ready to bring your vision to life?
+              </h3>
+              <p className="text-sm lg:text-base text-muted-foreground mb-4 max-w-md mx-auto lg:mx-0 lg:ml-auto">
+                Let&apos;s collaborate on your next project and create something extraordinary together.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom section for mobile, full width for desktop - Order 4 */}
+          <div className="lg:col-span-5 flex flex-col space-y-4 lg:space-y-6 text-center order-4 lg:order-4 animate-slide-in-up [animation-delay:0.6s]">
             
             {/* Action Buttons and Social Media Row */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6 mb-4 lg:mb-6">
@@ -204,10 +244,16 @@ export function HeroSection() {
                 
                 {/* Mobile: Second row with Resume button centered */}
                 <div className="flex justify-center lg:hidden">
-                  <Button variant="ghost" size="sm" className="group px-4 py-2 text-sm font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
-                    <Download className="w-3 h-3 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
-                    <span>Resume</span>
-                  </Button>
+                  <a
+                    href="https://drive.google.com/uc?export=download&id=1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="ghost" size="sm" className="group px-4 py-2 text-sm font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                      <Download className="w-3 h-3 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                      <span>Resume</span>
+                    </Button>
+                  </a>
                 </div>
                 
                 {/* Desktop: All three buttons in one line */}
@@ -224,10 +270,16 @@ export function HeroSection() {
                       <span>Get In Touch</span>
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="group px-6 py-3 text-base font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
-                    <Download className="w-4 h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
-                    <span>Resume</span>
-                  </Button>
+                  <a
+                    href="https://drive.google.com/uc?export=download&id=1ilGXR9sLXUQNHbOGN_I4rGCfrwgjlLP-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="ghost" size="sm" className="group px-6 py-3 text-base font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                      <Download className="w-4 h-4 mr-1.5 group-hover:scale-110 transition-transform duration-200" />
+                      <span>Resume</span>
+                    </Button>
+                  </a>
                 </div>
               </div>
 
@@ -242,30 +294,27 @@ export function HeroSection() {
                   <SocialIcon url="https://www.linkedin.com/in/mehedi-hasan-shad-b3463b254/" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
                   <SocialIcon url="https://www.behance.net/mobasherhossain143" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
                   <SocialIcon url="https://www.youtube.com/@ShadsVisualGfx" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
-                  <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" network="website" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
+                  <SocialIcon url="https://sites.google.com/view/mhs-shad-portfolio" target="_blank" style={{ height: 40, width: 40 }} className="hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
             </div>
 
-            {/* Achievement Stats - Separated row */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 border-t border-gray-200 dark:border-gray-700 pt-4 lg:pt-6">
-              {achievements.map((achievement, index) => (
-                <div 
-                  key={index} 
-                  className={`text-center lg:text-left animate-float ${
-                    index === 0 ? '[animation-delay:0s]' :
-                    index === 1 ? '[animation-delay:0.3s]' :
-                    index === 2 ? '[animation-delay:0.6s]' : '[animation-delay:0.9s]'
-                  }`}
-                >
-                  <div className="text-lg lg:text-xl xl:text-2xl font-bold text-red-600 dark:text-red-400">
-                    {achievement.number}
-                  </div>
-                  <div className="text-xs lg:text-sm text-muted-foreground font-medium">
-                    {achievement.label}
-                  </div>
-                </div>
-              ))}
+            {/* Professional Skills Preview */}
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 lg:pt-6">
+              <h3 className="text-base sm:text-lg font-bold text-foreground mb-4">
+                Professional Skills & Expertise
+              </h3>
+              <div className="flex flex-wrap justify-center gap-2 lg:gap-3">
+                {skills.slice(0, 6).map((skill, index) => (
+                  <span
+                    key={skill.name}
+                    className={`px-3 py-1.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-200/30 dark:border-blue-700/30 rounded-full text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300 hover:scale-105 transition-transform duration-300 animate-fade-in-up`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
