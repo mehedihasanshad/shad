@@ -428,7 +428,7 @@ export default function AdminPage() {
         </div>
       )}
       
-      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl mt-16">
+      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-7xl mt-12 lg:mt-14">
         {/* Header */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -531,26 +531,56 @@ export default function AdminPage() {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <input 
-                      type="url" 
-                      placeholder="https://example.com/resource" 
-                      value={link} 
-                      onChange={e => setLink(e.target.value)} 
+                    <input
+                      type="url"
+                      placeholder="https://example.com/resource"
+                      value={link}
+                      onChange={e => setLink(e.target.value)}
                       className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                     <label htmlFor="thumbnail-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Thumbnail Image (optional)
                     </label>
-                    <input 
+
+                    {/* Thumbnail Preview */}
+                    {thumbnail && (
+                      <div className="mb-3">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Preview:</p>
+                        <Image
+                          src={URL.createObjectURL(thumbnail)}
+                          alt="Thumbnail preview"
+                          width={128}
+                          height={80}
+                          className="w-32 h-20 object-cover rounded border"
+                        />
+                      </div>
+                    )}
+
+                    <input
                       id="thumbnail-upload"
                       ref={thumbnailInputRef}
                       type="file"
                       accept="image/*"
-                      onChange={e => setThumbnail(e.target.files?.[0] || null)}
+                      onChange={e => {
+                        const file = e.target.files?.[0] || null;
+                        if (file) {
+                          // Validate file type
+                          if (!file.type.startsWith('image/')) {
+                            showNotification('Please select an image file for thumbnail', 'error');
+                            return;
+                          }
+                          // Validate file size (max 5MB)
+                          if (file.size > 5 * 1024 * 1024) {
+                            showNotification('Thumbnail file size must be less than 5MB', 'error');
+                            return;
+                          }
+                        }
+                        setThumbnail(file);
+                      }}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     />
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Upload an image to use as a thumbnail for your link
+                      Upload an image to use as a thumbnail for your link (PNG, JPG, GIF up to 5MB)
                     </p>
                   </div>
                 )}
@@ -694,102 +724,196 @@ export default function AdminPage() {
           </div>
           
           {/* Resources Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+          <div className="columns-1 xl:columns-2 gap-6 sm:gap-8 space-y-6 sm:space-y-8">
             {filteredResources.length === 0 ? (
-              <div className="col-span-full text-center py-8 sm:py-12">
-                <div className="text-4xl sm:text-6xl mb-4">📭</div>
-                <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg">No resources found</p>
-                <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
-                  {search ? 'Try adjusting your search terms' : 'Upload your first resource to get started'}
+              <div className="text-center py-12 sm:py-16 break-inside-avoid">
+                <div className="relative inline-block">
+                  <div className="text-6xl sm:text-8xl mb-6 animate-bounce">📭</div>
+                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl"></div>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">No resources found</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-base max-w-md mx-auto">
+                  {search ? 'Try adjusting your search terms or filters' : 'Upload your first resource to get started'}
                 </p>
               </div>
             ) : (
-              filteredResources.map(r => (
-                <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                      <span className="text-xl sm:text-2xl flex-shrink-0">{AVATAR_ICON[r.uploaderType as 'admin' | 'public']}</span>
+              filteredResources.map((r, index) => (
+                <div
+                  key={r.id}
+                  className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-600/50 p-6 sm:p-8 mb-6 sm:mb-8 break-inside-avoid group cursor-pointer transform-gpu transition-all duration-500 ease-out hover:scale-[1.02] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-3 hover:rotate-1 hover:bg-white dark:hover:bg-gray-700/95 animate-fade-in-up"
+                  style={{
+                    perspective: '1000px',
+                    transformStyle: 'preserve-3d',
+                    animationDelay: `${index * 150}ms`
+                  }}
+                >
+                  {/* Gradient Overlay for Depth */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+
+                  {/* Enhanced Glow Effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-2xl opacity-0 group-hover:opacity-15 blur-md transition-all duration-500" />
+
+                  {/* Enhanced Header */}
+                  <div className="flex items-start justify-between mb-6 transform transition-all duration-300 group-hover:translate-y-[-2px]">
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                      <div className="relative">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-lg sm:text-xl font-bold shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                          {AVATAR_ICON[r.uploaderType as 'admin' | 'public']}
+                        </div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300"></div>
+                      </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium text-gray-900 dark:text-white text-sm sm:text-base truncate">
+                        <h3 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg truncate transform transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
                           {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'General Public'}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1">
+                          <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                           {new Date(r.createdAt).toLocaleString()}
                         </p>
                       </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 flex-shrink-0">
-                      {STATUS_BADGE(r.active)}
-                      {PUBLIC_BADGE(r.public)}
+                    <div className="flex flex-col sm:flex-row gap-2 flex-shrink-0 transform transition-all duration-300 group-hover:scale-105">
+                      <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg ${
+                        r.active
+                          ? 'bg-emerald-500/90 text-white border border-emerald-400/50'
+                          : 'bg-red-500/90 text-white border border-red-400/50'
+                      }`}>
+                        <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${r.active ? 'bg-emerald-200' : 'bg-red-200'}`}></span>
+                        {r.active ? 'Active' : 'Inactive'}
+                      </span>
+                      <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg ${
+                        r.public
+                          ? 'bg-blue-500/90 text-white border border-blue-400/50'
+                          : 'bg-gray-500/90 text-white border border-gray-400/50'
+                      }`}>
+                        {r.public ? '🌐 Public' : '🔒 Private'}
+                      </span>
                     </div>
                   </div>
-                  
-                  {/* Resource Link/Thumbnail */}
-                  <div className="flex items-center gap-2 sm:gap-3 mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
+
+                  {/* Enhanced Resource Content */}
+                  <div className="mb-6 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl overflow-hidden shadow-inner border border-gray-200/50 dark:border-gray-600/50 group-hover:shadow-lg transition-all duration-500">
                     {r.type === 'link' && r.thumbnail ? (
-                      <a href={r.url || undefined} target="_blank" rel="noopener noreferrer">
-                        <Image
-                          src={r.thumbnail}
-                          alt={r.title || 'Link thumbnail'}
-                          width={80}
-                          height={56}
-                          className="w-20 h-14 object-cover rounded border mr-3 hover:opacity-80 transition-opacity block"
-                          style={{ minWidth: 80, minHeight: 56 }}
-                        />
-                      </a>
+                      <div className="relative">
+                        <a href={r.url || undefined} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
+                          <Image
+                            src={r.thumbnail}
+                            alt={r.title || 'Link thumbnail'}
+                            width={400}
+                            height={300}
+                            className="w-full h-auto transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+                            style={{
+                              maxHeight: 'none',
+                              objectFit: 'contain'
+                            }}
+                          />
+                          {/* Image Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </a>
+                        <div className="p-4 border-t border-gray-200/50 dark:border-gray-600/50 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">External Link</span>
+                          </div>
+                          <a
+                            href={r.url || undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold truncate block text-sm sm:text-base transition-colors duration-300 group-hover:underline"
+                          >
+                            {r.url}
+                          </a>
+                        </div>
+                      </div>
                     ) : (
-                      <span className="text-xl sm:text-2xl flex-shrink-0">
-                        {r.type === 'file' ? getFileIcon(r.filename || undefined) : '🔗'}
-                      </span>
+                      <div className="flex items-center gap-4 p-4">
+                        <div className="relative">
+                          <div className="text-3xl sm:text-4xl transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 filter group-hover:drop-shadow-lg">
+                            {r.type === 'file' ? getFileIcon(r.filename || undefined) : '🔗'}
+                          </div>
+                          <div className="absolute -inset-2 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                              {r.type === 'file' ? 'File Resource' : 'Link Resource'}
+                            </span>
+                          </div>
+                          {r.type === 'file' ? (
+                            <a
+                              href={r.url || undefined}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold truncate block text-sm sm:text-base transition-colors duration-300 group-hover:underline"
+                            >
+                              {r.filename || r.url}
+                            </a>
+                          ) : (
+                            <a
+                              href={r.url || undefined}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold truncate block text-sm sm:text-base transition-colors duration-300 group-hover:underline"
+                            >
+                              {r.url}
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     )}
-                    <div className="flex-1 min-w-0">
-                      {r.type === 'file' ? (
-                        <a 
-                          href={r.url || undefined} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium truncate block text-sm sm:text-base"
-                        >
-                          {r.filename || r.url}
-                        </a>
-                      ) : (
-                        <a 
-                          href={r.url || undefined} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium truncate block text-sm sm:text-base"
-                        >
-                          {r.url}
-                        </a>
+                  </div>
+
+                  {/* Enhanced Title and Description */}
+                  {(r.title || r.description) && (
+                    <div className="mb-6 space-y-3 transform transition-all duration-300 group-hover:translate-y-[-2px]">
+                      {r.title && (
+                        <h4 className="font-bold text-gray-900 dark:text-white text-lg sm:text-xl leading-tight transform transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400" style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden'
+                        }}>
+                          {r.title}
+                        </h4>
+                      )}
+                      {r.description && (
+                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed transform transition-colors duration-300 group-hover:text-gray-700 dark:group-hover:text-gray-300" style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden'
+                        }}>
+                          {r.description}
+                        </p>
                       )}
                     </div>
-                  </div>
+                  )}
                   
-                  {/* Action Buttons */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  {/* Enhanced Action Buttons */}
+                  <div className="flex flex-wrap gap-3 mb-6 transform transition-all duration-500 group-hover:scale-105 group-hover:translate-y-1">
                     <button
                       onClick={() => openPreview(r)}
-                      className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95"
                     >
-                      <Eye className="w-3 h-3" />
+                      <Eye className="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-12" />
                       Preview
                     </button>
-                    
+
                     <button
                       onClick={() => openEdit(r)}
-                      className="flex items-center gap-1 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-xs rounded transition-colors"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 active:scale-95"
                     >
-                      <Edit className="w-3 h-3" />
+                      <Edit className="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-12" />
                       Edit
                     </button>
-                    
+
                     {r.type === 'file' ? (
                       <button
                         onClick={() => downloadFile(r)}
-                        className="flex items-center gap-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 active:scale-95"
                       >
-                        <Download className="w-3 h-3" />
+                        <Download className="w-4 h-4 transform transition-transform duration-300 group-hover:bounce" />
                         Download
                       </button>
                     ) : (
@@ -797,44 +921,71 @@ export default function AdminPage() {
                         href={r.url || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 active:scale-95"
                       >
-                        <ExternalLink className="w-3 h-3" />
+                        <ExternalLink className="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-12" />
                         Visit
                       </a>
                     )}
                   </div>
 
-                  {/* Controls */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <div className="flex flex-wrap gap-3 sm:gap-4">
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input 
-                          type="checkbox" 
-                          checked={r.active} 
-                          onChange={e => toggleResource(r.id, 'active', e.target.checked)}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">Active</span>
+                  {/* Enhanced Controls */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-gray-200/50 dark:border-gray-600/50 transform transition-all duration-300 group-hover:border-blue-200 dark:group-hover:border-blue-600/30">
+                    <div className="flex flex-wrap gap-4">
+                      <label className="flex items-center gap-3 cursor-pointer group/toggle">
+                        <div className="relative">
+                          <input
+                            type="checkbox"
+                            checked={r.active}
+                            onChange={e => toggleResource(r.id, 'active', e.target.checked)}
+                            className="sr-only"
+                          />
+                          <div className={`w-10 h-6 rounded-full shadow-inner transition-all duration-300 ${
+                            r.active ? 'bg-emerald-500' : 'bg-gray-300 dark:bg-gray-600'
+                          }`}>
+                            <div className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-all duration-300 mt-1 ${
+                              r.active ? 'translate-x-5' : 'translate-x-1'
+                            }`}></div>
+                          </div>
+                        </div>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover/toggle:text-emerald-600 dark:group-hover/toggle:text-emerald-400 transition-colors duration-300">
+                          Active
+                        </span>
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input 
-                          type="checkbox" 
-                          checked={r.public} 
-                          onChange={e => toggleResource(r.id, 'public', e.target.checked)}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">Public</span>
+
+                      <label className="flex items-center gap-3 cursor-pointer group/toggle">
+                        <div className="relative">
+                          <input
+                            type="checkbox"
+                            checked={r.public}
+                            onChange={e => toggleResource(r.id, 'public', e.target.checked)}
+                            className="sr-only"
+                          />
+                          <div className={`w-10 h-6 rounded-full shadow-inner transition-all duration-300 ${
+                            r.public ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'
+                          }`}>
+                            <div className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-all duration-300 mt-1 ${
+                              r.public ? 'translate-x-5' : 'translate-x-1'
+                            }`}></div>
+                          </div>
+                        </div>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover/toggle:text-blue-600 dark:group-hover/toggle:text-blue-400 transition-colors duration-300">
+                          Public
+                        </span>
                       </label>
                     </div>
-                    <button 
-                      onClick={() => handleDelete(r.id)} 
-                      className="inline-flex items-center px-3 py-1.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors self-start sm:self-auto"
+
+                    <button
+                      onClick={() => handleDelete(r.id)}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 rounded-xl border border-red-200 dark:border-red-800 transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-start sm:self-auto"
                     >
-                      <span className="mr-1">🗑️</span>
-                      Delete
+                      <span className="text-sm">🗑️</span>
+                      <span className="text-sm font-medium">Delete</span>
                     </button>
                   </div>
+
+                  {/* Subtle Inner Border */}
+                  <div className="absolute inset-0 rounded-2xl border border-white/20 dark:border-gray-700/50 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               ))
             )}
