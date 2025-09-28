@@ -42,11 +42,15 @@ function getFileIcon(filename?: string) {
   return FILE_ICONS[ext] || '📁';
 }
 
+// Categories for filtering
+const categories = ['All', 'Design', 'Education', 'Marketing', 'Development', 'Assets'];
+
 export default function ResourcesPage() {
   const [resources, setResources] = useState<ResourceWithUploader[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   
   // Upload states
   const [uploadType, setUploadType] = useState<'file' | 'link'>('link');
@@ -216,25 +220,47 @@ export default function ResourcesPage() {
 
   const filteredResources = resources
     .filter(r => (filterType === 'all' ? true : r.type === filterType))
+    .filter(r => {
+      // Basic category filtering based on resource content (can be enhanced with proper categorization)
+      if (selectedCategory === 'All') return true;
+
+      const searchText = ((r.title || '') + ' ' + (r.description || '') + ' ' + (r.filename || '')).toLowerCase();
+
+      switch (selectedCategory) {
+        case 'Design':
+          return searchText.includes('logo') || searchText.includes('design') || searchText.includes('graphics') || searchText.includes('visual') || searchText.includes('brand');
+        case 'Education':
+          return searchText.includes('education') || searchText.includes('tutorial') || searchText.includes('learn') || searchText.includes('course') || searchText.includes('math') || searchText.includes('physics');
+        case 'Marketing':
+          return searchText.includes('marketing') || searchText.includes('promotion') || searchText.includes('campaign') || searchText.includes('social') || searchText.includes('ads');
+        case 'Development':
+          return searchText.includes('code') || searchText.includes('development') || searchText.includes('programming') || searchText.includes('software') || searchText.includes('web');
+        case 'Assets':
+          return searchText.includes('asset') || searchText.includes('template') || searchText.includes('resource') || searchText.includes('tool') || searchText.includes('kit');
+        default:
+          return true;
+      }
+    })
     .filter(r => (r.filename || r.url || '').toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 mt-16">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 mt-12 lg:mt-14">
       <div className="container mx-auto px-4 py-6 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-4">
-            <span className="text-xl sm:text-2xl text-white">📚</span>
+        <div className="text-center mb-4 sm:mb-6">
+          <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full mb-3">
+            <span className="text-lg sm:text-xl text-white">📚</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Shared Resources</h1>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Discover and access shared files and links</p>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Shared Resources</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Discover and access shared files and links</p>
         </div>
 
         <div className="max-w-6xl mx-auto">
           {/* Search, Filter and Upload Button */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-              <div className="relative">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+            {/* Search and Upload Row */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
+              <div className="relative flex-1">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <span className="text-gray-400">🔍</span>
                 </div>
@@ -246,31 +272,82 @@ export default function ResourcesPage() {
                   className="w-full pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                 />
               </div>
-              
-              <select 
-                value={filterType} 
-                onChange={e => setFilterType(e.target.value)} 
-                className="px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
-                aria-label="Filter resources by type"
-              >
-                <option value="all">All Resources</option>
-                <option value="file">📁 Files Only</option>
-                <option value="link">🔗 Links Only</option>
-              </select>
 
               <button
                 type="button"
                 onClick={() => setShowUploadForm(!showUploadForm)}
-                className="px-4 py-2.5 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base flex items-center justify-center"
+                className="px-4 py-2.5 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base flex items-center justify-center whitespace-nowrap"
               >
                 <span className="mr-2">📤</span>
                 {showUploadForm ? 'Hide Upload' : 'Share Resource'}
               </button>
             </div>
-            
+
+            {/* Category Filter Buttons */}
+            <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filter by Category</h3>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                      selectedCategory === category
+                        ? 'bg-blue-600 text-white shadow-lg scale-105'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Type Filter Buttons */}
+            <div className="space-y-3 mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filter by Type</h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setFilterType('all')}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
+                    filterType === 'all'
+                      ? 'bg-emerald-600 text-white shadow-lg scale-105'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105'
+                  }`}
+                >
+                  <span>📚</span>
+                  All
+                </button>
+                <button
+                  onClick={() => setFilterType('file')}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
+                    filterType === 'file'
+                      ? 'bg-emerald-600 text-white shadow-lg scale-105'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105'
+                  }`}
+                >
+                  <span>📁</span>
+                  Files
+                </button>
+                <button
+                  onClick={() => setFilterType('link')}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
+                    filterType === 'link'
+                      ? 'bg-emerald-600 text-white shadow-lg scale-105'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105'
+                  }`}
+                >
+                  <span>🔗</span>
+                  Links
+                </button>
+              </div>
+            </div>
+
             {filteredResources.length > 0 && (
               <div className="mt-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center">
                 Showing {filteredResources.length} of {resources.length} resources
+                {selectedCategory !== 'All' && ` in ${selectedCategory}`}
+                {filterType !== 'all' && ` (${filterType}s only)`}
               </div>
             )}
           </div>
@@ -459,6 +536,21 @@ export default function ResourcesPage() {
                           <label htmlFor="thumbnail-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Upload Thumbnail Image (optional)
                           </label>
+
+                          {/* Thumbnail Preview */}
+                          {thumbnail && typeof thumbnail !== 'string' && (
+                            <div className="mb-3">
+                              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Preview:</p>
+                              <Image
+                                src={URL.createObjectURL(thumbnail)}
+                                alt="Thumbnail preview"
+                                width={128}
+                                height={80}
+                                className="w-32 h-20 object-cover rounded border"
+                              />
+                            </div>
+                          )}
+
                           <input
                             id="thumbnail-upload"
                             type="file"
@@ -466,8 +558,18 @@ export default function ResourcesPage() {
                             onChange={async (e) => {
                               const file = e.target.files?.[0];
                               if (file) {
-                                // We'll handle Cloudinary upload in the backend, so just store the file for now
+                                // Validate file type
+                                if (!file.type.startsWith('image/')) {
+                                  setMsg('Please select an image file for thumbnail');
+                                  return;
+                                }
+                                // Validate file size (max 5MB)
+                                if (file.size > 5 * 1024 * 1024) {
+                                  setMsg('Thumbnail file size must be less than 5MB');
+                                  return;
+                                }
                                 setThumbnail(file);
+                                setMsg('');
                               } else {
                                 setThumbnail("");
                               }
@@ -475,7 +577,7 @@ export default function ResourcesPage() {
                             className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            Upload an image to use as a thumbnail for your link (optional)
+                            Upload an image to use as a thumbnail for your link (PNG, JPG, GIF up to 5MB)
                           </p>
                         </div>
                       </div>
@@ -533,90 +635,135 @@ export default function ResourcesPage() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-                {filteredResources.map(r => (
-                  <div key={r.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200 overflow-hidden">
+              <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 sm:gap-8 space-y-6 sm:space-y-8">
+                {filteredResources.map((r, index) => (
+                  <div
+                    key={r.id}
+                    className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-600/50 overflow-hidden flex flex-col mb-6 sm:mb-8 break-inside-avoid group cursor-pointer transform-gpu transition-all duration-500 ease-out hover:scale-[1.02] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-3 hover:rotate-1 hover:bg-white dark:hover:bg-gray-700/90 animate-fade-in-up"
+                    style={{
+                      perspective: '1000px',
+                      transformStyle: 'preserve-3d',
+                      animationDelay: `${index * 100}ms`
+                    }}
+                  >
+                    {/* Gradient Overlay for Depth */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+
+                    {/* Enhanced Glow Effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-2xl opacity-0 group-hover:opacity-20 blur-md transition-all duration-500" />
+
                     {/* Thumbnail or Icon */}
-                    <div className="relative h-32 sm:h-40 bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
+                    <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 overflow-hidden group-hover:from-blue-50 group-hover:to-purple-50 dark:group-hover:from-gray-600 dark:group-hover:to-gray-700 transition-all duration-500">
                       {r.type === 'link' && r.thumbnail ? (
-                        <a href={safeHref(r.url)} target="_blank" rel="noopener noreferrer">
-                          <Image 
-                            src={r.thumbnail} 
-                            alt={r.title || 'Link thumbnail'} 
+                        <a href={safeHref(r.url)} target="_blank" rel="noopener noreferrer" className="block w-full relative overflow-hidden">
+                          <Image
+                            src={r.thumbnail}
+                            alt={r.title || 'Link thumbnail'}
                             width={400}
-                            height={256}
-                            className="w-full h-full object-cover hover:opacity-80 transition-opacity"
+                            height={300}
+                            className="w-full h-auto transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+                            style={{
+                              maxHeight: 'none',
+                              objectFit: 'contain'
+                            }}
                             onError={(e) => {
-                              e.currentTarget.style.display = 'none';
-                              e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                              const target = e.currentTarget;
+                              const parent = target.parentElement;
+                              if (parent) {
+                                parent.innerHTML = `<div class="flex items-center justify-center w-full h-32 sm:h-40"><span class="text-3xl sm:text-4xl animate-bounce">🔗</span></div>`;
+                              }
                             }}
                           />
+                          {/* Image Overlay Effect */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </a>
-                      ) : null}
-                      <div className={`flex items-center justify-center w-full h-full ${r.type === 'link' && r.thumbnail ? 'hidden' : ''}`}>
-                        <span className="text-3xl sm:text-4xl">
-                          {r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}
-                        </span>
-                      </div>
-                      
-                      {/* Type Badge */}
-                      <div className="absolute top-2 right-2">
-                        <span className="inline-block px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded">
+                      ) : (
+                        <div className="flex items-center justify-center w-full h-32 sm:h-40 relative">
+                          <div className="text-4xl sm:text-5xl transform transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 filter group-hover:drop-shadow-lg">
+                            {r.type === 'file' ? getFileIcon(typeof r.filename === 'string' ? r.filename : undefined) : '🔗'}
+                          </div>
+                          {/* Icon Background Glow */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
+                      )}
+
+                      {/* Enhanced Type Badge */}
+                      <div className="absolute top-3 right-3 transform transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1">
+                        <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg backdrop-blur-sm ${
+                          r.type === 'file'
+                            ? 'bg-emerald-500/90 text-white border border-emerald-400/50'
+                            : 'bg-blue-500/90 text-white border border-blue-400/50'
+                        }`}>
+                          <span className="mr-1">
+                            {r.type === 'file' ? '📄' : '🔗'}
+                          </span>
                           {r.type === 'file' ? 'File' : 'Link'}
                         </span>
                       </div>
+
+                      {/* Floating Action Dot */}
+                      <div className="absolute top-3 left-3 w-3 h-3 bg-green-400 rounded-full shadow-lg opacity-75 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 animate-pulse" />
                     </div>
-                    
-                    <div className="p-4">
-                      {/* Resource Title */}
-                      <div className="mb-3">
-                        {r.title ? (
-                          <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1" style={{ 
-                            display: '-webkit-box', 
-                            WebkitLineClamp: 2, 
-                            WebkitBoxOrient: 'vertical', 
-                            overflow: 'hidden' 
+
+                    {/* Enhanced Content Section */}
+                    <div className="p-5 sm:p-6 space-y-4 transform transition-all duration-500 group-hover:translate-y-[-2px]">
+                      {/* Resource Title & Meta */}
+                      <div className="space-y-3">
+                        {r.title && (
+                          <h4 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg leading-tight transform transition-all duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400" style={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden'
                           }}>
                             {r.title}
                           </h4>
-                        ) : null}
-                        
-                        <div className="text-xs text-blue-600 dark:text-blue-400 truncate" style={{ maxWidth: '100%' }}>
-                          {r.type === 'file' 
-                            ? (typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : 'File')
-                            : (typeof r.url === 'string' ? new URL(r.url).hostname : 'Link')
-                          }
+                        )}
+
+                        <div className="flex items-center space-x-2">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 truncate group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                              {r.type === 'file'
+                                ? (typeof r.filename === 'string' && r.filename.length > 0 ? r.filename : 'File')
+                                : (typeof r.url === 'string' ? new URL(r.url).hostname : 'Link')
+                              }
+                            </p>
+                          </div>
+                          <div className="flex-shrink-0">
+                            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
+                              {new Date(r.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
                         </div>
-                        
-                        {/* Display description if available */}
+
                         {r.description && (
-                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1" style={{ 
-                            display: '-webkit-box', 
-                            WebkitLineClamp: 2, 
-                            WebkitBoxOrient: 'vertical', 
-                            overflow: 'hidden' 
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed transform transition-all duration-300 group-hover:text-gray-700 dark:group-hover:text-gray-300" style={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden'
                           }}>
                             {r.description}
                           </p>
                         )}
                       </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex gap-2 mb-3">
+
+                      {/* Enhanced Action Buttons */}
+                      <div className="flex gap-3 transform transition-all duration-500 group-hover:scale-105 group-hover:translate-y-1">
                         <button
                           onClick={() => openPreview(r)}
-                          className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
+                          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95"
                         >
-                          <Eye className="w-3 h-3" />
+                          <Eye className="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-12" />
                           Preview
                         </button>
-                        
+
                         {r.type === 'file' ? (
                           <button
                             onClick={() => downloadFile(r)}
-                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors"
+                            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 active:scale-95"
                           >
-                            <Download className="w-3 h-3" />
+                            <Download className="w-4 h-4 transform transition-transform duration-300 group-hover:bounce" />
                             Download
                           </button>
                         ) : (
@@ -624,22 +771,39 @@ export default function ResourcesPage() {
                             href={safeHref(r.url)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors"
+                            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 active:scale-95"
                           >
-                            <ExternalLink className="w-3 h-3" />
+                            <ExternalLink className="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-12" />
                             Visit
                           </a>
                         )}
                       </div>
-                      
-                      {/* Resource Info */}
-                      <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-                        <p className="truncate">
-                          By {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'Public'}
-                        </p>
-                        <p>{new Date(r.createdAt).toLocaleDateString()}</p>
+
+                      {/* Enhanced Resource Info */}
+                      <div className="flex items-center justify-between pt-3 border-t border-gray-200/50 dark:border-gray-600/50 transform transition-all duration-300 group-hover:border-blue-200 dark:group-hover:border-blue-600/30">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center transform transition-all duration-300 group-hover:scale-110">
+                            <span className="text-xs text-white font-bold">
+                              {r.uploaderType === 'admin' ? '👑' : '👤'}
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300 transform transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                            {r.uploaderType === 'admin' ? (r.uploadedBy?.username || 'Admin') : 'Public'}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            {r.active ? '🟢' : '🔴'}
+                          </span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                            {r.active ? 'Active' : 'Inactive'}
+                          </span>
+                        </div>
                       </div>
                     </div>
+
+                    {/* Subtle Inner Border */}
+                    <div className="absolute inset-0 rounded-2xl border border-white/20 dark:border-gray-700/50 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 ))}
               </div>
@@ -650,105 +814,159 @@ export default function ResourcesPage() {
         </div>
       </div>
 
-      {/* Preview Modal */}
+      {/* Enhanced Preview Modal */}
       {showPreview && previewResource && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl max-h-[90vh] w-full overflow-hidden">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {previewResource.title || previewResource.filename || 'Resource Preview'}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {previewResource.type === 'file' ? 'File' : 'Link'} • 
-                  Shared by {previewResource.uploaderType === 'admin' ? (previewResource.uploadedBy?.username || 'Admin') : 'General Public'}
-                </p>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl max-w-6xl max-h-[95vh] w-full overflow-hidden shadow-2xl border border-white/20 dark:border-gray-700/50">
+            {/* Enhanced Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-blue-50/50 to-purple-50/50 dark:from-blue-900/20 dark:to-purple-900/20">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                  {previewResource.type === 'file' ? '📄' : '🔗'}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    {previewResource.title || previewResource.filename || 'Resource Preview'}
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${
+                      previewResource.type === 'file'
+                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+                        : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                    }`}>
+                      {previewResource.type === 'file' ? 'File' : 'Link'}
+                    </span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      by {previewResource.uploaderType === 'admin' ? (previewResource.uploadedBy?.username || 'Admin') : 'General Public'}
+                    </span>
+                  </div>
+                </div>
               </div>
               <button
                 onClick={closePreview}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-3 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 rounded-full transition-all duration-300 hover:scale-110 group"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6 text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-200" />
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-4 max-h-[70vh] overflow-auto">
+            {/* Enhanced Modal Content */}
+            <div className="overflow-auto" style={{ maxHeight: 'calc(95vh - 140px)' }}>
               {previewResource.type === 'file' ? (
-                <div>
+                <div className="p-6">
                   {getFileType(previewResource.filename || '') === 'image' ? (
-                    <Image 
-                      src={previewResource.url || ''} 
-                      alt={previewResource.title || previewResource.filename || 'Image'} 
-                      width={800}
-                      height={600}
-                      className="max-w-full h-auto mx-auto rounded-lg"
-                    />
+                    <div className="relative">
+                      <Image
+                        src={previewResource.url || ''}
+                        alt={previewResource.title || previewResource.filename || 'Image'}
+                        width={1200}
+                        height={800}
+                        className="w-full h-auto mx-auto rounded-xl shadow-2xl"
+                        style={{
+                          maxHeight: 'calc(80vh - 200px)',
+                          objectFit: 'contain'
+                        }}
+                      />
+                      {/* Image overlay with details */}
+                      <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4 text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                        <h4 className="font-semibold">{previewResource.title || previewResource.filename}</h4>
+                        {previewResource.description && (
+                          <p className="text-sm text-gray-200 mt-1">{previewResource.description}</p>
+                        )}
+                      </div>
+                    </div>
                   ) : getFileType(previewResource.filename || '') === 'pdf' ? (
-                    <iframe 
-                      src={previewResource.url || ''} 
-                      className="w-full h-96 border rounded-lg"
+                    <iframe
+                      src={previewResource.url || ''}
+                      className="w-full rounded-xl border-0 shadow-inner"
+                      style={{ height: 'calc(80vh - 200px)', minHeight: '500px' }}
                       title="PDF Preview"
                     />
                   ) : getFileType(previewResource.filename || '') === 'video' ? (
-                    <video 
-                      src={previewResource.url || ''} 
-                      controls 
-                      className="max-w-full h-auto mx-auto rounded-lg"
+                    <video
+                      src={previewResource.url || ''}
+                      controls
+                      className="w-full h-auto mx-auto rounded-xl shadow-2xl"
+                      style={{ maxHeight: 'calc(80vh - 200px)' }}
                     />
                   ) : getFileType(previewResource.filename || '') === 'audio' ? (
-                    <audio 
-                      src={previewResource.url || ''} 
-                      controls 
-                      className="w-full"
-                    />
+                    <div className="text-center py-12">
+                      <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-3xl shadow-lg">
+                        🎵
+                      </div>
+                      <audio
+                        src={previewResource.url || ''}
+                        controls
+                        className="w-full max-w-md mx-auto"
+                      />
+                    </div>
                   ) : (
-                    <div className="text-center py-8">
-                      <div className="text-6xl mb-4">
+                    <div className="text-center py-16">
+                      <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white text-3xl shadow-lg">
                         {getFileIcon(previewResource.filename || '')}
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        Preview not available for this file type
+                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                        Preview not available
+                      </h4>
+                      <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                        This file type doesn&apos;t support preview. Download the file to view its contents.
                       </p>
                       <button
                         onClick={() => downloadFile(previewResource)}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
                       >
-                        <Download className="w-4 h-4" />
+                        <Download className="w-5 h-5" />
                         Download File
                       </button>
                     </div>
                   )}
                 </div>
               ) : (
-                <div>
-                  {previewResource.thumbnail && (
-                    <Image 
-                      src={previewResource.thumbnail} 
-                      alt={previewResource.title || 'Link preview'} 
-                      width={800}
-                      height={256}
-                      className="w-full max-h-64 object-cover rounded-lg mb-4"
-                    />
+                <div className="p-6">
+                  {previewResource.thumbnail ? (
+                    <div className="relative mb-6">
+                      <Image
+                        src={previewResource.thumbnail}
+                        alt={previewResource.title || 'Link preview'}
+                        width={1200}
+                        height={600}
+                        className="w-full h-auto rounded-xl shadow-2xl"
+                        style={{
+                          maxHeight: '400px',
+                          objectFit: 'contain'
+                        }}
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl" />
+                    </div>
+                  ) : (
+                    <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center mb-6">
+                      <div className="text-center">
+                        <div className="text-6xl mb-2">🔗</div>
+                        <p className="text-gray-600 dark:text-gray-400 font-medium">External Link</p>
+                      </div>
+                    </div>
                   )}
+
                   <div className="text-center">
-                    <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
                       {previewResource.title || 'External Link'}
                     </h4>
                     {previewResource.description && (
-                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed max-w-2xl mx-auto">
                         {previewResource.description}
                       </p>
                     )}
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 break-all">
-                      {previewResource.url}
-                    </p>
+                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 mb-6 border border-gray-200/50 dark:border-gray-700/50">
+                      <p className="text-sm text-gray-500 dark:text-gray-400 font-mono break-all">
+                        {previewResource.url}
+                      </p>
+                    </div>
                     <a
                       href={safeHref(previewResource.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
                     >
                       <ExternalLink className="w-4 h-4" />
                       Visit Link
@@ -758,19 +976,26 @@ export default function ResourcesPage() {
               )}
             </div>
 
-            {/* Modal Footer */}
-            <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {previewResource.description && (
-                  <p>{previewResource.description}</p>
-                )}
-                <p>Shared on {new Date(previewResource.createdAt).toLocaleDateString()}</p>
+            {/* Enhanced Modal Footer */}
+            <div className="flex items-center justify-between p-6 border-t border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-gray-50/80 to-gray-100/80 dark:from-gray-800/80 dark:to-gray-900/80 backdrop-blur-sm">
+              <div className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-white text-sm font-bold">
+                  {previewResource.uploaderType === 'admin' ? '👑' : '👤'}
+                </div>
+                <div className="text-sm">
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    {previewResource.uploaderType === 'admin' ? (previewResource.uploadedBy?.username || 'Admin') : 'General Public'}
+                  </p>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Shared on {new Date(previewResource.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 {previewResource.type === 'file' && (
                   <button
                     onClick={() => downloadFile(previewResource)}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
                   >
                     <Download className="w-4 h-4" />
                     Download
@@ -778,7 +1003,7 @@ export default function ResourcesPage() {
                 )}
                 <button
                   onClick={closePreview}
-                  className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                  className="px-4 py-2 bg-gray-500/80 hover:bg-gray-600/80 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
                 >
                   Close
                 </button>
