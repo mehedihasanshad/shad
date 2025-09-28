@@ -23,7 +23,7 @@ export function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-12 lg:h-14">
           {/* Logo and Name */}
           <div className="flex-shrink-0">
             <Link href="/" className="block">
@@ -34,7 +34,7 @@ export function Navigation() {
                 height={24}
                 quality={100}
                 unoptimized={true}
-                className="h-6 w-auto sm:h-8 lg:h-10 object-contain hover:scale-105 transition-transform duration-300"
+                className="h-5 w-auto sm:h-6 lg:h-7 object-contain hover:scale-105 transition-transform duration-300"
                 priority
               />
             </Link>
@@ -67,7 +67,7 @@ export function Navigation() {
           {/* CTA Button, Theme Toggle, Admin & Mobile Menu Button */}
           <div className="flex items-center space-x-2">
             <Link href="/contact" className="hidden lg:block">
-              <Button className="bg-red-600 hover:bg-red-700 text-white h-14 lg:h-16 px-6">
+              <Button className="bg-red-600 hover:bg-red-700 text-white h-8 lg:h-10 px-4 text-sm">
                 Get Started
               </Button>
             </Link>
@@ -76,19 +76,19 @@ export function Navigation() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:bg-gray-100 dark:hover:bg-gray-800 h-14 w-14 lg:h-16 lg:w-16"
+                className="hover:bg-gray-100 dark:hover:bg-gray-800 h-8 w-8 lg:h-10 lg:w-10"
                 title="Admin Login"
               >
-                <Shield className="h-6 w-6 lg:h-7 lg:w-7" />
+                <Shield className="h-4 w-4 lg:h-5 lg:w-5" />
               </Button>
             </Link>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden h-14 w-14"
+              className="lg:hidden h-8 w-8"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
