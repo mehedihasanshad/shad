@@ -51,7 +51,7 @@ export function HeroSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-5 gap-6 lg:gap-8 xl:gap-12 2xl:gap-16 items-center min-h-[85vh] py-8 lg:py-12">
+        <div className="flex flex-col lg:grid lg:grid-cols-5 gap-6 lg:gap-8 xl:gap-12 2xl:gap-16 items-center justify-center min-h-[85vh] py-8 lg:py-12">
 
           {/* Enhanced Hero Content - Left Side - Takes 2 columns */}
           <div className="lg:col-span-2 flex flex-col justify-center space-y-4 lg:space-y-6 text-center lg:text-left order-2 lg:order-1 animate-slide-in-left">
@@ -114,8 +114,8 @@ export function HeroSection() {
           </div>
 
           {/* Enhanced Hero Visual - Center Column - Takes 1 column - Mobile: Order 1 */}
-          <div className="lg:col-span-1 relative flex justify-center order-1 lg:order-2 animate-slide-in-up">
-            <div className="relative w-80 h-80 sm:w-96 sm:h-96 lg:w-[400px] lg:h-[400px] xl:w-[450px] xl:h-[450px] flex items-center justify-center animate-float">
+          <div className="lg:col-span-1 relative flex justify-center items-center order-1 lg:order-2 animate-slide-in-up w-full">
+            <div className="relative w-80 h-80 sm:w-96 sm:h-96 lg:w-[400px] lg:h-[400px] xl:w-[450px] xl:h-[450px] flex items-center justify-center animate-float mx-auto lg:mx-0">
               {/* Enhanced Background matching black photo background */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-900 via-black to-gray-800 shadow-2xl" />
               <div className="absolute inset-2 rounded-full bg-gradient-to-br from-gray-800 via-gray-900 to-black opacity-80" />
@@ -132,10 +132,11 @@ export function HeroSection() {
                     alt="Mehedi Hasan Shad - Professional Portrait"
                     width={450}
                     height={450}
-                    className="w-full h-full object-cover object-center rounded-full shadow-2xl hover:scale-110 transition-all duration-700 hero-image-container border-4 border-white/20"
+                    className="w-full h-full object-cover rounded-full shadow-2xl hover:scale-110 transition-all duration-700 hero-image-container border-4 border-white/20"
                     style={{
                       filter: 'saturate(1.1) contrast(1.15) brightness(1.1)',
-                      mixBlendMode: 'normal'
+                      mixBlendMode: 'normal',
+                      objectPosition: 'center center'
                     }}
                     priority
                   />
